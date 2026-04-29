@@ -1,8 +1,9 @@
 Package: uvr
 Title: R Interface to the 'uvr' Package Manager
-Version: 0.1.1
-Authors@R: person("Francesco", "Grazzini", role = c("aut", "cre"),
-                  email = "francesco@example.com")
+Version: 0.1.2
+Authors@R: c(
+    person("Francesco", "Grazzini", role = c("aut", "cre"), email = "francesco@example.com"),
+    person("Brayden", "Nilson", role = "aut", email = "nilson.brayden@gmail.com"))
 Description: Provides R functions that wrap the 'uvr' command-line tool for
     fast, reproducible R package management. Functions include project
     initialization, package addition and removal, lockfile synchronization,

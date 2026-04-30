@@ -4,10 +4,12 @@
 \alias{run_uvr}
 \title{Run a uvr CLI command}
 \usage{
-run_uvr(args, bin = find_uvr(), dir = NULL, quiet = FALSE)
+run_uvr(args, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{args}{Character vector of CLI arguments.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

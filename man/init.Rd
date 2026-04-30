@@ -20,7 +20,7 @@ Invisible \code{TRUE} on success.
 }
 \description{
 Creates a \code{uvr.toml} manifest and \code{.uvr/library/} directory.
-Also generates \code{.Rprofile} code to link to the \code{.uvr/library/} on session start. 
+Also generates \code{.Rprofile} code to link to the \code{.uvr/library/} on session start.
 Equivalent to \code{uvr init} on the command line.
 }
 \examples{

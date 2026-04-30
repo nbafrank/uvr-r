@@ -1,7 +1,7 @@
 skip_if_no_uvr <- function() {
   skip_if_not(
     nzchar(Sys.which("uvr")) ||
-      file.exists(file.path(Sys.getenv("HOME"), ".cargo", "bin", "uvr")),
+      file.exists(.get_home_dir(), ".cargo", "bin", "uvr"),
     message = "uvr binary not found"
   )
 }

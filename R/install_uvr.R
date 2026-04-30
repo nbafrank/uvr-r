@@ -104,11 +104,7 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   }
 
   download_url <- asset$browser_download_url[1L]
-  if (.Platform$OS.type == "windows") {
-    dest_dir <- file.path(Sys.getenv("USERPROFILE"), ".cargo", "bin")
-  } else {
-    dest_dir <- file.path(Sys.getenv("HOME"), ".cargo", "bin")
-  }
+  dest_dir <- file.path(.get_home_dir(), ".cargo", "bin")
   dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
   bin_name <- if (.Platform$OS.type == "windows") "uvr.exe" else "uvr"
   dest <- file.path(dest_dir, bin_name)
@@ -177,12 +173,7 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   cargo <- Sys.which("cargo")
   if (!nzchar(cargo)) {
     # Check common location
-    home <- if (.Platform$OS.type == "windows") {
-      Sys.getenv("USERPROFILE")
-    } else {
-      Sys.getenv("HOME")
-    }
-    cargo_candidate <- file.path(home, ".cargo", "bin", "cargo")
+    cargo_candidate <- file.path(.get_home_dir(), ".cargo", "bin", "cargo")
     if (file.exists(cargo_candidate)) {
       cargo <- cargo_candidate
     } else {
@@ -206,13 +197,8 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
     stop("cargo install failed with exit code ", rc, call. = FALSE)
   }
 
-  home <- if (.Platform$OS.type == "windows") {
-    Sys.getenv("USERPROFILE")
-  } else {
-    Sys.getenv("HOME")
-  }
   bin_name <- if (.Platform$OS.type == "windows") "uvr.exe" else "uvr"
-  path <- file.path(home, ".cargo", "bin", bin_name)
+  path <- file.path(.get_home_dir(), ".cargo", "bin", bin_name)
   if (!file.exists(path)) {
     stop(
       "cargo install succeeded but uvr binary not found at expected location.",

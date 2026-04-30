@@ -41,31 +41,19 @@ find_uvr <- function() {
   }
 
   # Check common install locations
+  candidates <- file.path(.get_home_dir(), ".cargo", "bin", bin_name)
   if (.Platform$OS.type == "windows") {
-    candidates <- file.path(
-      Sys.getenv("USERPROFILE"),
-      ".cargo",
-      "bin",
-      "uvr.exe"
-    )
-    local_app <- Sys.getenv("LOCALAPPDATA")
-    if (nzchar(local_app)) {
-      candidates <- c(
-        candidates,
-        file.path(local_app, "Programs", "uvr", "uvr.exe")
-      )
-    }
+    appdata_path <- Sys.getenv("LOCALAPPDATA") |>
+      file.path("Programs", "uvr", bin_name)
+    candidates <- c(candidates, appdata_path)
   } else {
-    candidates <- c(
-      file.path(Sys.getenv("HOME"), ".cargo", "bin", "uvr"),
-      "/usr/local/bin/uvr"
-    )
+    candidates <- c(candidates, "/usr/local/bin/uvr")
   }
   for (candidate in candidates) {
     if (file.exists(candidate)) return(candidate)
   }
 
-  NULL
+  invisible()
 }
 
 #' Run a uvr CLI command
@@ -94,4 +82,19 @@ run_uvr <- function(args, bin = find_uvr(), dir = NULL, quiet = FALSE) {
     stop("uvr exited with code ", rc, call. = FALSE)
   }
   invisible(TRUE)
+}
+
+#' Return HOME/USER directory
+#'
+#' Internal helper that returns the user's home directory.
+#' (Windows: \code{USERPROFILE}, Unix: \code{HOME})
+#'
+#' @return Path to user's home directory.
+#' @keywords internal
+.get_home_dir <- function() {
+  if (.Platform$OS.type == "windows") {
+    Sys.getenv("USERPROFILE")
+  } else {
+    Sys.getenv("HOME")
+  }
 }

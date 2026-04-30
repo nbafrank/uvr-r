@@ -8,18 +8,8 @@ skip_if_no_uvr <- function() {
 
 test_that("find_uvr returns a path when uvr is installed", {
   skip_if_no_uvr()
-  uvr:::.uvr_env$bin <- NULL
   path <- uvr:::find_uvr()
   expect_true(file.exists(path))
-})
-
-test_that("find_uvr caches result", {
-  skip_if_no_uvr()
-  uvr:::.uvr_env$bin <- NULL
-  path1 <- uvr:::find_uvr()
-  expect_false(is.null(uvr:::.uvr_env$bin))
-  path2 <- uvr:::find_uvr()
-  expect_identical(path1, path2)
 })
 
 test_that("run_uvr errors on bad command", {

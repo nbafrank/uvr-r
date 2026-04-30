@@ -6,13 +6,8 @@
 #' @return The path to the \code{uvr} binary (character string).
 #' @keywords internal
 find_uvr <- function() {
-  # Return cached result if available
-  cached <- .uvr_env$bin
-  if (!is.null(cached)) return(cached)
-
   path <- .find_uvr_path()
   if (!is.null(path)) {
-    .uvr_env$bin <- path
     return(path)
   }
 
@@ -63,9 +58,6 @@ find_uvr <- function() {
   NULL
 }
 
-# Package-level cache for binary path
-.uvr_env <- new.env(parent = emptyenv())
-
 #' Run a uvr CLI command
 #'
 #' Internal helper that invokes uvr with the given arguments and streams
@@ -76,9 +68,7 @@ find_uvr <- function() {
 #' @param quiet If \code{TRUE}, suppress all output.
 #' @return Invisible \code{TRUE} on success.
 #' @keywords internal
-run_uvr <- function(args, dir = NULL, quiet = FALSE) {
-  bin <- find_uvr()
-
+run_uvr <- function(args, bin = find_uvr(), dir = NULL, quiet = FALSE) {
   if (!is.null(dir)) {
     old_wd <- setwd(dir)
     on.exit(setwd(old_wd), add = TRUE)

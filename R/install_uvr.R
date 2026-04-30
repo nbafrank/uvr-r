@@ -35,7 +35,6 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   if (method == "auto" || method == "binary") {
     path <- .try_install_binary()
     if (!is.null(path)) {
-      .uvr_env$bin <- path
       message("uvr installed successfully at: ", path)
       return(invisible(path))
     }
@@ -173,7 +172,6 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
     stop("cargo install succeeded but uvr binary not found at expected location.", call. = FALSE)
   }
 
-  .uvr_env$bin <- path
   message("uvr installed successfully at: ", path)
   invisible(path)
 }

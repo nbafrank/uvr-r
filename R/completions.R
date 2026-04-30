@@ -3,7 +3,7 @@
 #' Equivalent to \code{uvr completions `shell`} on the command line.
 #'
 #' @param shell One of \code{"bash"}, \code{"zsh"}, \code{"fish"}, or \code{"powershell"}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Shell completions for the specified \code{shell}.
 #' @export
 completions <- function(shell, quiet = FALSE) {

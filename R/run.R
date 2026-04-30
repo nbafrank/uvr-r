@@ -6,8 +6,7 @@
 #'
 #' @param script Path to an R script.
 #' @param args Character vector of arguments forwarded to the script.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 #' @examples

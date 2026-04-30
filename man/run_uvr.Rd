@@ -13,7 +13,7 @@ run_uvr(args, bin = NULL, dir = NULL, quiet = FALSE)
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 
-\item{quiet}{If \code{TRUE}, suppress all output.}
+\item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
 Invisible \code{TRUE} on success.

@@ -6,8 +6,7 @@
 #'
 #' @param name Optional project name. Defaults to the current directory name.
 #' @param r_version Optional R version constraint, e.g. \code{">=4.3.0"}.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 #' @examples

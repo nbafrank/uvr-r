@@ -6,7 +6,7 @@
 #' @param args Character vector of CLI arguments.
 #' @param bin Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.
 #' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress all output.
+#' @param quiet If \code{TRUE}, suppress output.
 #' @return Invisible \code{TRUE} on success.
 #' @keywords internal
 run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {

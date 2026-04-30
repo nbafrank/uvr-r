@@ -5,8 +5,7 @@
 #'
 #' @param upgrade If \code{TRUE}, upgrade all packages to their latest allowed
 #'   versions.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 #' @examples

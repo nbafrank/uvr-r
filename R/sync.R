@@ -4,8 +4,7 @@
 #' packages that are already installed. Equivalent to \code{uvr sync}.
 #'
 #' @param frozen If \code{TRUE}, fail if the lockfile is out of date (CI mode).
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 #' @examples

@@ -4,8 +4,7 @@
 #' Equivalent to \code{uvr export} on the command line.
 #'
 #' @param out_file Name of the output lockfile. Defaults to \code{"renv.lock"}.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 export <- function(out_file = "renv.lock", dir = NULL, quiet = FALSE) {

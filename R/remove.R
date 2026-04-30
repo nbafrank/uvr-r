@@ -4,8 +4,7 @@
 #' Equivalent to \code{uvr remove} on the command line.
 #'
 #' @param packages Character vector of package names to remove.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 #' @examples

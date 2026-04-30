@@ -7,8 +7,7 @@
 #'   \code{"tidymodels@@>=1.0.0"}, \code{"user/repo@@main"}).
 #' @param dev If \code{TRUE}, add as dev dependencies.
 #' @param bioc If \code{TRUE}, packages come from Bioconductor.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 add <- function(

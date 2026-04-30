@@ -4,7 +4,7 @@
 #' Equivalent to \code{uvr r install <version>} on the command line.
 #'
 #' @param version R version string, e.g. \code{"4.4.2"}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_install <- function(version, quiet = FALSE) {
@@ -18,7 +18,7 @@ r_install <- function(version, quiet = FALSE) {
 #' Equivalent to \code{uvr r list} on the command line.
 #'
 #' @param all If \code{TRUE}, show all available versions (not just installed).
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_list <- function(all = FALSE, quiet = FALSE) {
@@ -35,8 +35,7 @@ r_list <- function(all = FALSE, quiet = FALSE) {
 #' Equivalent to \code{uvr r use <version>} on the command line.
 #'
 #' @param version Version constraint, e.g. \code{">=4.3.0"} or \code{"4.4.2"}.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_use <- function(version, dir = NULL, quiet = FALSE) {
@@ -49,8 +48,7 @@ r_use <- function(version, dir = NULL, quiet = FALSE) {
 #' Equivalent to \code{uvr r pin <version>} on the command line.
 #'
 #' @param version Exact R version, e.g. \code{"4.4.2"}.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
+#' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_pin <- function(version, dir = NULL, quiet = FALSE) {

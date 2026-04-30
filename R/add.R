@@ -11,12 +11,22 @@
 #' @param quiet If \code{TRUE}, suppress output.
 #' @return Invisible \code{TRUE} on success.
 #' @export
-add <- function(packages, dev = FALSE, bioc = FALSE, dir = NULL, quiet = FALSE) {
+add <- function(
+  packages,
+  dev = FALSE,
+  bioc = FALSE,
+  dir = NULL,
+  quiet = FALSE
+) {
   if (length(packages) == 0L) {
     stop("'packages' must be a non-empty character vector.", call. = FALSE)
   }
   args <- c("add", packages)
-  if (isTRUE(dev)) args <- c(args, "--dev")
-  if (isTRUE(bioc)) args <- c(args, "--bioc")
+  if (isTRUE(dev)) {
+    args <- c(args, "--dev")
+  }
+  if (isTRUE(bioc)) {
+    args <- c(args, "--bioc")
+  }
   run_uvr(args, dir = dir, quiet = quiet)
 }

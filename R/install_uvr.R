@@ -16,7 +16,7 @@
 #' \dontrun{
 #' # Auto-detect best method
 #' install_uvr()
-#' 
+#'
 #' # Force rebuild from source
 #' install_uvr(method = "cargo", force = TRUE)
 #' }
@@ -62,9 +62,17 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
 
   # Map to GitHub release asset names
   target <- if (os == "unix" && Sys.info()[["sysname"]] == "Darwin") {
-    if (arch %in% c("arm64", "aarch64")) "aarch64-apple-darwin" else "x86_64-apple-darwin"
+    if (arch %in% c("arm64", "aarch64")) {
+      "aarch64-apple-darwin"
+    } else {
+      "x86_64-apple-darwin"
+    }
   } else if (os == "unix") {
-    if (arch %in% c("aarch64", "arm64")) "aarch64-unknown-linux-gnu" else "x86_64-unknown-linux-gnu"
+    if (arch %in% c("aarch64", "arm64")) {
+      "aarch64-unknown-linux-gnu"
+    } else {
+      "x86_64-unknown-linux-gnu"
+    }
   } else if (os == "windows") {
     # x86_64-pc-windows-msvc runs via emulation on Windows ARM64
     "x86_64-pc-windows-msvc"
@@ -75,7 +83,9 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   # Try latest release
   release_url <- "https://api.github.com/repos/nbafrank/uvr/releases/latest"
   con <- tryCatch(url(release_url), error = function(e) NULL)
-  if (is.null(con)) return(NULL)
+  if (is.null(con)) {
+    return(NULL)
+  }
   on.exit(close(con), add = TRUE)
 
   resp <- tryCatch(
@@ -83,11 +93,15 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
     error = function(e) NULL
   )
 
-  if (is.null(resp) || is.null(resp$assets)) return(NULL)
+  if (is.null(resp) || is.null(resp$assets)) {
+    return(NULL)
+  }
 
   # Find matching asset
   asset <- resp$assets[grepl(target, resp$assets$name, fixed = TRUE), ]
-  if (nrow(asset) == 0L) return(NULL)
+  if (nrow(asset) == 0L) {
+    return(NULL)
+  }
 
   download_url <- asset$browser_download_url[1L]
   if (.Platform$OS.type == "windows") {
@@ -101,14 +115,19 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
 
   message("Downloading uvr from: ", download_url)
   tmp <- tempfile()
-  ok <- tryCatch({
-    utils::download.file(download_url, tmp, mode = "wb", quiet = TRUE)
-    TRUE
-  }, error = function(e) {
-    message("Download failed: ", conditionMessage(e))
-    FALSE
-  })
-  if (!ok) return(NULL)
+  ok <- tryCatch(
+    {
+      utils::download.file(download_url, tmp, mode = "wb", quiet = TRUE)
+      TRUE
+    },
+    error = function(e) {
+      message("Download failed: ", conditionMessage(e))
+      FALSE
+    }
+  )
+  if (!ok) {
+    return(NULL)
+  }
 
   # Handle tar.gz, zip, or plain binary
   if (grepl("\\.tar\\.gz$", download_url)) {
@@ -116,16 +135,30 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
     dir.create(exdir)
     on.exit(unlink(exdir, recursive = TRUE), add = TRUE)
     utils::untar(tmp, exdir = exdir)
-    bin <- list.files(exdir, pattern = paste0("^", bin_name, "$"), recursive = TRUE, full.names = TRUE)[1L]
-    if (is.na(bin)) return(NULL)
+    bin <- list.files(
+      exdir,
+      pattern = paste0("^", bin_name, "$"),
+      recursive = TRUE,
+      full.names = TRUE
+    )[1L]
+    if (is.na(bin)) {
+      return(NULL)
+    }
     file.copy(bin, dest, overwrite = TRUE)
   } else if (grepl("\\.zip$", download_url)) {
     exdir <- tempfile("uvr-extract-")
     dir.create(exdir)
     on.exit(unlink(exdir, recursive = TRUE), add = TRUE)
     utils::unzip(tmp, exdir = exdir)
-    bin <- list.files(exdir, pattern = paste0("^", bin_name, "$"), recursive = TRUE, full.names = TRUE)[1L]
-    if (is.na(bin)) return(NULL)
+    bin <- list.files(
+      exdir,
+      pattern = paste0("^", bin_name, "$"),
+      recursive = TRUE,
+      full.names = TRUE
+    )[1L]
+    if (is.na(bin)) {
+      return(NULL)
+    }
     file.copy(bin, dest, overwrite = TRUE)
   } else {
     file.copy(tmp, dest, overwrite = TRUE)
@@ -144,7 +177,11 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   cargo <- Sys.which("cargo")
   if (!nzchar(cargo)) {
     # Check common location
-    home <- if (.Platform$OS.type == "windows") Sys.getenv("USERPROFILE") else Sys.getenv("HOME")
+    home <- if (.Platform$OS.type == "windows") {
+      Sys.getenv("USERPROFILE")
+    } else {
+      Sys.getenv("HOME")
+    }
     cargo_candidate <- file.path(home, ".cargo", "bin", "cargo")
     if (file.exists(cargo_candidate)) {
       cargo <- cargo_candidate
@@ -159,17 +196,28 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   }
 
   message("Building uvr from source via cargo (this may take a few minutes)...")
-  rc <- system2(cargo, c("install", "--git", "https://github.com/nbafrank/uvr"),
-                stdout = "", stderr = "")
+  rc <- system2(
+    cargo,
+    c("install", "--git", "https://github.com/nbafrank/uvr"),
+    stdout = "",
+    stderr = ""
+  )
   if (rc != 0L) {
     stop("cargo install failed with exit code ", rc, call. = FALSE)
   }
 
-  home <- if (.Platform$OS.type == "windows") Sys.getenv("USERPROFILE") else Sys.getenv("HOME")
+  home <- if (.Platform$OS.type == "windows") {
+    Sys.getenv("USERPROFILE")
+  } else {
+    Sys.getenv("HOME")
+  }
   bin_name <- if (.Platform$OS.type == "windows") "uvr.exe" else "uvr"
   path <- file.path(home, ".cargo", "bin", bin_name)
   if (!file.exists(path)) {
-    stop("cargo install succeeded but uvr binary not found at expected location.", call. = FALSE)
+    stop(
+      "cargo install succeeded but uvr binary not found at expected location.",
+      call. = FALSE
+    )
   }
 
   message("uvr installed successfully at: ", path)

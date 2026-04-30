@@ -41,10 +41,17 @@ test_that("install_uvr(method='binary') stops when no binary available", {
   local({
     # Force .find_uvr_path to return NULL so it doesn't short-circuit
     assign(".find_uvr_path", function() NULL, envir = parent.env(environment()))
-    assign(".try_install_binary", function() NULL, envir = parent.env(environment()))
+    assign(
+      ".try_install_binary",
+      function() NULL,
+      envir = parent.env(environment())
+    )
   })
   expect_error(
-    withr::with_environment(mockenv, install_uvr(method = "binary", force = TRUE)),
+    withr::with_environment(
+      mockenv,
+      install_uvr(method = "binary", force = TRUE)
+    ),
     "No pre-built binary"
   )
 })

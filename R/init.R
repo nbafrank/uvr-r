@@ -1,7 +1,7 @@
 #' Initialize a new uvr project
 #'
 #' Creates a \code{uvr.toml} manifest and \code{.uvr/library/} directory.
-#' Also generates \code{.Rprofile} code to link to the \code{.uvr/library/} on session start. 
+#' Also generates \code{.Rprofile} code to link to the \code{.uvr/library/} on session start.
 #' Equivalent to \code{uvr init} on the command line.
 #'
 #' @param name Optional project name. Defaults to the current directory name.
@@ -17,7 +17,11 @@
 #' }
 init <- function(name = NULL, r_version = NULL, dir = NULL, quiet = FALSE) {
   args <- "init"
-  if (!is.null(name)) args <- c(args, name)
-  if (!is.null(r_version)) args <- c(args, "--r-version", r_version)
+  if (!is.null(name)) {
+    args <- c(args, name)
+  }
+  if (!is.null(r_version)) {
+    args <- c(args, "--r-version", r_version)
+  }
   run_uvr(args, dir = dir, quiet = quiet)
 }

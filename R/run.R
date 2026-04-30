@@ -17,6 +17,8 @@
 #' }
 run <- function(script, args = character(), dir = NULL, quiet = FALSE) {
   cli_args <- c("run", script)
-  if (length(args) > 0L) cli_args <- c(cli_args, "--", args)
+  if (length(args) > 0L) {
+    cli_args <- c(cli_args, "--", args)
+  }
   run_uvr(cli_args, dir = dir, quiet = quiet)
 }

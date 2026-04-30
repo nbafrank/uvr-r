@@ -36,14 +36,24 @@ find_uvr <- function() {
 
   # Check PATH first
   path <- Sys.which(bin_name)
-  if (nzchar(path)) return(unname(path))
+  if (nzchar(path)) {
+    return(unname(path))
+  }
 
   # Check common install locations
   if (.Platform$OS.type == "windows") {
-    candidates <- file.path(Sys.getenv("USERPROFILE"), ".cargo", "bin", "uvr.exe")
+    candidates <- file.path(
+      Sys.getenv("USERPROFILE"),
+      ".cargo",
+      "bin",
+      "uvr.exe"
+    )
     local_app <- Sys.getenv("LOCALAPPDATA")
     if (nzchar(local_app)) {
-      candidates <- c(candidates, file.path(local_app, "Programs", "uvr", "uvr.exe"))
+      candidates <- c(
+        candidates,
+        file.path(local_app, "Programs", "uvr", "uvr.exe")
+      )
     }
   } else {
     candidates <- c(

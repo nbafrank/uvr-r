@@ -14,6 +14,8 @@ export <- function(out_file = "renv.lock", dir = NULL, quiet = FALSE) {
     is.character(out_file)
   )
   args <- "export"
-  if (out_file != "renv.lock") args <- c(args, "-o", out_file)
+  if (out_file != "renv.lock") {
+    args <- c(args, "-o", out_file)
+  }
   run_uvr(args, dir = dir, quiet = quiet)
 }

@@ -23,7 +23,9 @@ r_install <- function(version, quiet = FALSE) {
 #' @export
 r_list <- function(all = FALSE, quiet = FALSE) {
   args <- c("r", "list")
-  if (isTRUE(all)) args <- c(args, "--all")
+  if (isTRUE(all)) {
+    args <- c(args, "--all")
+  }
   run_uvr(args, quiet = quiet)
 }
 

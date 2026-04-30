@@ -15,6 +15,8 @@
 #' }
 sync <- function(frozen = FALSE, dir = NULL, quiet = FALSE) {
   args <- "sync"
-  if (isTRUE(frozen)) args <- c(args, "--frozen")
+  if (isTRUE(frozen)) {
+    args <- c(args, "--frozen")
+  }
   run_uvr(args, dir = dir, quiet = quiet)
 }

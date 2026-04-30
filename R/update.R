@@ -22,7 +22,9 @@
 #' # then restart R to pick up the new package
 #' }
 update_uvr <- function(ref = "HEAD", method = "auto", quiet = FALSE) {
-  if (!quiet) message("Updating uvr R package from GitHub (ref: ", ref, ")...")
+  if (!quiet) {
+    message("Updating uvr R package from GitHub (ref: ", ref, ")...")
+  }
   repo_spec <- if (identical(ref, "HEAD") || is.null(ref)) {
     "nbafrank/uvr-r"
   } else {
@@ -33,20 +35,26 @@ update_uvr <- function(ref = "HEAD", method = "auto", quiet = FALSE) {
   r_pkg_version <- NA_character_
   installed_ok <- FALSE
   if (requireNamespace("pak", quietly = TRUE)) {
-    tryCatch({
-      pak::pak(repo_spec, ask = FALSE, upgrade = TRUE)
-      installed_ok <- TRUE
-    }, error = function(e) {
-      if (!quiet) message("pak install failed: ", conditionMessage(e))
-    })
+    tryCatch(
+      {
+        pak::pak(repo_spec, ask = FALSE, upgrade = TRUE)
+        installed_ok <- TRUE
+      },
+      error = function(e) {
+        if (!quiet) message("pak install failed: ", conditionMessage(e))
+      }
+    )
   }
   if (!installed_ok && requireNamespace("remotes", quietly = TRUE)) {
-    tryCatch({
-      remotes::install_github(repo_spec, quiet = quiet, upgrade = "never")
-      installed_ok <- TRUE
-    }, error = function(e) {
-      if (!quiet) message("remotes install failed: ", conditionMessage(e))
-    })
+    tryCatch(
+      {
+        remotes::install_github(repo_spec, quiet = quiet, upgrade = "never")
+        installed_ok <- TRUE
+      },
+      error = function(e) {
+        if (!quiet) message("remotes install failed: ", conditionMessage(e))
+      }
+    )
   }
   if (!installed_ok) {
     stop(
@@ -62,7 +70,9 @@ update_uvr <- function(ref = "HEAD", method = "auto", quiet = FALSE) {
     error = function(e) NA_character_
   )
 
-  if (!quiet) message("Updating uvr CLI binary...")
+  if (!quiet) {
+    message("Updating uvr CLI binary...")
+  }
   bin <- install_uvr(method = method, force = TRUE)
 
   if (!quiet) {

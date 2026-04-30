@@ -16,6 +16,8 @@
 #' }
 lock <- function(upgrade = FALSE, dir = NULL, quiet = FALSE) {
   args <- "lock"
-  if (isTRUE(upgrade)) args <- c(args, "--upgrade")
+  if (isTRUE(upgrade)) {
+    args <- c(args, "--upgrade")
+  }
   run_uvr(args, dir = dir, quiet = quiet)
 }

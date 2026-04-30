@@ -9,6 +9,8 @@
 #' @export
 import <- function(dir = NULL, quiet = FALSE) {
   args <- "import"
-  if (isTRUE(lock)) args <- c(args, "--lock")
+  if (isTRUE(lock)) {
+    args <- c(args, "--lock")
+  }
   run_uvr(args, dir = dir, quiet = quiet)
 }

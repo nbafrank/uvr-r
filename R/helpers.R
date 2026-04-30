@@ -32,7 +32,7 @@ find_uvr <- function() {
 #' @return Path string or NULL if not found.
 #' @keywords internal
 .find_uvr_path <- function() {
-  bin_name <- if (.Platform$OS.type == "windows") "uvr.exe" else "uvr"
+  bin_name <- .get_bin_name()
 
   # Check PATH first
   path <- Sys.which(bin_name)
@@ -54,6 +54,17 @@ find_uvr <- function() {
   }
 
   invisible()
+}
+
+#' Get the name of the uvr binary
+#' @return Name of the uvr binary (either "uvr" or "uvr.exe").
+#' @keywords internal
+.get_bin_name <- function() {
+  if (.Platform$OS.type == "windows") {
+    "uvr.exe"
+  } else {
+    "uvr"
+  }
 }
 
 #' Run a uvr CLI command

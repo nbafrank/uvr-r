@@ -19,7 +19,7 @@ Invisible path to the installed binary.
 }
 \description{
 Downloads and installs the \code{uvr} binary. By default, tries to download
-a pre-built binary from GitHub releases. If none is available for the
+a pre-built binary from GitHub releases. If not available for the
 current platform, falls back to building from source via \code{cargo install}
 (requires the Rust toolchain).
 }

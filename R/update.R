@@ -1,13 +1,11 @@
 #' Update uvr (R package + CLI binary)
 #'
 #' Convenience helper that updates both the \code{uvr} R companion package
-#' (from GitHub) and the underlying \code{uvr} CLI binary in one call.
-#' The two components are released together, and forgetting to update one
-#' after the other is a common source of "works on my machine" mismatches.
+#' and the underlying \code{uvr} CLI binary in one call.
 #'
 #' The function does \emph{not} automatically restart your R session. After
-#' it completes, run \code{.rs.restartR()} (RStudio), \code{rstudioapi::restartSession()},
-#' or simply restart R to load the newly installed package.
+#' it completes, run \code{rstudioapi::restartSession()} (RStudio / Positron),
+#' or restart R to load the newly installed package.
 #'
 #' @param ref Git ref (branch, tag, commit SHA) to install the R package from.
 #'   Defaults to the default branch (\code{"HEAD"}).

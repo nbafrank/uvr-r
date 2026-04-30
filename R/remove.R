@@ -8,6 +8,11 @@
 #' @param quiet If \code{TRUE}, suppress output.
 #' @return Invisible \code{TRUE} on success.
 #' @export
+#' @examples
+#' \dontrun{
+#' remove_pkgs("ggplot2")
+#' remove_pkgs(c("dplyr", "tidyr"))
+#' }
 remove_pkgs <- function(packages, dir = NULL, quiet = FALSE) {
   if (length(packages) == 0L) {
     stop("'packages' must be a non-empty character vector.", call. = FALSE)

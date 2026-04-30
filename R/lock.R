@@ -9,6 +9,11 @@
 #' @param quiet If \code{TRUE}, suppress output.
 #' @return Invisible \code{TRUE} on success.
 #' @export
+#' @examples
+#' \dontrun{
+#' lock()
+#' lock(upgrade = TRUE)  # upgrade all packages to latest versions
+#' }
 lock <- function(upgrade = FALSE, dir = NULL, quiet = FALSE) {
   args <- "lock"
   if (isTRUE(upgrade)) args <- c(args, "--upgrade")

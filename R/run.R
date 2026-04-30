@@ -10,6 +10,11 @@
 #' @param quiet If \code{TRUE}, suppress output.
 #' @return Invisible \code{TRUE} on success.
 #' @export
+#' @examples
+#' \dontrun{
+#' run("analysis.R")
+#' run("model.R", args = c("--seed", "42"))
+#' }
 run <- function(script, args = character(), dir = NULL, quiet = FALSE) {
   cli_args <- c("run", script)
   if (length(args) > 0L) cli_args <- c(cli_args, "--", args)

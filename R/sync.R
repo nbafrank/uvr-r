@@ -8,6 +8,11 @@
 #' @param quiet If \code{TRUE}, suppress output.
 #' @return Invisible \code{TRUE} on success.
 #' @export
+#' @examples
+#' \dontrun{
+#' sync()
+#' sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
+#' }
 sync <- function(frozen = FALSE, dir = NULL, quiet = FALSE) {
   args <- "sync"
   if (isTRUE(frozen)) args <- c(args, "--frozen")

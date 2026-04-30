@@ -68,16 +68,26 @@ find_uvr <- function() {
 
 #' Install the uvr binary
 #'
-#' Downloads and installs the \code{uvr} binary. Uses pre-built binaries from
-#' GitHub releases when available, otherwise falls back to building from source
-#' via \code{cargo install}.
+#' Downloads and installs the \code{uvr} binary. By default, tries to download
+#' a pre-built binary from GitHub releases. If none is available for the
+#' current platform, falls back to building from source via \code{cargo install}
+#' (requires the Rust toolchain).
 #'
-#' @param method Installation method: \code{"auto"} (default) tries GitHub
-#'   release first then cargo, \code{"binary"} downloads a pre-built binary,
-#'   \code{"cargo"} builds from source.
-#' @param force If \code{TRUE}, reinstall even if already present.
+#' @param method Installation method: \code{"auto"} (default) tries a pre-built
+#' GitHub release binary first, then falls back to building from source via
+#' \code{cargo install}. \code{"binary"} downloads a pre-built binary only.
+#' \code{"cargo"} builds from source only.
+#' @param force If \code{TRUE}, reinstall even if uvr is already present.
 #' @return Invisible path to the installed binary.
 #' @export
+#' @examples
+#' \dontrun{
+#' # Auto-detect best method
+#' install_uvr()
+#' 
+#' # Force rebuild from source
+#' install_uvr(method = "cargo", force = TRUE)
+#' }
 install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   method <- match.arg(method)
 

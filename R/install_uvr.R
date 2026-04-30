@@ -167,7 +167,8 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
 .get_and_extract_binary <- function(download_url, dest_dir) {
   is_windows <- .Platform$OS.type == "windows"
   dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
-  dest <- file.path(dest_dir, .get_bin_name())
+  bin_name <- .get_bin_name()
+  dest <- file.path(dest_dir, bin_name)
 
   message("Downloading uvr from: ", download_url)
   tmp <- tempfile(fileext = tools::file_ext(download_url))
@@ -198,6 +199,13 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
     } else {
       utils::unzip(tmp, exdir = exdir)
     }
+
+    bin <- list.files(
+      exdir,
+      pattern = paste0("^", bin_name, "$"),
+      recursive = TRUE,
+      full.names = TRUE
+    )[1L]
     if (is.na(bin)) {
       return(NULL)
     }

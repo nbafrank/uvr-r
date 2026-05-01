@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![R-CMD-check](https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 R companion package for [uvr](https://github.com/nbafrank/uvr), the fast R package and project manager written in Rust.

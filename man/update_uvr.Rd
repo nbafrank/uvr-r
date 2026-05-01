@@ -27,8 +27,7 @@ and the underlying \code{uvr} CLI binary in one call.
 }
 \details{
 The function does \emph{not} automatically restart your R session. After
-it completes, run \code{rstudioapi::restartSession()} (RStudio / Positron),
-or restart R to load the newly installed package.
+it completes, you will need to restart R to load the newly installed package.
 }
 \examples{
 \dontrun{

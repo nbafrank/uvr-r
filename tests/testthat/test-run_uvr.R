@@ -1,8 +1,4 @@
 test_that("run_uvr errors on bad command", {
-  # Try installing if not found 
-  path <- find_uvr()
-  if (!file.exists(path)) {
-    install_uvr()
-  }
-  expect_error(run_uvr("--nonexistent-flag"), "exited with code")
+  path <- setup_uvr_test() # installs uvr if needed
+  expect_error(run_uvr(args = "--nonexistent-flag", bin = path), "exited with code")
 })

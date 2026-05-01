@@ -1,5 +1,8 @@
 test_that("install_uvr returns early when already installed", {
-  skip_if_no_uvr()
+  local_mocked_bindings(
+    .find_uvr_path = \(...) "path/to/uvr",
+    .env = asNamespace("uvr")
+  )
   expect_message(install_uvr(force = FALSE), "already installed")
 })
 

@@ -4,12 +4,14 @@
 \alias{run}
 \title{Run an R script in the project environment}
 \usage{
-run(script, args = character(), dir = NULL, quiet = FALSE)
+run(script, args = character(), bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{script}{Path to an R script.}
 
 \item{args}{Character vector of arguments forwarded to the script.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

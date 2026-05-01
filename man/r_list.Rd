@@ -4,10 +4,12 @@
 \alias{r_list}
 \title{List R versions}
 \usage{
-r_list(all = FALSE, quiet = FALSE)
+r_list(all = FALSE, bin = NULL, quiet = FALSE)
 }
 \arguments{
 \item{all}{If \code{TRUE}, show all available versions (not just installed).}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

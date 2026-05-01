@@ -14,6 +14,7 @@ add <- function(
   packages,
   dev = FALSE,
   bioc = FALSE,
+  bin = NULL,
   dir = NULL,
   quiet = FALSE
 ) {
@@ -21,6 +22,7 @@ add <- function(
     is.character(packages) && length(packages) > 0L,
     is.logical(dev) && length(dev) == 1L,
     is.logical(bioc) && length(bioc) == 1L,
+    is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
@@ -32,5 +34,5 @@ add <- function(
   if (isTRUE(bioc)) {
     args <- c(args, "--bioc")
   }
-  run_uvr(args, dir = dir, quiet = quiet)
+  run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

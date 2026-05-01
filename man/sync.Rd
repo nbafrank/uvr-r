@@ -4,10 +4,12 @@
 \alias{sync}
 \title{Synchronize project library from lockfile}
 \usage{
-sync(frozen = FALSE, dir = NULL, quiet = FALSE)
+sync(frozen = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{frozen}{If \code{TRUE}, fail if the lockfile is out of date (CI mode).}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

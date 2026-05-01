@@ -4,12 +4,14 @@
 \alias{init}
 \title{Initialize a new uvr project}
 \usage{
-init(name = NULL, r_version = NULL, dir = NULL, quiet = FALSE)
+init(name = NULL, r_version = NULL, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{name}{Optional project name. Defaults to the current directory name.}
 
 \item{r_version}{Optional R version constraint, e.g. \code{">=4.3.0"}.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

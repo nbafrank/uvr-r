@@ -4,10 +4,12 @@
 \alias{r_pin}
 \title{Pin the R version}
 \usage{
-r_pin(version, dir = NULL, quiet = FALSE)
+r_pin(version, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{version}{Exact R version, e.g. \code{"4.4.2"}.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

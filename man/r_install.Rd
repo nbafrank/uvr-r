@@ -4,10 +4,12 @@
 \alias{r_install}
 \title{Install an R version}
 \usage{
-r_install(version, quiet = FALSE)
+r_install(version, bin = NULL, quiet = FALSE)
 }
 \arguments{
 \item{version}{R version string, e.g. \code{"4.4.2"}.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

@@ -6,12 +6,14 @@
 #' @inheritParams run_uvr
 #' @return Shell completions for the specified \code{shell}.
 #' @export
-completions <- function(shell, quiet = FALSE) {
+completions <- function(shell, bin = NULL, quiet = FALSE) {
   stopifnot(
     length(shell) == 1L,
     shell %in% c("bash", "zsh", "fish", "powershell"),
+    is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
+  
   args <- c("completions", shell)
-  run_uvr(args, quiet = quiet)
+  run_uvr(args, bin = bin, quiet = quiet)
 }

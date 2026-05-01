@@ -14,10 +14,11 @@
 #' init()
 #' init(name = "my-project", r_version = ">=4.3.0")
 #' }
-init <- function(name = NULL, r_version = NULL, dir = NULL, quiet = FALSE) {
+init <- function(name = NULL, r_version = NULL, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
     is.null(name) || (is.character(name) && length(name) == 1L),
     is.null(r_version) || (is.character(r_version) && length(r_version) == 1L),
+    is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
@@ -29,5 +30,5 @@ init <- function(name = NULL, r_version = NULL, dir = NULL, quiet = FALSE) {
   if (!is.null(r_version)) {
     args <- c(args, "--r-version", r_version)
   }
-  run_uvr(args, dir = dir, quiet = quiet)
+  run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

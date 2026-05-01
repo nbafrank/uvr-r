@@ -4,9 +4,11 @@
 \alias{doctor}
 \title{Diagnose environment issues (R, build tools, project status)}
 \usage{
-doctor(dir = NULL, quiet = FALSE)
+doctor(bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
+
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}

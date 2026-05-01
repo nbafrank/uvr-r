@@ -14,10 +14,17 @@
 #' run("analysis.R")
 #' run("model.R", args = c("--seed", "42"))
 #' }
-run <- function(script, args = character(), dir = NULL, quiet = FALSE) {
+run <- function(
+  script,
+  args = character(),
+  bin = NULL,
+  dir = NULL,
+  quiet = FALSE
+) {
   stopifnot(
     is.character(script) && length(script) == 1L,
     is.character(args) && length(args) >= 0L,
+    is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
@@ -26,5 +33,5 @@ run <- function(script, args = character(), dir = NULL, quiet = FALSE) {
   if (length(args) > 0L) {
     cli_args <- c(cli_args, "--", args)
   }
-  run_uvr(cli_args, dir = dir, quiet = quiet)
+  run_uvr(cli_args, bin = bin, dir = dir, quiet = quiet)
 }

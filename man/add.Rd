@@ -4,7 +4,7 @@
 \alias{add}
 \title{Add packages to the project}
 \usage{
-add(packages, dev = FALSE, bioc = FALSE, dir = NULL, quiet = FALSE)
+add(packages, dev = FALSE, bioc = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{packages}{Character vector of package names (e.g. \code{"ggplot2"},
@@ -13,6 +13,8 @@ add(packages, dev = FALSE, bioc = FALSE, dir = NULL, quiet = FALSE)
 \item{dev}{If \code{TRUE}, add as dev dependencies.}
 
 \item{bioc}{If \code{TRUE}, packages come from Bioconductor.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

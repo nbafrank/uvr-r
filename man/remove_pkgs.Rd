@@ -4,10 +4,12 @@
 \alias{remove_pkgs}
 \title{Remove packages from the project}
 \usage{
-remove_pkgs(packages, dir = NULL, quiet = FALSE)
+remove_pkgs(packages, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{packages}{Character vector of package names to remove.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

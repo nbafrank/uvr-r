@@ -4,10 +4,12 @@
 \alias{r_use}
 \title{Set the R version constraint}
 \usage{
-r_use(version, dir = NULL, quiet = FALSE)
+r_use(version, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{version}{Version constraint, e.g. \code{">=4.3.0"} or \code{"4.4.2"}.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

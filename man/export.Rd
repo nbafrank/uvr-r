@@ -4,10 +4,12 @@
 \alias{export}
 \title{Export lockfile to renv.lock format}
 \usage{
-export(out_file = "renv.lock", dir = NULL, quiet = FALSE)
+export(out_file = "renv.lock", bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{out_file}{Name of the output lockfile. Defaults to \code{"renv.lock"}.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

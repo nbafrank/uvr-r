@@ -4,9 +4,11 @@
 \alias{cache_clean}
 \title{Remove all cached package downloads}
 \usage{
-cache_clean(quiet = FALSE)
+cache_clean(bin = NULL, quiet = FALSE)
 }
 \arguments{
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
+
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{

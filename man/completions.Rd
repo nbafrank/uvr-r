@@ -4,10 +4,12 @@
 \alias{completions}
 \title{Generate shell completions (bash, zsh, fish, powershell)}
 \usage{
-completions(shell, quiet = FALSE)
+completions(shell, bin = NULL, quiet = FALSE)
 }
 \arguments{
 \item{shell}{One of \code{"bash"}, \code{"zsh"}, \code{"fish"}, or \code{"powershell"}.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

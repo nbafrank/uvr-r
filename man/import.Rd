@@ -4,9 +4,13 @@
 \alias{import}
 \title{Import renv lockfile to create uvr.toml}
 \usage{
-import(dir = NULL, quiet = FALSE)
+import(lock = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
+\item{lock}{If \code{TRUE}, create \code{uvr.lock} as well.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
+
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}

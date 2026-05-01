@@ -4,7 +4,10 @@
 \alias{.get_bin_name}
 \title{Get the name of the uvr binary}
 \usage{
-.get_bin_name()
+.get_bin_name(os_type = .Platform$OS.type)
+}
+\arguments{
+\item{os_type}{OS type, defaults to \code{.Platform$OS.type}.}
 }
 \value{
 Name of the uvr binary (either "uvr" or "uvr.exe").

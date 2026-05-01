@@ -1,3 +1,7 @@
+test_that("install_uvr works", {
+  expect_no_error(install_uvr(force = TRUE))
+})
+
 test_that("install_uvr returns early when already installed", {
   local_mocked_bindings(
     .find_uvr_path = \(...) "path/to/uvr",

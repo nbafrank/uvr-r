@@ -24,3 +24,19 @@ test_that("install_uvr(method='binary') stops when no binary available", {
     "No pre-built binary"
   )
 })
+
+test_that(".get_latest_release_details works", {
+  latest_release <- .get_latest_release_details() |> 
+    expect_silent() |> 
+    expect_no_error()
+
+  expect_all_true(
+    c("assets", "asset") %in% names(latest_release)
+  )
+  expect_true(
+    nrow(latest_release$asset) > 0
+  )
+  expect_true(
+    length(latest_release$asset$browser_download_url) == 1
+  )
+})

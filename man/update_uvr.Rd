@@ -10,9 +10,10 @@ update_uvr(ref = "HEAD", method = "auto", quiet = FALSE)
 \item{ref}{Git ref (branch, tag, commit SHA) to install the R package from.
 Defaults to the default branch (\code{"HEAD"}).}
 
-\item{method}{Binary install method. See \code{\link{install_uvr}} for
-the full set; defaults to \code{"auto"} (pre-built binary when available,
-cargo build otherwise).}
+\item{method}{Installation method: \code{"auto"} (default) tries a pre-built
+GitHub release binary first, then falls back to building from source via
+\code{cargo install}. \code{"binary"} downloads a pre-built binary only.
+\code{"cargo"} builds from source only.}
 
 \item{quiet}{If \code{TRUE}, suppress progress messages.}
 }

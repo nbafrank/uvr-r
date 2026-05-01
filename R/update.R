@@ -9,10 +9,8 @@
 #'
 #' @param ref Git ref (branch, tag, commit SHA) to install the R package from.
 #'   Defaults to the default branch (\code{"HEAD"}).
-#' @param method Binary install method. See \code{\link{install_uvr}} for
-#'   the full set; defaults to \code{"auto"} (pre-built binary when available,
-#'   cargo build otherwise).
 #' @param quiet If \code{TRUE}, suppress progress messages.
+#' @inheritParams install_uvr
 #' @return Invisible named list with \code{r_package} (installed version or
 #'   \code{NA} on failure) and \code{binary} (path to the CLI binary).
 #' @export

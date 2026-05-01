@@ -18,11 +18,11 @@ test_that("run_uvr errors on bad command", {
 })
 
 test_that("add errors on empty packages", {
-  expect_error(add(character(0)), "non-empty")
+  expect_error(add(character(0)), "length\\(packages\\) > 0L")
 })
 
 test_that("remove_pkgs errors on empty packages", {
-  expect_error(remove_pkgs(character(0)), "non-empty")
+  expect_error(remove_pkgs(character(0)), "length\\(packages\\) > 0L")
 })
 
 test_that("run requires script argument", {

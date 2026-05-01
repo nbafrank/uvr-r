@@ -7,7 +7,12 @@
 #' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export
-export <- function(out_file = "renv.lock", bin = NULL, dir = NULL, quiet = FALSE) {
+export <- function(
+  out_file = "renv.lock",
+  bin = NULL,
+  dir = NULL,
+  quiet = FALSE
+) {
   stopifnot(
     length(out_file) == 1L && is.character(out_file),
     is.null(bin) || (is.character(bin) && length(bin) == 1L),

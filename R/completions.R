@@ -13,7 +13,7 @@ completions <- function(shell, bin = NULL, quiet = FALSE) {
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
-  
+
   args <- c("completions", shell)
   run_uvr(args, bin = bin, quiet = quiet)
 }

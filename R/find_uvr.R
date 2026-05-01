@@ -41,13 +41,18 @@ find_uvr <- function() {
   }
 
   # Check common install locations
-  candidates <- file.path(.get_home_dir(), ".cargo", "bin", bin_name)
+  candidates <- .get_home_dir() |>
+    file.path(c(".cargo", ".local"), "bin", bin_name)
   if (.Platform$OS.type == "windows") {
     appdata_path <- Sys.getenv("LOCALAPPDATA") |>
       file.path("Programs", "uvr", bin_name)
     candidates <- c(candidates, appdata_path)
   } else {
-    candidates <- c(candidates, "/usr/local/bin/uvr")
+    candidates <- c(
+      candidates,
+      "/usr/local/bin/uvr",
+      "/opt/homebrew/bin/uvr" # Apple Silicon Homebrew
+    )
   }
   for (candidate in candidates) {
     if (file.exists(candidate)) return(candidate)

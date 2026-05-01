@@ -7,8 +7,7 @@
 add(packages, dev = FALSE, bioc = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
-\item{packages}{Character vector of package names (e.g. \code{"ggplot2"},
-\code{"tidymodels@>=1.0.0"}, \code{"user/repo@main"}).}
+\item{packages}{Character vector of package names (e.g. \code{c("ggplot2", "tidymodels@>=1.0.0", "user/repo@main")}).}
 
 \item{dev}{If \code{TRUE}, add as dev dependencies.}
 

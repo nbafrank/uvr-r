@@ -68,7 +68,7 @@ r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
 #' Writes an exact R version to the \code{.r-version} file.
 #' Equivalent to \code{uvr r pin <version>} on the command line.
 #'
-#' @param version Exact R version, e.g. \code{"4.4.2"}.
+#' @inheritParams r_install
 #' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export

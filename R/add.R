@@ -3,8 +3,7 @@
 #' Adds one or more packages to the manifest, updates the lockfile, and
 #' installs them. Equivalent to \code{uvr add} on the command line.
 #'
-#' @param packages Character vector of package names (e.g. \code{"ggplot2"},
-#'   \code{"tidymodels@@>=1.0.0"}, \code{"user/repo@@main"}).
+#' @param packages Character vector of package names (e.g. \code{c("ggplot2", "tidymodels@@>=1.0.0", "user/repo@@main")}).
 #' @param dev If \code{TRUE}, add as dev dependencies.
 #' @param bioc If \code{TRUE}, packages come from Bioconductor.
 #' @inheritParams run_uvr

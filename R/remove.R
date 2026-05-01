@@ -3,7 +3,7 @@
 #' Removes one or more packages from the manifest and updates the lockfile.
 #' Equivalent to \code{uvr remove} on the command line.
 #'
-#' @param packages Character vector of package names to remove.
+#' @inheritParams add
 #' @inheritParams run_uvr
 #' @return Invisible \code{TRUE} on success.
 #' @export

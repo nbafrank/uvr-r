@@ -7,7 +7,7 @@
 r_pin(version, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
-\item{version}{Exact R version, e.g. \code{"4.4.2"}.}
+\item{version}{R version string, e.g. \code{"4.4.2"}.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

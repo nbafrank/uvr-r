@@ -7,7 +7,7 @@
 remove_pkgs(packages, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
-\item{packages}{Character vector of package names to remove.}
+\item{packages}{Character vector of package names (e.g. \code{c("ggplot2", "tidymodels@>=1.0.0", "user/repo@main")}).}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

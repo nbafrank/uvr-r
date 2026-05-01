@@ -22,6 +22,12 @@
 #' # then restart R to pick up the new package
 #' }
 update_uvr <- function(ref = "HEAD", method = "auto", quiet = FALSE) {
+  stopifnot(
+    is.character(ref) && length(ref) == 1L,
+    is.character(method) && length(method) == 1L,
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
   if (!quiet) {
     message("Updating uvr R package from GitHub (ref: ", ref, ")...")
   }

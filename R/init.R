@@ -15,6 +15,13 @@
 #' init(name = "my-project", r_version = ">=4.3.0")
 #' }
 init <- function(name = NULL, r_version = NULL, dir = NULL, quiet = FALSE) {
+  stopifnot(
+    is.null(name) || (is.character(name) && length(name) == 1L),
+    is.null(r_version) || (is.character(r_version) && length(r_version) == 1L),
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+  
   args <- "init"
   if (!is.null(name)) {
     args <- c(args, name)

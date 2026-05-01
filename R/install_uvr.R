@@ -22,6 +22,7 @@
 #' }
 install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   method <- match.arg(method)
+  stopifnot(is.logical(force) && length(force) == 1L)
 
   if (!isTRUE(force)) {
     existing <- .find_uvr_path()

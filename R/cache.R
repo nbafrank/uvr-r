@@ -7,6 +7,7 @@
 #' @return Invisible \code{TRUE} on success.
 #' @export
 cache_clean <- function(quiet = FALSE) {
+  stopifnot(is.logical(quiet) && length(quiet) == 1L)
   args <- c("cache", "clean")
   run_uvr(args, quiet = quiet)
 }

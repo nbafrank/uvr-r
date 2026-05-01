@@ -15,6 +15,13 @@
 #' run("model.R", args = c("--seed", "42"))
 #' }
 run <- function(script, args = character(), dir = NULL, quiet = FALSE) {
+  stopifnot(
+    is.character(script) && length(script) == 1L,
+    is.character(args) && length(args) >= 0L,
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
   cli_args <- c("run", script)
   if (length(args) > 0L) {
     cli_args <- c(cli_args, "--", args)

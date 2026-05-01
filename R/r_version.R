@@ -8,7 +8,13 @@
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_install <- function(version, quiet = FALSE) {
-  run_uvr(c("r", "install", version), quiet = quiet)
+  stopifnot(
+    is.character(version) && length(version) == 1L,
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
+  args <- c("r", "install", version)
+  run_uvr(args, quiet = quiet)
 }
 
 #' List R versions
@@ -22,6 +28,11 @@ r_install <- function(version, quiet = FALSE) {
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_list <- function(all = FALSE, quiet = FALSE) {
+  stopifnot(
+    is.logical(all) && length(all) == 1L,
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
   args <- c("r", "list")
   if (isTRUE(all)) {
     args <- c(args, "--all")
@@ -39,7 +50,14 @@ r_list <- function(all = FALSE, quiet = FALSE) {
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_use <- function(version, dir = NULL, quiet = FALSE) {
-  run_uvr(c("r", "use", version), dir = dir, quiet = quiet)
+  stopifnot(
+    is.character(version) && length(version) == 1L,
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
+  args <- c("r", "use", version)
+  run_uvr(args, dir = dir, quiet = quiet)
 }
 
 #' Pin the R version
@@ -52,5 +70,12 @@ r_use <- function(version, dir = NULL, quiet = FALSE) {
 #' @return Invisible \code{TRUE} on success.
 #' @export
 r_pin <- function(version, dir = NULL, quiet = FALSE) {
-  run_uvr(c("r", "pin", version), dir = dir, quiet = quiet)
+  stopifnot(
+    is.character(version) && length(version) == 1L,
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
+  args <- c("r", "pin", version)
+  run_uvr(args, dir = dir, quiet = quiet)
 }

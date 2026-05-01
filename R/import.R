@@ -7,6 +7,11 @@
 #' @return Invisible \code{TRUE} on success.
 #' @export
 import <- function(dir = NULL, quiet = FALSE) {
+  stopifnot(
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+  
   args <- "import"
   if (isTRUE(lock)) {
     args <- c(args, "--lock")

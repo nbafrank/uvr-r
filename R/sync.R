@@ -13,6 +13,12 @@
 #' sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
 #' }
 sync <- function(frozen = FALSE, dir = NULL, quiet = FALSE) {
+  stopifnot(
+    is.logical(frozen) && length(frozen) == 1L,
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+  
   args <- "sync"
   if (isTRUE(frozen)) {
     args <- c(args, "--frozen")

@@ -17,9 +17,14 @@ add <- function(
   dir = NULL,
   quiet = FALSE
 ) {
-  if (length(packages) == 0L) {
-    stop("'packages' must be a non-empty character vector.", call. = FALSE)
-  }
+  stopifnot(
+    is.character(packages) && length(packages) > 0L,
+    is.logical(dev) && length(dev) == 1L,
+    is.logical(bioc) && length(bioc) == 1L,
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
   args <- c("add", packages)
   if (isTRUE(dev)) {
     args <- c(args, "--dev")

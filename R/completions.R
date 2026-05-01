@@ -9,7 +9,8 @@
 completions <- function(shell, quiet = FALSE) {
   stopifnot(
     length(shell) == 1L,
-    shell %in% c("bash", "zsh", "fish", "powershell")
+    shell %in% c("bash", "zsh", "fish", "powershell"),
+    is.logical(quiet) && length(quiet) == 1L
   )
   args <- c("completions", shell)
   run_uvr(args, quiet = quiet)

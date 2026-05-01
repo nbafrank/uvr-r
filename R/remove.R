@@ -13,8 +13,12 @@
 #' remove_pkgs(c("dplyr", "tidyr"))
 #' }
 remove_pkgs <- function(packages, dir = NULL, quiet = FALSE) {
-  if (length(packages) == 0L) {
-    stop("'packages' must be a non-empty character vector.", call. = FALSE)
-  }
-  run_uvr(c("remove", packages), dir = dir, quiet = quiet)
+  stopifnot(
+    is.character(packages) && length(packages) > 0L,
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
+  args <- c("remove", packages)
+  run_uvr(args, dir = dir, quiet = quiet)
 }

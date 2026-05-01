@@ -10,7 +10,7 @@ doctor <- function(dir = NULL, quiet = FALSE) {
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
-  
+
   args <- c("doctor")
   run_uvr(args, dir = dir, quiet = quiet)
 }

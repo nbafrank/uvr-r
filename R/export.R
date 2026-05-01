@@ -13,7 +13,7 @@ export <- function(out_file = "renv.lock", dir = NULL, quiet = FALSE) {
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
-  
+
   args <- "export"
   if (out_file != "renv.lock") {
     args <- c(args, "-o", out_file)

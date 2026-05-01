@@ -19,7 +19,7 @@ lock <- function(upgrade = FALSE, dir = NULL, quiet = FALSE) {
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
-  
+
   args <- "lock"
   if (isTRUE(upgrade)) {
     args <- c(args, "--upgrade")

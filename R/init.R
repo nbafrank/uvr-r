@@ -21,7 +21,7 @@ init <- function(name = NULL, r_version = NULL, dir = NULL, quiet = FALSE) {
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && length(quiet) == 1L
   )
-  
+
   args <- "init"
   if (!is.null(name)) {
     args <- c(args, name)

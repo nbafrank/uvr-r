@@ -7,7 +7,7 @@
 #' @param script Path to an R script.
 #' @param args Character vector of arguments forwarded to the script.
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 #' @examples
 #' \dontrun{

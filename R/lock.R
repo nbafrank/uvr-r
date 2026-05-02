@@ -6,7 +6,7 @@
 #' @param upgrade If \code{TRUE}, upgrade all packages to their latest allowed
 #'   versions.
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 #' @examples
 #' \dontrun{

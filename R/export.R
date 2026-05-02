@@ -5,7 +5,7 @@
 #'
 #' @param out_file Name of the output lockfile. Defaults to \code{"renv.lock"}.
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 export <- function(
   out_file = "renv.lock",

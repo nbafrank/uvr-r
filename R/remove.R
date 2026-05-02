@@ -5,7 +5,7 @@
 #'
 #' @inheritParams add
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 #' @examples
 #' \dontrun{

@@ -4,7 +4,7 @@
 #'
 #' @param shell One of \code{"bash"}, \code{"zsh"}, \code{"fish"}, or \code{"powershell"}.
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 completions <- function(shell, bin = NULL, quiet = FALSE) {
   stopifnot(

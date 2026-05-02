@@ -7,7 +7,7 @@
 #' @param dev If \code{TRUE}, add as dev dependencies.
 #' @param bioc If \code{TRUE}, packages come from Bioconductor.
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 add <- function(
   packages,

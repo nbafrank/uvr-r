@@ -5,7 +5,7 @@
 #'
 #' @param frozen If \code{TRUE}, fail if the lockfile is out of date (CI mode).
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 #' @examples
 #' \dontrun{

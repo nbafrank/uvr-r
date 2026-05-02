@@ -14,7 +14,7 @@ completions(shell, bin = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-A character vector of output lines on success (invisibly).
+The output of the `system2()` call to `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
 }
 \description{
 Equivalent to \code{uvr completions `shell`} on the command line.

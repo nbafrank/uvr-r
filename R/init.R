@@ -7,7 +7,7 @@
 #' @param name Optional project name. Defaults to the current directory name.
 #' @param r_version Optional R version constraint, e.g. \code{">=4.3.0"}.
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 #' @examples
 #' \dontrun{

@@ -70,7 +70,7 @@ r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
 #'
 #' @inheritParams r_install
 #' @inheritParams run_uvr
-#' @return A character vector of output lines on success (invisibly).
+#' @inherit run_uvr return
 #' @export
 r_pin <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(

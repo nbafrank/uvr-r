@@ -1,7 +1,7 @@
 setup_uvr_test <- function() {
   path <- try(find_uvr())
   if (!nzchar(path)) {
-    path <- install_uvr()
+    path <- install_uvr(force = TRUE)
   }
   invisible(path)
 }

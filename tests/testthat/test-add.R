@@ -4,6 +4,7 @@ test_that("add works and errors on empty packages", {
   dir.create(temp_dir, recursive = TRUE)
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
 
+  init(bin = path, dir = temp_dir)
   expect_no_error(add("nbafrank/uvr-r", bin = path, dir = temp_dir))
   expect_error(add(character(0)), "length\\(packages\\) > 0L")
 

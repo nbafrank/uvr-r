@@ -4,7 +4,7 @@
 \alias{.install_via_cargo}
 \title{Install uvr via cargo}
 \usage{
-.install_via_cargo(tag = "latest")
+.install_via_cargo(tag = "latest", force = FALSE)
 }
 \arguments{
 \item{tag}{Release tag, e.g. "v1.0.0". Defaults to latest release.}

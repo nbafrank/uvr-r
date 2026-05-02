@@ -54,7 +54,7 @@ install_uvr <- function(
   }
 
   # Fall back to cargo install
-  .install_via_cargo(tag = tag)
+  .install_via_cargo(tag = tag, force = force)
 }
 
 #' Try to download a pre-built binary from GitHub releases
@@ -85,7 +85,7 @@ install_uvr <- function(
 #' @inheritParams .get_release_details
 #' @return Invisible path to the installed binary.
 #' @keywords internal
-.install_via_cargo <- function(tag = "latest") {
+.install_via_cargo <- function(tag = "latest", force = FALSE) {
   cargo <- Sys.which("cargo")
   if (!nzchar(cargo)) {
     # Check common location
@@ -106,6 +106,9 @@ install_uvr <- function(
   args <- c("install", "--git", "https://github.com/nbafrank/uvr")
   if (tag != "latest") {
     args <- c(args, "--tag", tag)
+  }
+  if (isTRUE(force)) {
+    args <- c(args, "--force")
   }
   return_code <- system2(command = cargo, args = args, stdout = "", stderr = "")
   if (return_code != 0L) {

@@ -16,12 +16,12 @@ test_that("r_use works", {
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
   init(bin = path, dir = temp_dir)
 
-  expect_no_error(r_use(">= 4.0.0", bin = path, dir = temp_dir))
+  expect_no_error(r_use(version = ">=4.0.0", bin = path, dir = temp_dir))
 
   version_entry <- readLines(file.path(temp_dir, "uvr.toml")) |>
     grep(pattern = "^r_version =", value = TRUE) # TODO: confirm correct pattern
   expect_true(length(version_entry) == 1L)
-  expect_true(grepl(pattern = ">= 4.0.0", x = version_entry))
+  expect_true(grepl(pattern = ">=4.0.0", x = version_entry))
 })
 
 test_that("r_pin works", {

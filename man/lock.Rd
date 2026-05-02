@@ -4,11 +4,13 @@
 \alias{lock}
 \title{Update the lockfile}
 \usage{
-lock(upgrade = FALSE, dir = NULL, quiet = FALSE)
+lock(upgrade = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{upgrade}{If \code{TRUE}, upgrade all packages to their latest allowed
 versions.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 

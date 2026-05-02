@@ -13,7 +13,7 @@
 #' lock()
 #' lock(upgrade = TRUE)  # upgrade all packages to latest versions
 #' }
-lock <- function(upgrade = FALSE, dir = NULL, quiet = FALSE) {
+lock <- function(upgrade = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
     is.logical(upgrade) && length(upgrade) == 1L,
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
@@ -24,5 +24,5 @@ lock <- function(upgrade = FALSE, dir = NULL, quiet = FALSE) {
   if (isTRUE(upgrade)) {
     args <- c(args, "--upgrade")
   }
-  run_uvr(args, dir = dir, quiet = quiet)
+  run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

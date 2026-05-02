@@ -90,6 +90,9 @@ install_uvr <- function(
   if (!nzchar(cargo)) {
     # Check common location
     cargo_candidate <- file.path(.get_home_dir(), ".cargo", "bin", "cargo")
+    if (.Platform$OS.type == "windows") {
+      cargo_candidate <- paste0(cargo_candidate, ".exe")
+    }
     if (file.exists(cargo_candidate)) {
       cargo <- cargo_candidate
     } else {

@@ -5,7 +5,7 @@
 #'
 #' @param lock If \code{TRUE}, create \code{uvr.lock} as well.
 #' @inheritParams run_uvr
-#' @return Invisible \code{TRUE} on success.
+#' @return A character vector of output lines on success (invisibly).
 #' @export
 import <- function(lock = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(

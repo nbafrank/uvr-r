@@ -16,7 +16,7 @@ sync(frozen = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-Invisible \code{TRUE} on success.
+A character vector of output lines on success (invisibly).
 }
 \description{
 Installs all packages specified in \code{uvr.lock}. Idempotent --- skips

@@ -17,7 +17,7 @@ versions.}
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-Invisible \code{TRUE} on success.
+A character vector of output lines on success (invisibly).
 }
 \description{
 Re-resolves all dependencies and writes \code{uvr.lock} without installing.

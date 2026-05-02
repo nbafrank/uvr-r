@@ -5,7 +5,7 @@
 #'
 #' @inheritParams add
 #' @inheritParams run_uvr
-#' @return Invisible \code{TRUE} on success.
+#' @return A character vector of output lines on success (invisibly).
 #' @export
 #' @examples
 #' \dontrun{

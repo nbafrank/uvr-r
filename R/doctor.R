@@ -3,7 +3,7 @@
 #' Equivalent to \code{uvr doctor} on the command line.
 #'
 #' @inheritParams run_uvr
-#' @return Invisible \code{TRUE} on success.
+#' @return A character vector of output lines on success (invisibly).
 #' @export
 doctor <- function(bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(

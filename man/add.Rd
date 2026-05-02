@@ -20,7 +20,7 @@ add(packages, dev = FALSE, bioc = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-Invisible \code{TRUE} on success.
+A character vector of output lines on success (invisibly).
 }
 \description{
 Adds one or more packages to the manifest, updates the lockfile, and

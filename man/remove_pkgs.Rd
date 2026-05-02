@@ -16,7 +16,7 @@ remove_pkgs(packages, bin = NULL, dir = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-Invisible \code{TRUE} on success.
+A character vector of output lines on success (invisibly).
 }
 \description{
 Removes one or more packages from the manifest and updates the lockfile.

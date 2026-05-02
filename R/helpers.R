@@ -26,3 +26,8 @@
 
   return(home)
 }
+
+#' Swap out NULL values with another value
+#' @return y if x is NULL, otherwise x
+#' @keywords internal
+`%||%` <- function(x, y) if (is.null(x)) y else x

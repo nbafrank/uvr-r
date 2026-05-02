@@ -4,7 +4,7 @@
 #' Equivalent to \code{uvr cache clean} on the command line.
 #'
 #' @inheritParams run_uvr
-#' @return Invisible \code{TRUE} on success.
+#' @return A character vector of output lines on success (invisibly).
 #' @export
 cache_clean <- function(bin = NULL, quiet = FALSE) {
   stopifnot(

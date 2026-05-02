@@ -14,7 +14,7 @@ completions(shell, bin = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-Shell completions for the specified \code{shell}.
+A character vector of output lines on success (invisibly).
 }
 \description{
 Equivalent to \code{uvr completions `shell`} on the command line.

@@ -10,6 +10,8 @@
 #' \code{cargo install}. \code{"binary"} downloads a pre-built binary only.
 #' \code{"cargo"} builds from source only.
 #' @param force If \code{TRUE}, reinstall even if uvr is already present.
+#' @inheritParams .get_release_details
+#'
 #' @return Invisible path to the installed binary.
 #' @export
 #' @examples
@@ -20,9 +22,16 @@
 #' # Force rebuild from source
 #' install_uvr(method = "cargo", force = TRUE)
 #' }
-install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
+install_uvr <- function(
+  tag = "latest",
+  method = c("auto", "binary", "cargo"),
+  force = FALSE
+) {
   method <- match.arg(method)
-  stopifnot(is.logical(force) && length(force) == 1L)
+  stopifnot(
+    is.character(tag) && length(tag) == 1L,
+    is.logical(force) && length(force) == 1L
+  )
 
   if (!isTRUE(force)) {
     existing <- .find_uvr_path()
@@ -34,7 +43,7 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   }
 
   if (method == "auto" || method == "binary") {
-    path <- .try_install_binary()
+    path <- .try_install_binary(tag = tag)
     if (!is.null(path)) {
       message("uvr installed successfully at: ", path)
       return(invisible(path))
@@ -45,36 +54,38 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   }
 
   # Fall back to cargo install
-  .install_via_cargo()
+  .install_via_cargo(tag = tag)
 }
 
 #' Try to download a pre-built binary from GitHub releases
+#' @inheritParams .get_release_details
 #' @return Path to binary or NULL if unavailable.
 #' @keywords internal
-.try_install_binary <- function() {
+.try_install_binary <- function(tag = "latest") {
+  stopifnot(is.character(tag) && length(tag) == 1L)
+
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
     message("Package 'jsonlite' is needed to download pre-built binaries.")
     message("Install it with: install.packages('jsonlite')")
     return(NULL)
   }
 
-  latest_release <- .get_latest_release_details()
+  release <- .get_release_details(tag = tag)
   if (
-    is.null(latest_release) ||
-      is.null(latest_release$assets) ||
-      nrow(latest_release$asset) == 0L
+    is.null(release) || is.null(release$assets) || nrow(release$asset) == 0L
   ) {
     return(NULL)
   }
-  download_url <- latest_release$asset$browser_download_url[1L]
+  download_url <- release$asset$browser_download_url[1L]
   dest_dir <- file.path(.get_home_dir(), ".cargo", "bin")
   .get_and_extract_binary(download_url = download_url, dest_dir = dest_dir)
 }
 
 #' Install uvr via cargo
+#' @inheritParams .get_release_details
 #' @return Invisible path to the installed binary.
 #' @keywords internal
-.install_via_cargo <- function() {
+.install_via_cargo <- function(tag = "latest") {
   cargo <- Sys.which("cargo")
   if (!nzchar(cargo)) {
     # Check common location
@@ -92,12 +103,11 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   }
 
   message("Building uvr from source via cargo (this may take a few minutes)...")
-  return_code <- system2(
-    command = cargo,
-    args = c("install", "--git", "https://github.com/nbafrank/uvr"),
-    stdout = "",
-    stderr = ""
-  )
+  args <- c("install", "--git", "https://github.com/nbafrank/uvr")
+  if (tag != "latest") {
+    args <- c(args, "--tag", tag)
+  }
+  return_code <- system2(command = cargo, args = args, stdout = "", stderr = "")
   if (return_code != 0L) {
     stop("cargo install failed with exit code ", return_code, call. = FALSE)
   }
@@ -114,10 +124,11 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   invisible(path)
 }
 
-#' Get details for the latest release of uvr from GitHub
+#' Get details for a specified release of uvr from GitHub
+#' @param tag Release tag, e.g. "v1.0.0". Defaults to latest release.
 #' @return List with release details or NULL if unavailable.
 #' @keywords internal
-.get_latest_release_details <- function() {
+.get_release_details <- function(tag = "latest") {
   os <- .Platform$OS.type
   arch <- Sys.info()[["machine"]]
 
@@ -144,29 +155,32 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
     return(NULL)
   }
 
-  release_url <- "https://api.github.com/repos/nbafrank/uvr/releases/latest"
+  release_url <- "https://api.github.com/repos/nbafrank/uvr/releases/"
+  if (tag != "latest") {
+    release_url <- paste0(release_url, "tags/")
+  }
+  release_url <- paste0(release_url, tag)
   con <- tryCatch(url(release_url), error = function(e) NULL)
   if (is.null(con)) {
     return(NULL)
   }
   on.exit(close(con), add = TRUE)
 
-  latest_release <- tryCatch(
+  release <- tryCatch(
     jsonlite::fromJSON(readLines(con, warn = FALSE)),
     error = function(e) NULL
   )
 
-  is_target <- grepl(target, latest_release$assets$name, fixed = TRUE)
-  latest_release$asset <- latest_release$assets[is_target, ]
+  is_target <- grepl(target, release$assets$name, fixed = TRUE)
+  release$asset <- release$assets[is_target, ]
 
-  return(latest_release)
+  return(release)
 }
 
 #' Download and extract uvr binary
 #' @return Destination path or NULL if download failed.
 #' @keywords internal
 .get_and_extract_binary <- function(download_url, dest_dir) {
-  is_windows <- .Platform$OS.type == "windows"
   dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
   bin_name <- .get_bin_name()
   dest <- file.path(dest_dir, bin_name)
@@ -214,7 +228,7 @@ install_uvr <- function(method = c("auto", "binary", "cargo"), force = FALSE) {
   } else {
     file.copy(tmp, dest, overwrite = TRUE)
   }
-  if (!is_windows) {
+  if (.Platform$OS.type != "windows") {
     Sys.chmod(dest, "0755")
   }
   dest

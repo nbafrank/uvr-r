@@ -4,7 +4,10 @@
 \alias{.install_via_cargo}
 \title{Install uvr via cargo}
 \usage{
-.install_via_cargo()
+.install_via_cargo(tag = "latest")
+}
+\arguments{
+\item{tag}{Release tag, e.g. "v1.0.0". Defaults to latest release.}
 }
 \value{
 Invisible path to the installed binary.

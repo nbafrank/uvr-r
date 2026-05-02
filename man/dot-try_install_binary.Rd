@@ -4,7 +4,10 @@
 \alias{.try_install_binary}
 \title{Try to download a pre-built binary from GitHub releases}
 \usage{
-.try_install_binary()
+.try_install_binary(tag = "latest")
+}
+\arguments{
+\item{tag}{Release tag, e.g. "v1.0.0". Defaults to latest release.}
 }
 \value{
 Path to binary or NULL if unavailable.

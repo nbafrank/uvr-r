@@ -4,9 +4,15 @@
 \alias{install_uvr}
 \title{Install the uvr binary}
 \usage{
-install_uvr(method = c("auto", "binary", "cargo"), force = FALSE)
+install_uvr(
+  tag = "latest",
+  method = c("auto", "binary", "cargo"),
+  force = FALSE
+)
 }
 \arguments{
+\item{tag}{Release tag, e.g. "v1.0.0". Defaults to latest release.}
+
 \item{method}{Installation method: \code{"auto"} (default) tries a pre-built
 GitHub release binary first, then falls back to building from source via
 \code{cargo install}. \code{"binary"} downloads a pre-built binary only.

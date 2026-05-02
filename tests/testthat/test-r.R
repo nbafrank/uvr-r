@@ -6,7 +6,7 @@ test_that("r_list works and all = TRUE returns at least 1 version", {
   path <- setup_uvr_test() # installs uvr if needed
   expect_no_error(r_list(bin = path))
   all_versions <- expect_no_error(r_list(all = TRUE, bin = path))
-  expect_true(length(all_versions) > 0L)
+  expect_true(length(all_versions[-1]) > 0L)
 })
 
 test_that("r_use works", {

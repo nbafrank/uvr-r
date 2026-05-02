@@ -5,7 +5,7 @@ test_that("lock works", {
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
 
   init(bin = path, dir = temp_dir)
-  add("nbafrank/uvr-r@0.1.0", bin = path, dir = temp_dir)
+  add("jsonlite@2.0.0", bin = path, dir = temp_dir)
 
   expect_no_error(lock(bin = path, dir = temp_dir))
   expect_true(file.exists(file.path(temp_dir, "uvr.lock")))

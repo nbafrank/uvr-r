@@ -4,7 +4,7 @@ test_that("export works and can output to any file name", {
   dir.create(temp_dir, recursive = TRUE)
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
   init(bin = path, dir = temp_dir)
-  add("nbafrank/uvr-r", bin = path, dir = temp_dir)
+  add("jsonlite", bin = path, dir = temp_dir)
 
   expect_no_error(export(out_file = "renv.lock", bin = path, dir = temp_dir))
   expect_true(file.exists(file.path(temp_dir, "renv.lock")))

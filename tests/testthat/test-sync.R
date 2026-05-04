@@ -1,4 +1,4 @@
-test_that("init works", {
+test_that("sync works", {
   path <- setup_uvr_test() # installs uvr if needed
   temp_dir <- tempfile("uvr-test-")
   dir.create(temp_dir, recursive = TRUE)

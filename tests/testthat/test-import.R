@@ -5,12 +5,13 @@ test_that("import works and create lockfile if desired", {
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
 
   example_renvlock <- system.file("extdata/renv.lock", package = "uvr")
-  file.copy(example_renvlock, temp_dir)
+  success <- file.copy(example_renvlock, temp_dir)
 
+  # TODO: implement name = "test" when https://github.com/nbafrank/uvr/issues/77 resolved
   expect_no_error(import(bin = path, dir = temp_dir))
   expect_true(file.exists(file.path(temp_dir, "uvr.toml")))
 
-  # TODO: review this
+  # TODO: accept snapshot once above TODO resolved
   expect_snapshot(
     readLines(file.path(temp_dir, "uvr.toml")) |>
       paste(collapse = "\n") |>

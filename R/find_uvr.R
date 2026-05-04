@@ -36,7 +36,7 @@ find_uvr <- function() {
 
   # Check PATH first
   path <- Sys.which(bin_name)
-  if (nzchar(path)) {
+  if (nzchar(path) && file.exists(path)) {
     return(unname(path))
   }
 

@@ -11,7 +11,7 @@ test_that("r_list works and all = TRUE returns at least 1 version", {
 
 test_that("r_use works", {
   path <- setup_uvr_test() # installs uvr if needed
-  temp_dir <- tempfile("uvr-test-")
+  temp_dir <- dirname(tempfile()) |> file.path("uvr-test")
   dir.create(temp_dir, recursive = TRUE)
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
   init(bin = path, dir = temp_dir)
@@ -26,7 +26,7 @@ test_that("r_use works", {
 
 test_that("r_pin works", {
   path <- setup_uvr_test() # installs uvr if needed
-  temp_dir <- tempfile("uvr-test-")
+  temp_dir <- dirname(tempfile()) |> file.path("uvr-test")
   dir.create(temp_dir, recursive = TRUE)
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
   init(bin = path, dir = temp_dir)

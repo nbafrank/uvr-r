@@ -18,6 +18,13 @@
 #' update_pkgs(sync = FALSE)
 #' }
 update_pkgs <- function(sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE) {
+  stopifnot(
+    is.logical(sync) && length(sync) == 1L,
+    is.null(bin) || (is.character(bin) && length(bin) == 1L),
+    is.null(dir) || (is.character(dir) && length(dir) == 1L),
+    is.logical(quiet) && length(quiet) == 1L
+  )
+
   lock(upgrade = TRUE, bin = bin, dir = dir, quiet = quiet)
   if (isTRUE(sync)) sync(bin = bin, dir = dir, quiet = quiet)
 }

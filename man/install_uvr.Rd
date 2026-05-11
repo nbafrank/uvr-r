@@ -7,6 +7,7 @@
 install_uvr(
   tag = "latest",
   method = c("auto", "binary", "cargo"),
+  install_dir = NULL,
   force = FALSE
 )
 }
@@ -17,6 +18,8 @@ install_uvr(
 GitHub release binary first, then falls back to building from source via
 \code{cargo install}. \code{"binary"} downloads a pre-built binary only.
 \code{"cargo"} builds from source only.}
+
+\item{install_dir}{Directory to install into (default: home directory).}
 
 \item{force}{If \code{TRUE}, reinstall even if uvr is already present.}
 }

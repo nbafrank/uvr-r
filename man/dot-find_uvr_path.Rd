@@ -4,7 +4,12 @@
 \alias{.find_uvr_path}
 \title{Search common locations for the uvr binary}
 \usage{
-.find_uvr_path()
+.find_uvr_path(install_dir = .get_home_dir(), check_path = TRUE)
+}
+\arguments{
+\item{install_dir}{Directory to install into (default: home directory).}
+
+\item{check_path}{If \code{TRUE}, check the PATH first.}
 }
 \value{
 Path string or NULL if not found.

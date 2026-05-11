@@ -1,5 +1,12 @@
 test_that("install_uvr works", {
-  expect_no_error(install_uvr(force = TRUE))
+  temp_dir <- dirname(tempfile()) |> file.path("uvr-test")
+  dir.create(temp_dir, recursive = TRUE)
+  on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
+
+  expect_no_error(install_uvr(install_dir = temp_dir))
+  expect_true(file.exists(
+    file.path(temp_dir, ".cargo", "bin", .get_bin_name())
+  ))
 })
 
 test_that("install_uvr returns early when already installed", {
@@ -18,7 +25,7 @@ test_that("install_uvr(method='binary') stops when no binary available", {
     .env = asNamespace("uvr")
   )
   expect_error(
-    install_uvr(method = "binary", force = TRUE),
+    install_uvr(method = "binary"),
     "No pre-built binary"
   )
 })

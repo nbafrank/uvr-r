@@ -1,8 +1,8 @@
 test_that("init works", {
-  path <- setup_uvr_test() # installs uvr if needed
   temp_dir <- dirname(tempfile()) |> file.path("uvr-test")
   dir.create(temp_dir, recursive = TRUE)
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
+  path <- setup_uvr_test(temp_dir = temp_dir) # installs uvr if needed
 
   # init runs without error and library directory is created
   expect_no_error(init(bin = path, dir = temp_dir))

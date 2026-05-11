@@ -4,10 +4,16 @@
 \alias{.install_via_cargo}
 \title{Install uvr via cargo}
 \usage{
-.install_via_cargo(tag = "latest", force = FALSE)
+.install_via_cargo(
+  tag = "latest",
+  install_dir = .get_home_dir(),
+  force = FALSE
+)
 }
 \arguments{
 \item{tag}{Release tag, e.g. "v1.0.0". Defaults to latest release.}
+
+\item{install_dir}{Directory to install into (default: home directory).}
 }
 \value{
 Invisible path to the installed binary.

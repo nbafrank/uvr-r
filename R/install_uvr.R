@@ -11,6 +11,7 @@
 #' \code{"cargo"} builds from source only.
 #' @param force If \code{TRUE}, reinstall even if uvr is already present.
 #' @inheritParams .get_release_details
+#' @inheritParams .try_install_binary
 #'
 #' @return Invisible path to the installed binary.
 #' @export
@@ -25,16 +26,23 @@
 install_uvr <- function(
   tag = "latest",
   method = c("auto", "binary", "cargo"),
+  install_dir = NULL,
   force = FALSE
 ) {
   method <- match.arg(method)
   stopifnot(
     is.character(tag) && length(tag) == 1L,
-    is.logical(force) && length(force) == 1L
+    is.logical(force) && length(force) == 1L,
+    is.null(install_dir) ||
+      (is.character(install_dir) && length(install_dir) == 1L)
   )
 
+  if (is.null(install_dir)) {
+    install_dir <- .get_home_dir()
+  }
+
   if (!isTRUE(force)) {
-    existing <- .find_uvr_path()
+    existing <- .find_uvr_path(install_dir = install_dir, check_path = FALSE)
     if (!is.null(existing)) {
       message("uvr is already installed at: ", existing)
       message("Use `uvr::install_uvr(force = TRUE)` to reinstall.")
@@ -43,7 +51,7 @@ install_uvr <- function(
   }
 
   if (method == "auto" || method == "binary") {
-    path <- .try_install_binary(tag = tag)
+    path <- .try_install_binary(tag = tag, install_dir = install_dir)
     if (!is.null(path)) {
       message("uvr installed successfully at: ", path)
       return(invisible(path))
@@ -54,14 +62,15 @@ install_uvr <- function(
   }
 
   # Fall back to cargo install
-  .install_via_cargo(tag = tag, force = force)
+  .install_via_cargo(tag = tag, install_dir = install_dir, force = force)
 }
 
 #' Try to download a pre-built binary from GitHub releases
+#' @param install_dir Directory to install into (default: home directory).
 #' @inheritParams .get_release_details
 #' @return Path to binary or NULL if unavailable.
 #' @keywords internal
-.try_install_binary <- function(tag = "latest") {
+.try_install_binary <- function(tag = "latest", install_dir = .get_home_dir()) {
   stopifnot(is.character(tag) && length(tag) == 1L)
 
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
@@ -77,19 +86,24 @@ install_uvr <- function(
     return(NULL)
   }
   download_url <- release$asset$browser_download_url[1L]
-  dest_dir <- file.path(.get_home_dir(), ".cargo", "bin")
+  dest_dir <- file.path(install_dir, ".cargo", "bin")
   .get_and_extract_binary(download_url = download_url, dest_dir = dest_dir)
 }
 
 #' Install uvr via cargo
 #' @inheritParams .get_release_details
+#' @inheritParams .try_install_binary
 #' @return Invisible path to the installed binary.
 #' @keywords internal
-.install_via_cargo <- function(tag = "latest", force = FALSE) {
+.install_via_cargo <- function(
+  tag = "latest",
+  install_dir = .get_home_dir(),
+  force = FALSE
+) {
   cargo <- Sys.which("cargo")
   if (!nzchar(cargo)) {
     # Check common location
-    cargo_candidate <- file.path(.get_home_dir(), ".cargo", "bin", "cargo")
+    cargo_candidate <- file.path(install_dir, ".cargo", "bin", "cargo")
     if (.Platform$OS.type == "windows") {
       cargo_candidate <- paste0(cargo_candidate, ".exe")
     }
@@ -118,7 +132,7 @@ install_uvr <- function(
     stop("cargo install failed with exit code ", return_code, call. = FALSE)
   }
 
-  path <- file.path(.get_home_dir(), ".cargo", "bin", .get_bin_name())
+  path <- file.path(install_dir, ".cargo", "bin", .get_bin_name())
   if (!file.exists(path)) {
     stop(
       "cargo install succeeded but uvr binary not found at expected location.",

@@ -3,10 +3,11 @@
 #' Searches for the \code{uvr} executable on the system PATH and common
 #' installation locations. Stops with a helpful message if not found.
 #'
+#' @inheritParams .find_uvr_path
 #' @return The path to the \code{uvr} binary (character string).
 #' @keywords internal
-find_uvr <- function() {
-  path <- .find_uvr_path()
+find_uvr <- function(check_path = TRUE) {
+  path <- .find_uvr_path(check_path = check_path)
   if (!is.null(path)) {
     return(path)
   }
@@ -29,19 +30,21 @@ find_uvr <- function() {
 }
 
 #' Search common locations for the uvr binary
+#' @inheritParams install_uvr
+#' @param check_path If \code{TRUE}, check the PATH first.
 #' @return Path string or NULL if not found.
 #' @keywords internal
-.find_uvr_path <- function() {
+.find_uvr_path <- function(install_dir = .get_home_dir(), check_path = TRUE) {
   bin_name <- .get_bin_name()
 
   # Check PATH first
   path <- Sys.which(bin_name)
-  if (nzchar(path) && file.exists(path)) {
+  if (check_path && nzchar(path) && file.exists(path)) {
     return(unname(path))
   }
 
   # Check common install locations
-  candidates <- .get_home_dir() |>
+  candidates <- install_dir |>
     file.path(c(".cargo", ".local"), "bin", bin_name)
   if (.Platform$OS.type == "windows") {
     appdata_path <- Sys.getenv("LOCALAPPDATA") |>

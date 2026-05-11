@@ -4,7 +4,10 @@
 \alias{find_uvr}
 \title{Find the uvr binary}
 \usage{
-find_uvr()
+find_uvr(check_path = TRUE)
+}
+\arguments{
+\item{check_path}{If \code{TRUE}, check the PATH first.}
 }
 \value{
 The path to the \code{uvr} binary (character string).

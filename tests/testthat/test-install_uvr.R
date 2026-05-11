@@ -1,6 +1,5 @@
 test_that("install_uvr works", {
-  temp_dir <- dirname(tempfile()) |> file.path("uvr-test")
-  dir.create(temp_dir, recursive = TRUE)
+  temp_dir <- .make_temp_dir()
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
 
   expect_no_error(install_uvr(install_dir = temp_dir))

@@ -5,3 +5,8 @@ setup_uvr_test <- function(temp_dir = NULL, force = FALSE) {
   }
   invisible(path)
 }
+
+.make_temp_dir <- function(name = "uvr-test") {
+  dirname(tempfile()) |> file.path(name)
+  dir.create(temp_dir, recursive = TRUE)
+}

@@ -4,7 +4,8 @@
 #' and the underlying \code{uvr} CLI binary in one call.
 #'
 #' The function does \emph{not} automatically restart your R session. After
-#' it completes, you will need to restart R to load the newly installed package.
+#' it completes, you will need to restart R to load the newly installed package 
+#' (i.e. \code{.rs.restartR()} (RStudio) or \code{rstudioapi::restartSession()}.
 #'
 #' @param quiet If \code{TRUE}, suppress progress messages.
 #' @inheritParams install_uvr
@@ -62,8 +63,13 @@ update_uvr <- function(
       "\n  CLI binary: ",
       bin,
       "\n",
-      "\nRestart your R session to use the updated package."
+      "\nRestart your R session to use the updated package:"
     )
+    if (nzchar(Sys.getenv("RSTUDIO"))) {
+      message("  rstudioapi::restartSession()  # or Ctrl/Cmd+Shift+F10")
+    } else {
+      message("  q(\"no\"); R  # or restart R")
+    }
   }
   invisible(list(r_package = r_pkg_version, binary = bin))
 }

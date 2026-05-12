@@ -15,9 +15,9 @@
 #' }
 lock <- function(upgrade = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
-    is.logical(upgrade) && length(upgrade) == 1L,
+    is.logical(upgrade) && !is.na(upgrade) && length(upgrade) == 1L,
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- "lock"

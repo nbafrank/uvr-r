@@ -9,7 +9,7 @@
 cache_clean <- function(bin = NULL, quiet = FALSE) {
   stopifnot(
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- c("cache", "clean")

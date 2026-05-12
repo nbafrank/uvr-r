@@ -19,11 +19,11 @@ add <- function(
 ) {
   stopifnot(
     is.character(packages) && length(packages) > 0L,
-    is.logical(dev) && length(dev) == 1L,
-    is.logical(bioc) && length(bioc) == 1L,
+    is.logical(dev) && !is.na(dev) && length(dev) == 1L,
+    is.logical(bioc) && !is.na(bioc) && length(bioc) == 1L,
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- c("add", packages)

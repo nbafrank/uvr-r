@@ -28,7 +28,7 @@ update_uvr <- function(
   stopifnot(
     is.character(ref) && length(ref) == 1L,
     is.character(method) && length(method) == 1L,
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   if (is.null(install_dir)) {

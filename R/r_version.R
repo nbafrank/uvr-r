@@ -11,7 +11,7 @@ r_install <- function(version, bin = NULL, quiet = FALSE) {
   stopifnot(
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.character(version) && length(version) == 1L,
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- c("r", "install", version)
@@ -31,8 +31,8 @@ r_install <- function(version, bin = NULL, quiet = FALSE) {
 r_list <- function(all = FALSE, bin = NULL, quiet = FALSE) {
   stopifnot(
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.logical(all) && length(all) == 1L,
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(all) && !is.na(all) && length(all) == 1L,
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- c("r", "list")
@@ -56,7 +56,7 @@ r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
     is.character(version) && length(version) == 1L,
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- c("r", "use", version)
@@ -77,7 +77,7 @@ r_pin <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
     is.character(version) && length(version) == 1L,
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- c("r", "pin", version)

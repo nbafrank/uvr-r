@@ -26,7 +26,7 @@ run <- function(
     is.character(args) && length(args) >= 0L,
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   cli_args <- c("run", script)

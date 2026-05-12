@@ -32,7 +32,7 @@ install_uvr <- function(
   method <- match.arg(method)
   stopifnot(
     is.character(tag) && length(tag) == 1L,
-    is.logical(force) && length(force) == 1L,
+    is.logical(force) && !is.na(force) && length(force) == 1L,
     is.null(install_dir) ||
       (is.character(install_dir) && length(install_dir) == 1L)
   )

@@ -11,7 +11,7 @@ completions <- function(shell, bin = NULL, quiet = FALSE) {
     length(shell) == 1L,
     shell %in% c("bash", "zsh", "fish", "powershell"),
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- c("completions", shell)

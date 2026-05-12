@@ -26,7 +26,7 @@ init <- function(
     is.null(r_version) || (is.character(r_version) && length(r_version) == 1L),
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && length(quiet) == 1L
+    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   args <- "init"

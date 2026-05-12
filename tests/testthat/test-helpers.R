@@ -10,6 +10,11 @@ test_that(".get_bin_name handles windows .exe suffix", {
   expect_equal(.get_bin_name(os_type = "windows"), "uvr.exe")
 })
 
+test_that(".get_bin_name handles bins other than `uvr`", {
+  expect_equal(.get_bin_name("cargo", os_type = "unix"), "cargo")
+  expect_equal(.get_bin_name("cargo", os_type = "windows"), "cargo.exe")
+})
+
 test_that(".get_home_dir works", {
   home <- expect_no_error(.get_home_dir())
   expect_type(home, "character")

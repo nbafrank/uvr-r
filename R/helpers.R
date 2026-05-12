@@ -1,9 +1,10 @@
-#' Get the name of the uvr binary
+#' Get the name of a binary for Unix or Windows (+".exe")
+#' @param name Name of binary to return OS-specific name for (default: "uvr")
 #' @param os_type OS type, defaults to \code{.Platform$OS.type}.
-#' @return Name of the uvr binary (either "uvr" or "uvr.exe").
+#' @return OS-specific name of the binary (i.e. "uvr" or "uvr.exe").
 #' @keywords internal
-.get_bin_name <- function(os_type = .Platform$OS.type) {
-  if (os_type == "windows") "uvr.exe" else "uvr"
+.get_bin_name <- function(name = "uvr", os_type = .Platform$OS.type) {
+  paste0(name, if (os_type == "windows") ".exe" else "")
 }
 
 #' Return HOME/USER directory

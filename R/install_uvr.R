@@ -102,14 +102,8 @@ install_uvr <- function(
 ) {
   cargo <- Sys.which("cargo")
   if (!nzchar(cargo)) {
-    # Check common location
-    cargo_candidate <- file.path(install_dir, ".cargo", "bin", "cargo")
-    if (.Platform$OS.type == "windows") {
-      cargo_candidate <- paste0(cargo_candidate, ".exe")
-    }
-    if (file.exists(cargo_candidate)) {
-      cargo <- cargo_candidate
-    } else {
+    cargo <- file.path(install_dir, ".cargo", "bin", .get_bin_name("cargo"))
+    if (!file.exists(cargo)) {
       stop(
         "Neither uvr binary nor cargo found.\n",
         "Install Rust first: https://rustup.rs\n",

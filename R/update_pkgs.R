@@ -5,7 +5,7 @@
 #' \code{sync()}. Equivalent to running \code{uvr lock --upgrade && uvr sync}
 #' on the command line.
 #'
-#' @param sync If \code{TRUE}, install the updated packages using \code{sync()}.
+#' @param do_sync If \code{TRUE}, install the updated packages using \code{sync()}.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
 #' @export
@@ -17,14 +17,14 @@
 #' # Don't install updated packages, just update the lockfile
 #' update_pkgs(sync = FALSE)
 #' }
-update_pkgs <- function(sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE) {
+update_pkgs <- function(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
-    is.logical(sync) && !is.na(sync) && length(sync) == 1L,
+    is.logical(do_sync) && !is.na(do_sync) && length(do_sync) == 1L,
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
   lock(upgrade = TRUE, bin = bin, dir = dir, quiet = quiet)
-  if (isTRUE(sync)) sync(bin = bin, dir = dir, quiet = quiet)
+  if (isTRUE(do_sync)) sync(bin = bin, dir = dir, quiet = quiet)
 }

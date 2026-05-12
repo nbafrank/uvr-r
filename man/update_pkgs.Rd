@@ -4,10 +4,10 @@
 \alias{update_pkgs}
 \title{Update installed packages to the latest allowed versions}
 \usage{
-update_pkgs(sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE)
+update_pkgs(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
-\item{sync}{If \code{TRUE}, install the updated packages using \code{sync()}.}
+\item{do_sync}{If \code{TRUE}, install the updated packages using \code{sync()}.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

@@ -9,23 +9,21 @@ test_that("install_uvr works", {
 })
 
 test_that("install_uvr returns early when already installed", {
-  local_mocked_bindings(
-    .find_uvr_path = \(...) "path/to/uvr",
-    .env = asNamespace("uvr")
+  with_mocked_bindings(
+    expect_message(install_uvr(force = FALSE), "already installed"),
+    .find_uvr_path = \(...) "path/to/uvr"
   )
-  expect_message(install_uvr(force = FALSE), "already installed")
 })
 
 test_that("install_uvr(method='binary') stops when no binary available", {
   # Mock .try_install_binary and .find_uvr_path to return NULL
-  local_mocked_bindings(
+  with_mocked_bindings(
+    expect_error(
+      install_uvr(method = "binary"),
+      "No pre-built binary"
+    ),
     .find_uvr_path = \(...) NULL,
-    .try_install_binary = \(...) NULL,
-    .env = asNamespace("uvr")
-  )
-  expect_error(
-    install_uvr(method = "binary"),
-    "No pre-built binary"
+    .try_install_binary = \(...) NULL
   )
 })
 

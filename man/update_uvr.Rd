@@ -4,7 +4,13 @@
 \alias{update_uvr}
 \title{Update uvr (R package + CLI binary)}
 \usage{
-update_uvr(ref = "HEAD", method = "auto", install_dir = NULL, quiet = FALSE)
+update_uvr(
+  ref = "HEAD",
+  method = "auto",
+  install_dir = NULL,
+  package_dir = .libPaths()[1],
+  quiet = FALSE
+)
 }
 \arguments{
 \item{ref}{Git ref (branch, tag, commit SHA) to install the R package from.
@@ -16,6 +22,8 @@ GitHub release binary first, then falls back to building from source via
 \code{"cargo"} builds from source only.}
 
 \item{install_dir}{Directory to install into (default: home directory).}
+
+\item{package_dir}{Path to the library directory where to install/update the package.}
 
 \item{quiet}{If \code{TRUE}, suppress progress messages.}
 }

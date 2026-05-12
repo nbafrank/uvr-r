@@ -21,6 +21,7 @@ update_uvr <- function(
   ref = "HEAD",
   method = "auto",
   install_dir = NULL,
+  package_dir = .libPaths()[1],
   quiet = FALSE
 ) {
   stopifnot(
@@ -37,7 +38,7 @@ update_uvr <- function(
   if (!quiet) {
     message("Updating uvr R package from GitHub (ref: ", ref, ")...")
   }
-  .update_uvr_pkg(ref = ref)
+  .update_uvr_pkg(ref = ref, package_dir = package_dir)
 
   # Update CLI binary
   if (!quiet) {
@@ -69,8 +70,9 @@ update_uvr <- function(
 #' Update uvr R package
 #' @param ref Git ref (branch, tag, commit SHA) to install the R package from.
 #'   Defaults to the default branch (\code{"HEAD"}).
+#' @param package_dir Path to the library directory where to install/update the package.
 #' @keywords internal
-.update_uvr_pkg <- function(ref = "HEAD") {
+.update_uvr_pkg <- function(ref = "HEAD", package_dir = .libPaths()[1]) {
   repo_spec <- if (identical(ref, "HEAD") || is.null(ref)) {
     "nbafrank/uvr-r"
   } else {
@@ -80,9 +82,9 @@ update_uvr <- function(
   # Prefer pak if available (faster, better diagnostics); fall back to remotes
   r_pkg_version <- NA_character_
   if (requireNamespace("pak", quietly = TRUE)) {
-    pak::pak(repo_spec)
+    pak::pak(repo_spec, lib = package_dir)
   } else if (requireNamespace("remotes", quietly = TRUE)) {
-    remotes::install_github(repo_spec)
+    remotes::install_github(repo_spec, lib = package_dir)
   } else {
     stop(
       "Could not update the uvr R package. Install either the {pak} or {remotes} package first:\n",

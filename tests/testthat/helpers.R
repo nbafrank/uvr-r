@@ -1,7 +1,11 @@
-setup_uvr_test <- function(temp_dir = NULL, force = FALSE) {
-  path <- try(find_uvr())
-  if (!nzchar(path)) {
-    path <- install_uvr(tag = "latest", install_dir = temp_dir, force = force)
+setup_uvr_test <- function(temp_dir = NULL, check_existing = TRUE) {
+  path <- if (check_existing) {
+    try(find_uvr())
+  }else {
+    FALSE
+  }
+  if (!check_existing || !nzchar(path)) {
+    path <- install_uvr(tag = "latest", install_dir = temp_dir)
   }
   invisible(path)
 }

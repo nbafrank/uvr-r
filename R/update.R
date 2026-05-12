@@ -17,12 +17,21 @@
 #' update_uvr()
 #' # then restart R to pick up the new package
 #' }
-update_uvr <- function(ref = "HEAD", method = "auto", quiet = FALSE) {
+update_uvr <- function(
+  ref = "HEAD",
+  method = "auto",
+  install_dir = NULL,
+  quiet = FALSE
+) {
   stopifnot(
     is.character(ref) && length(ref) == 1L,
     is.character(method) && length(method) == 1L,
     is.logical(quiet) && length(quiet) == 1L
   )
+
+  if (is.null(install_dir)) {
+    install_dir <- .get_home_dir()
+  }
 
   # Update R package
   if (!quiet) {
@@ -34,7 +43,7 @@ update_uvr <- function(ref = "HEAD", method = "auto", quiet = FALSE) {
   if (!quiet) {
     message("Updating uvr CLI binary...")
   }
-  bin <- install_uvr(method = method, force = TRUE)
+  bin <- install_uvr(method = method, install_dir = install_dir, force = TRUE)
 
   # Query version without loading (DESCRIPTION already on disk post-install)
   r_pkg_version <- tryCatch(

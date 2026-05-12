@@ -19,11 +19,12 @@
 #' }
 update_uvr <- function(
   ref = "HEAD",
-  method = "auto",
+  method = c("auto", "binary", "cargo"),
   install_dir = NULL,
   package_dir = .libPaths()[1],
   quiet = FALSE
 ) {
+  method <- match.arg(method)
   stopifnot(
     is.character(ref) && length(ref) == 1L,
     is.character(method) && length(method) == 1L,

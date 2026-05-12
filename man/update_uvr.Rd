@@ -6,7 +6,7 @@
 \usage{
 update_uvr(
   ref = "HEAD",
-  method = "auto",
+  method = c("auto", "binary", "cargo"),
   install_dir = NULL,
   package_dir = .libPaths()[1],
   quiet = FALSE

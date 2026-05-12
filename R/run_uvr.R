@@ -26,18 +26,18 @@ run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {
     on.exit(setwd(old_wd), add = TRUE)
   }
 
-  if (isTRUE(quiet)) {
-    output <- system2(bin, args, stdout = TRUE, stderr = TRUE)
-    return_code <- attr(output, "status") %||% 0L
-  } else {
-    output <- system2(bin, args, stdout = TRUE, stderr = TRUE)
-    cat(output, sep = "\n")
-    return_code <- attr(output, "status") %||% 0L
+  result <- .run_and_capture(bin = bin, args = args, quiet = quiet)
+  if (result$return_code != 0L) {
+    if (quiet && length(result$stderr) > 0L) {
+      cat(
+        paste(result$stderr, collapse = "\n"),
+        "\n",
+        file = stderr(),
+        sep = ""
+      )
+    }
+    stop(sprintf("uvr exited with code %d", result$return_code), call. = FALSE)
   }
 
-  if (!is.null(attr(output, "status")) && return_code != 0L) {
-    stop("uvr exited with code ", return_code, call. = FALSE)
-  }
-
-  invisible(output)
+  invisible(result$stdout)
 }

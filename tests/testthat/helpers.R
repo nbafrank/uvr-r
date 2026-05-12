@@ -5,6 +5,8 @@ setup_uvr_test <- function(temp_dir = NULL, check_existing = TRUE) {
     FALSE
   }
   if (!check_existing || !nzchar(path)) {
+    testthat::skip_on_cran()
+    testthat::skip_if_offline()
     path <- install_uvr(tag = "latest", install_dir = temp_dir)
   }
   invisible(path)

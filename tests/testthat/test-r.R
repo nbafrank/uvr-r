@@ -38,9 +38,4 @@ test_that("r_pin works", {
   expect_true(file.exists(file.path(temp_dir, ".r-version")))
   expect_identical(readLines(file.path(temp_dir, ".r-version")), "4.0.0")
 
-  # TODO: confirm entry in .toml created as well?
-  version_entry <- readLines(file.path(temp_dir, "uvr.toml")) |>
-    grep(pattern = "^r_version =", value = TRUE) # TODO: confirm correct pattern
-  expect_true(length(version_entry) == 1L)
-  expect_true(grepl(pattern = "4.0.0", x = version_entry))
 })

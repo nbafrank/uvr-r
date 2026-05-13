@@ -1,5 +1,6 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# BN: added stage to install uvr binary
 on:
   push:
     branches: [main, master]
@@ -38,6 +39,40 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
+
+      - name: Install uvr
+        shell: bash
+        run: |
+          VERSION=$(curl -fsSL \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/nbafrank/uvr/releases/latest \
+            | grep '"tag_name"' \
+            | sed -E 's/.*"tag_name": *"([^"]+)".*/\1/')
+
+          OS="${{ runner.os }}"
+          case "$OS" in
+            Linux)   ASSET="uvr-x86_64-unknown-linux-musl.tar.gz" ;;
+            macOS)   ASSET="uvr-aarch64-apple-darwin.tar.gz" ;;
+            Windows) ASSET="uvr-x86_64-pc-windows-msvc.zip" ;;
+          esac
+
+          curl -fsSL \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -O "https://github.com/nbafrank/uvr/releases/download/${VERSION}/${ASSET}"
+
+          case "$OS" in
+            Linux|macOS)
+              tar -xzf "${ASSET}"
+              chmod +x uvr
+              sudo mv uvr /usr/local/bin/uvr
+              ;;
+            Windows)
+              unzip "${ASSET}"
+              mkdir -p "$LOCALAPPDATA/uvr"
+              mv uvr.exe "$LOCALAPPDATA/uvr/uvr.exe"
+              echo "$LOCALAPPDATA/uvr" >> "$GITHUB_PATH"
+              ;;
+          esac
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:

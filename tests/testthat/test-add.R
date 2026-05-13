@@ -7,6 +7,7 @@ test_that("add works and errors on empty packages", {
   expect_error(add(character(0), quiet = TRUE), "length\\(packages\\) > 0L")
 
   # Case: add github repo with mismatch pkgname/repo name (i.e nbafrank/uvr-r -> uvr)
+  skip("waiting on 0.3.5 release of uvr with relevant fix")
   expect_no_error(
     add("nbafrank/uvr-r", bin = path, dir = temp_dir, quiet = TRUE)
   )

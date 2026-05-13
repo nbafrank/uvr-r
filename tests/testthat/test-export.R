@@ -17,5 +17,5 @@ test_that("export works and can output to any file name", {
   expect_no_error(
     export(out_file = "renv.test", bin = path, dir = temp_dir, quiet = TRUE)
   )
-  expect_true(file.exists(file.path(temp_dir, "renv-test.locktest")))
+  expect_true(file.exists(file.path(temp_dir, "renv.test")))
 })

@@ -4,7 +4,7 @@ test_that("init works", {
   path <- setup_uvr_test(temp_dir = temp_dir) # installs uvr if needed
 
   # init runs without error and library directory is created
-  expect_no_error(init(bin = path, dir = temp_dir))
+  expect_no_error(init(bin = path, dir = temp_dir, quiet = TRUE))
   expect_true(dir.exists(file.path(temp_dir, ".uvr/library")))
 
   # basic uvr.toml is created and is formatted as expected
@@ -22,7 +22,7 @@ test_that("init works", {
     expect_snapshot()
 
   # .Rprofile runs without error
-  uvr::run(script = ".Rprofile", bin = path, dir = temp_dir) |>
+  uvr::run(script = ".Rprofile", bin = path, dir = temp_dir, quiet = TRUE) |>
     expect_no_error()
 })
 

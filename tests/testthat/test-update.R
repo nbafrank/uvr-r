@@ -8,10 +8,9 @@ test_that("update_uvr works", {
   package_dir <- file.path(temp_dir, ".uvr/library")
   dir.create(package_dir, showWarnings = FALSE, recursive = TRUE)
 
-  expect_no_error(update_uvr(
-    install_dir = temp_dir,
-    package_dir = package_dir
-  ))
+  expect_no_error(
+    update_uvr(install_dir = temp_dir, package_dir = package_dir, quiet = TRUE)
+  )
 
   expect_contains(list.files(package_dir), "uvr")
 

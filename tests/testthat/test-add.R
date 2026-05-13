@@ -3,12 +3,14 @@ test_that("add works and errors on empty packages", {
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
   path <- setup_uvr_test(temp_dir = temp_dir) # installs uvr if needed
 
-  init(bin = path, dir = temp_dir)
-  expect_no_error(add("jsonlite", bin = path, dir = temp_dir))
-  expect_error(add(character(0)), "length\\(packages\\) > 0L")
+  init(bin = path, dir = temp_dir, quiet = TRUE)
+  expect_no_error(add("jsonlite", bin = path, dir = temp_dir, quiet = TRUE))
+  expect_error(add(character(0), quiet = TRUE), "length\\(packages\\) > 0L")
 
   # Case: add github repo with mismatch pkgname/repo name (i.e nbafrank/uvr-r -> uvr)
-  expect_no_error(add("nbafrank/uvr-r", bin = path, dir = temp_dir))
+  expect_no_error(
+    add("nbafrank/uvr-r", bin = path, dir = temp_dir, quiet = TRUE)
+  )
 
   # TODO: test that package added correctly
 })

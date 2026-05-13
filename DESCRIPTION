@@ -14,6 +14,7 @@ Depends: R (>= 4.1.0)
 Imports:
     processx
 Suggests:
+    curl,
     jsonlite,
     pak,
     remotes,

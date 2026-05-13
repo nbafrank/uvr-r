@@ -1,13 +1,28 @@
-setup_uvr_test <- function(temp_dir = NULL, check_existing = TRUE) {
+setup_uvr_test <- function(
+  temp_dir,
+  check_existing = TRUE,
+  init = FALSE,
+  add = FALSE
+) {
   path <- if (check_existing) {
     try(find_uvr())
-  }else {
+  } else {
     FALSE
   }
   if (!check_existing || !nzchar(path)) {
     testthat::skip_on_cran()
     testthat::skip_if_offline()
     path <- install_uvr(tag = "latest", install_dir = temp_dir)
+  }
+  if (isTRUE(init)) {
+    init(bin = path, dir = temp_dir, quiet = TRUE)
+  }
+  if (isTRUE(add)) {
+    if (isFALSE(init)) {
+      warning("add = TRUE requires init = TRUE - skipping add()")
+    } else {
+      add("jsonlite", bin = path, dir = temp_dir, quiet = TRUE)
+    }
   }
   invisible(path)
 }

@@ -1,10 +1,7 @@
 test_that("export works and can output to any file name", {
   temp_dir <- .make_temp_dir()
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
-  path <- setup_uvr_test(temp_dir = temp_dir) # installs uvr if needed
-
-  init(bin = path, dir = temp_dir, quiet = TRUE)
-  add("jsonlite", bin = path, dir = temp_dir, quiet = TRUE)
+  path <- setup_uvr_test(temp_dir = temp_dir, init = TRUE, add = TRUE) # installs uvr if needed
 
   # cli output, no file created
   x <- expect_no_error(export(bin = path, dir = temp_dir, quiet = TRUE))

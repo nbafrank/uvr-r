@@ -7,5 +7,8 @@ test_that("add works and errors on empty packages", {
   expect_no_error(add("jsonlite", bin = path, dir = temp_dir))
   expect_error(add(character(0)), "length\\(packages\\) > 0L")
 
+  # Case: add github repo with mismatch pkgname/repo name (i.e nbafrank/uvr-r -> uvr)
+  expect_no_error(add("nbafrank/uvr-r", bin = path, dir = temp_dir))
+
   # TODO: test that package added correctly
 })

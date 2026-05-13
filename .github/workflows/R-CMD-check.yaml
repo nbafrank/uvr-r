@@ -40,7 +40,8 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
 
-      - name: Install uvr
+      - name: Install uvr (Linux/macOS)
+        if: runner.os != 'Windows'
         shell: bash
         run: |
           VERSION=$(curl -fsSL \
@@ -49,32 +50,43 @@ jobs:
             | grep '"tag_name"' \
             | sed -E 's/.*"tag_name": *"([^"]+)".*/\1/')
 
-          OS="${{ runner.os }}"
-          case "$OS" in
-            Linux)   ASSET="uvr-x86_64-unknown-linux-musl.tar.gz" ;;
-            macOS)   ASSET="uvr-aarch64-apple-darwin.tar.gz" ;;
-            Windows) ASSET="uvr-x86_64-pc-windows-msvc.zip" ;;
+          case "${{ runner.os }}" in
+            Linux) ASSET="uvr-x86_64-unknown-linux-musl.tar.gz" ;;
+            macOS) ASSET="uvr-aarch64-apple-darwin.tar.gz" ;;
           esac
 
           UVR_TMP=$(mktemp -d)
           curl -fsSL \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -o "$UVR_TMP/${ASSET}" \
+            -o "${UVR_TMP}/${ASSET}" \
             "https://github.com/nbafrank/uvr/releases/download/${VERSION}/${ASSET}"
 
-          case "$OS" in
-            Linux|macOS)
-              tar -xzf "${ASSET}" -C "$UVR_TMP"
-              chmod +x uvr
-              sudo mv uvr /usr/local/bin/uvr
-              ;;
-            Windows)
-              unzip "${ASSET}" -d "$UVR_TMP"
-              mkdir -p "$LOCALAPPDATA/uvr"
-              mv uvr.exe "$LOCALAPPDATA/uvr/uvr.exe"
-              echo "$LOCALAPPDATA/uvr" >> "$GITHUB_PATH"
-              ;;
-          esac
+          tar -xzf "${UVR_TMP}/${ASSET}" -C "${UVR_TMP}"
+          chmod +x "${UVR_TMP}/uvr"
+          sudo mv "${UVR_TMP}/uvr" /usr/local/bin/uvr
+
+      - name: Install uvr (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $version = (Invoke-RestMethod `
+            -Headers @{ Authorization = "Bearer ${{ secrets.GITHUB_TOKEN }}" } `
+            "https://api.github.com/repos/nbafrank/uvr/releases/latest").tag_name
+
+          $asset = "uvr-x86_64-pc-windows-msvc.zip"
+          $tmp = New-TemporaryFile | ForEach-Object { Remove-Item $_; New-Item -ItemType Directory -Path "$_.dir" }
+          $zipPath = Join-Path $tmp $asset
+
+          Invoke-WebRequest `
+            -Headers @{ Authorization = "Bearer ${{ secrets.GITHUB_TOKEN }}" } `
+            -Uri "https://github.com/nbafrank/uvr/releases/download/$version/$asset" `
+            -OutFile $zipPath
+
+          Expand-Archive -Path $zipPath -DestinationPath $tmp
+          $installDir = "$env:LOCALAPPDATA\uvr"
+          New-Item -ItemType Directory -Force -Path $installDir | Out-Null
+          Move-Item (Join-Path $tmp "uvr.exe") (Join-Path $installDir "uvr.exe")
+          echo $installDir >> $env:GITHUB_PATH
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:

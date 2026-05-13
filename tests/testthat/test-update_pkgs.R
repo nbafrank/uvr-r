@@ -6,7 +6,7 @@ test_that("update_pkgs works", {
   init(bin = path, dir = temp_dir)
   add("jsonlite", bin = path, dir = temp_dir)
 
-  expect_no_error(update_pkgs(sync = FALSE, bin = path, dir = temp_dir))
+  expect_no_error(update_pkgs(do_sync = FALSE, bin = path, dir = temp_dir))
   expect_no_error(update_pkgs(bin = path, dir = temp_dir))
   # TODO: inspect files
 })

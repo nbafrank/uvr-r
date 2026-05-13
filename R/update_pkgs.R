@@ -15,7 +15,7 @@
 #' update_pkgs()
 #'
 #' # Don't install updated packages, just update the lockfile
-#' update_pkgs(sync = FALSE)
+#' update_pkgs(do_sync = FALSE)
 #' }
 update_pkgs <- function(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(

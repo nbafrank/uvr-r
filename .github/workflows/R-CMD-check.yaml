@@ -40,7 +40,12 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
-
+      - name: Debug R platform info
+        shell: Rscript {0}
+        run: |
+          cat("OS.type:", .Platform$OS.type, "\n")
+          cat("machine:", Sys.info()[["machine"]], "\n")
+          cat("sysname:", Sys.info()[["sysname"]], "\n")
       - name: Install uvr (Linux/macOS)
         if: runner.os != 'Windows'
         shell: bash

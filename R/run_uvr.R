@@ -7,7 +7,7 @@
 #' @param bin Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.
 #' @param dir Optional working directory. Defaults to \code{getwd()}.
 #' @param quiet If \code{TRUE}, suppress output.
-#' @return The output of the `system2()` call to `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
+#' @return The output from `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
 #' @keywords internal
 run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
@@ -29,7 +29,7 @@ run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {
   result <- .run_and_capture(bin = bin, args = args, quiet = quiet)
   if (result$return_code != 0L) {
     if (quiet && length(result$stderr) > 0L) {
-      cat(
+      message(
         paste(result$stderr, collapse = "\n"),
         "\n",
         file = stderr(),

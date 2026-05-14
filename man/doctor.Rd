@@ -14,7 +14,7 @@ doctor(bin = NULL, dir = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-The output of the `system2()` call to `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
+The output from `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
 }
 \description{
 Equivalent to \code{uvr doctor} on the command line.

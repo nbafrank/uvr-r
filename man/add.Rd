@@ -38,7 +38,7 @@ which is equivalent to \code{"~/.uvr/cache/"} if environmental variable \code{UV
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-The output of the `system2()` call to `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
+The output from `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
 }
 \description{
 Adds one or more packages to the manifest, updates the lockfile, and

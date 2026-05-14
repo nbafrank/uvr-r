@@ -37,7 +37,7 @@ and the underlying \code{uvr} CLI binary in one call.
 }
 \details{
 The function does \emph{not} automatically restart your R session. After
-it completes, you will need to restart R to load the newly installed package 
+it completes, you will need to restart R to load the newly installed package
 (i.e. \code{.rs.restartR()} (RStudio) or \code{rstudioapi::restartSession()}.
 }
 \examples{

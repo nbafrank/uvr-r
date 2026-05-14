@@ -54,6 +54,6 @@ add <- function(
   } else if (isFALSE(do_install)) {
     args <- c(args, "--no-install")
   }
-  
+
   run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

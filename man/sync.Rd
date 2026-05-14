@@ -19,7 +19,7 @@ sync(
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 
-\item{cache_dir}{Path to a custom cache directory. Defaults to \code{NULL}, 
+\item{cache_dir}{Path to a custom cache directory. Defaults to \code{NULL},
 which is equivalent to \code{"~/.uvr/cache/"} if environmental variable \code{UVR_CACHE_DIR} is not set.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}

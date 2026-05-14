@@ -78,5 +78,5 @@ test_that("add works and errors on empty packages", {
       "checksum = \"git:xxx\""
     ))
 
-  # TODO: test do_lock set to TRUE, do_install set to TRUE
+  # TODO: test do_lock set to TRUE & do_install set to TRUE & cache_dir = file.path(temp_dir, ".uvr/cache")
 })

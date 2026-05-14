@@ -1,4 +1,5 @@
 test_that("add works and errors on empty packages", {
+  skip("waiting on 0.3.5 release of uvr with relevant fixes (--no-lock flag + uvr-r->uvr handling)")
   temp_dir <- .make_temp_dir()
   on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
   path <- setup_uvr_test(temp_dir = temp_dir, init = TRUE) # installs uvr if needed
@@ -37,7 +38,6 @@ test_that("add works and errors on empty packages", {
     ))
 
   # Case: add github repo with mismatch pkgname/repo name (i.e nbafrank/uvr-r -> uvr)
-  skip("waiting on 0.3.5 release of uvr with relevant fix")
   expect_no_error(
     add(
       "nbafrank/uvr-r",

@@ -21,6 +21,7 @@ setup_uvr_test <- function(
     if (isFALSE(init)) {
       warning("add = TRUE requires init = TRUE - skipping add()")
     } else {
+      skip("waiting on 0.3.5 release of uvr with relevant fixes (--no-lock flag)")
       add("jsonlite", do_install = FALSE, bin = path, dir = temp_dir, quiet = TRUE)
     }
   }

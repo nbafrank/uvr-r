@@ -28,6 +28,8 @@ add <- function(
     is.character(packages) && length(packages) > 0L,
     is.logical(dev) && !is.na(dev) && length(dev) == 1L,
     is.logical(bioc) && !is.na(bioc) && length(bioc) == 1L,
+    is.logical(do_install) && !is.na(do_install) && length(do_install) == 1L,
+    is.logical(do_lock) && !is.na(do_lock) && length(do_lock) == 1L,
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
     is.character(cache_dir) && length(cache_dir) == 1L,

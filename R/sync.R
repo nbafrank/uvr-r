@@ -17,21 +17,24 @@ sync <- function(
   frozen = FALSE,
   bin = NULL,
   dir = NULL,
-  cache_dir = "~/.uvr/cache/",
+  cache_dir = NULL,
   quiet = FALSE
 ) {
   stopifnot(
     is.logical(frozen) && !is.na(frozen) && length(frozen) == 1L,
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
     is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.character(cache_dir) && length(cache_dir) == 1L,
+    is.null(cache_dir) || (is.character(cache_dir) && length(cache_dir) == 1L),
     is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
+  env_cache_dir <- Sys.getenv("UVR_CACHE_DIR")
+  if (env_cache_dir == "") {
+    cache_dir <- cache_dir %||% "~/.uvr/cache/" # NULL swap
+  }
   if (cache_dir != "~/.uvr/cache/") {
-    old_dir <- Sys.getenv("UVR_CACHE_DIR")
     Sys.setenv(UVR_CACHE_DIR = cache_dir)
-    on.exit(Sys.setenv(UVR_CACHE_DIR = old_dir), add = TRUE)
+    on.exit(Sys.setenv(UVR_CACHE_DIR = env_cache_dir), add = TRUE)
   }
 
   args <- "sync"

@@ -4,13 +4,7 @@
 \alias{sync}
 \title{Synchronize project library from lockfile}
 \usage{
-sync(
-  frozen = FALSE,
-  bin = NULL,
-  dir = NULL,
-  cache_dir = "~/.uvr/cache/",
-  quiet = FALSE
-)
+sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
 }
 \arguments{
 \item{frozen}{If \code{TRUE}, fail if the lockfile is out of date (CI mode).}

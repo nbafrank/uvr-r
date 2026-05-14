@@ -12,7 +12,7 @@ add(
   do_install = TRUE,
   bin = NULL,
   dir = NULL,
-  cache_dir = "~/.uvr/cache/",
+  cache_dir = NULL,
   quiet = FALSE
 )
 }

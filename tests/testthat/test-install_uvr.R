@@ -29,6 +29,8 @@ test_that("install_uvr(method='binary') stops when no binary available", {
 })
 
 test_that(".get_release_details works for latest release", {
+  skip_on_cran()
+  skip_if_offline()
   latest_release <- .get_release_details() |>
     expect_silent() |>
     expect_no_error()
@@ -46,6 +48,8 @@ test_that(".get_release_details works for latest release", {
 })
 
 test_that(".get_release_details works for earlier release", {
+  skip_on_cran()
+  skip_if_offline()
   earlier_release <- .get_release_details(tag = "v0.3.2") |>
     expect_silent() |>
     expect_no_error()

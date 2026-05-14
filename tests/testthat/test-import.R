@@ -16,7 +16,7 @@ test_that("import works and create lockfile if desired", {
   )
 
   file.remove(file.path(temp_dir, "uvr.toml"))
-  expect_no_error(import(lock = TRUE, bin = path, dir = temp_dir, quiet = TRUE))
+  expect_no_error(import(do_lock = TRUE, bin = path, dir = temp_dir, quiet = TRUE))
   expect_true(file.exists(file.path(temp_dir, "uvr.toml")))
   expect_true(file.exists(file.path(temp_dir, "uvr.lock")))
 })

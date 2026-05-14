@@ -14,7 +14,7 @@ r_list(all = FALSE, bin = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-A character vector of output lines on success (invisibly).
+The output from `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
 }
 \description{
 Shows installed R versions. Use \code{all = TRUE} to show all available

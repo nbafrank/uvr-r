@@ -14,7 +14,7 @@ r_install(version, bin = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-A character vector of output lines on success (invisibly).
+The output from `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
 }
 \description{
 Downloads and installs a specific R version to \code{~/.uvr/r-versions/}.

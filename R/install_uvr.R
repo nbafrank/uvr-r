@@ -145,10 +145,11 @@ install_uvr <- function(
 .get_release_details <- function(tag = "latest") {
   os <- .Platform$OS.type
   arch <- Sys.info()[["machine"]]
+  sysname <- Sys.info()[["sysname"]]
 
   # Map to GitHub release asset names
   is_unix <- os == "unix"
-  is_mac <- is_unix && Sys.info()[["sysname"]] == "Darwin"
+  is_mac <- is_unix && sysname == "Darwin"
   is_windows <- os == "windows"
   if (is_mac) {
     target <- ifelse(

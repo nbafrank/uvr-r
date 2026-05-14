@@ -14,6 +14,4 @@ test_that("update_uvr works", {
   )
 
   expect_contains(list.files(package_dir), "uvr")
-
-  # TODO: test other `ref` and `method` values
 })

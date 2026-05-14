@@ -63,5 +63,3 @@ test_that(".get_release_details works for earlier release", {
     length(earlier_release$asset$browser_download_url) == 1
   )
 })
-
-# TODO: test that earlier releases can be built from cargo

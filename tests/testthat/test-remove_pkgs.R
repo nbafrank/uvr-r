@@ -10,6 +10,4 @@ test_that("remove_pkgs works and errors on empty packages", {
     remove_pkgs(character(0), quiet = TRUE),
     "length\\(packages\\) > 0L"
   )
-
-  # TODO: test that package removed correctly
 })

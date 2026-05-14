@@ -29,7 +29,7 @@ test_that("r_use works", {
   )
 
   version_entry <- readLines(file.path(temp_dir, "uvr.toml")) |>
-    grep(pattern = "^r_version =", value = TRUE) # TODO: confirm correct pattern
+    grep(pattern = "^r_version =", value = TRUE)
   expect_true(length(version_entry) == 1L)
   expect_true(grepl(pattern = ">=4.0.0", x = version_entry))
 })

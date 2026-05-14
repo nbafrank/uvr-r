@@ -25,8 +25,3 @@ test_that("init works", {
   uvr::run(script = ".Rprofile", bin = path, dir = temp_dir, quiet = TRUE) |>
     expect_no_error()
 })
-
-# TODO: add tests for when DESCRIPTION exists
-
-# TODO: add tests to verify uvr.toml in a range of conditions
-# TODO: add tests to verify .Rprofile

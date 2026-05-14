@@ -19,5 +19,4 @@ test_that("lock works", {
       paste(collapse = "\n") |>
       cat()
   )
-  # TODO: test upgrade == TRUE
 })

@@ -7,5 +7,4 @@ test_that("update_pkgs works", {
     update_pkgs(do_sync = FALSE, bin = path, dir = temp_dir, quiet = TRUE)
   )
   expect_no_error(update_pkgs(bin = path, dir = temp_dir, quiet = TRUE))
-  # TODO: inspect files
 })

@@ -79,6 +79,4 @@ test_that("add works and errors on empty packages", {
       "url = \"https://api.github.com/repos/nbafrank/uvr-r/tarball/xxx\"",
       "checksum = \"git:xxx\""
     ))
-
-  # TODO: test do_lock set to TRUE & do_install set to TRUE & cache_dir = file.path(temp_dir, ".uvr/cache")
 })

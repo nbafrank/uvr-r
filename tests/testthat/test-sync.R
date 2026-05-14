@@ -8,7 +8,4 @@ test_that("sync works", {
     sync(bin = path, dir = temp_dir, cache_dir = cache_dir, quiet = TRUE)
   )
   expect_true(dir.exists(file.path(temp_dir, ".uvr/library/jsonlite")))
-
-  # TODO: test frozen = TRUE
-  # TODO: test cache files are created
 })

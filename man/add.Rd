@@ -4,7 +4,16 @@
 \alias{add}
 \title{Add packages to the project}
 \usage{
-add(packages, dev = FALSE, bioc = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
+add(
+  packages,
+  dev = FALSE,
+  bioc = FALSE,
+  do_lock = TRUE,
+  do_install = TRUE,
+  bin = NULL,
+  dir = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{packages}{Character vector of package names (e.g. \code{c("ggplot2", "tidymodels@>=1.0.0", "user/repo@main")}).}
@@ -12,6 +21,11 @@ add(packages, dev = FALSE, bioc = FALSE, bin = NULL, dir = NULL, quiet = FALSE)
 \item{dev}{If \code{TRUE}, add as dev dependencies.}
 
 \item{bioc}{If \code{TRUE}, packages come from Bioconductor.}
+
+\item{do_lock}{If \code{TRUE}, update the lockfile with the added package(s).}
+
+\item{do_install}{If \code{TRUE}, install the added package(s).
+Ignored if \code{do_lock} is \code{FALSE}.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

@@ -35,7 +35,8 @@ init()
 
 # Add packages (CRAN, Bioconductor, GitHub)
 add("ggplot2")
-add("dplyr")
+add("dplyr", do_lock = FALSE) # skip lock + install
+add("dplyr", do_install = FALSE) # skip install
 add(c("DESeq2", "GenomicRanges"), bioc = TRUE)
 add("user/repo@main")
 
@@ -58,7 +59,7 @@ remove_pkgs("ggplot2")
 | Function | CLI equivalent | Description |
 |----------|---------------|-------------|
 | `init()` | `uvr init` | Create a new uvr project |
-| `add()` | `uvr add` | Add packages to the project |
+| `add()` | `uvr add <packages> <--no-lock> <--no-install>` | Add packages to the project |
 | `remove_pkgs()` | `uvr remove` | Remove packages |
 | `sync()` | `uvr sync` | Install all packages from lockfile |
 | `lock()` | `uvr lock` | Re-resolve deps, update lockfile |

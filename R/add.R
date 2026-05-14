@@ -6,6 +6,9 @@
 #' @param packages Character vector of package names (e.g. \code{c("ggplot2", "tidymodels@@>=1.0.0", "user/repo@@main")}).
 #' @param dev If \code{TRUE}, add as dev dependencies.
 #' @param bioc If \code{TRUE}, packages come from Bioconductor.
+#' @param do_lock If \code{TRUE}, update the lockfile with the added package(s).
+#' @param do_install If \code{TRUE}, install the added package(s).
+#'   Ignored if \code{do_lock} is \code{FALSE}.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
 #' @export
@@ -13,6 +16,8 @@ add <- function(
   packages,
   dev = FALSE,
   bioc = FALSE,
+  do_lock = TRUE,
+  do_install = TRUE,
   bin = NULL,
   dir = NULL,
   quiet = FALSE
@@ -33,5 +38,11 @@ add <- function(
   if (isTRUE(bioc)) {
     args <- c(args, "--bioc")
   }
+  if (isFALSE(do_lock)) {
+    args <- c(args, "--no-lock")
+  } else if (isFALSE(do_install)) {
+    args <- c(args, "--no-install")
+  }
+  
   run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

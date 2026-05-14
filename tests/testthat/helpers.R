@@ -21,7 +21,7 @@ setup_uvr_test <- function(
     if (isFALSE(init)) {
       warning("add = TRUE requires init = TRUE - skipping add()")
     } else {
-      add("jsonlite", bin = path, dir = temp_dir, quiet = TRUE)
+      add("jsonlite", do_lock = FALSE, bin = path, dir = temp_dir, quiet = TRUE)
     }
   }
   invisible(path)

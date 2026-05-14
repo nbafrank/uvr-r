@@ -44,7 +44,6 @@ test_that(".get_release_details works for latest release", {
   expect_true(
     length(latest_release$asset$browser_download_url) == 1
   )
-  # TODO: test earlier releases
 })
 
 test_that(".get_release_details works for earlier release", {
@@ -63,5 +62,6 @@ test_that(".get_release_details works for earlier release", {
   expect_true(
     length(earlier_release$asset$browser_download_url) == 1
   )
-  # TODO: test earlier releases
 })
+
+# TODO: test that earlier releases can be built from cargo

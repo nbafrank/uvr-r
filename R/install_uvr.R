@@ -115,7 +115,11 @@ install_uvr <- function(
 
   message("Building uvr from source via cargo (this may take a few minutes)...")
   args <- c("install", "--git", "https://github.com/nbafrank/uvr")
-  if (tag != "latest") {
+  if (!is.null(tag)) {
+    if (tag == "latest") {
+      details <- .get_release_details(tag = tag)
+      tag <- details$tag_name
+    }
     args <- c(args, "--tag", tag)
   }
   if (isTRUE(force)) {

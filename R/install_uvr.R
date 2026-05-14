@@ -174,7 +174,13 @@ install_uvr <- function(
     release_url <- paste0(release_url, "tags/")
   }
   release_url <- paste0(release_url, tag)
-  con <- tryCatch(url(release_url), error = function(e) NULL)
+  con <- tryCatch(
+    url(
+      release_url,
+      headers = c(Authorization = paste("Bearer", Sys.getenv("GITHUB_PAT")))
+    ),
+    error = function(e) NULL
+  )
   if (is.null(con)) {
     return(NULL)
   }

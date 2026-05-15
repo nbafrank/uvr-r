@@ -111,14 +111,24 @@
 
   if (cache_dir != "~/.uvr/cache/") {
     Sys.setenv(UVR_CACHE_DIR = cache_dir)
-    # Return function to restore original value
-    withr::defer(
-      Sys.setenv(UVR_CACHE_DIR = env_cache_dir),
-      envir = parent.frame()
+    .defer_on_exit(
+      Sys.setenv(UVR_CACHE_DIR = env_cache_dir)
     )
   }
 
   invisible(NULL)
+}
+
+#' Defer on.exit call to when parent function closes
+#' 
+#' @details modelled after \code{\link[withr]{defer}}
+#' @keywords internal
+.defer_on_exit <- function(expr, envir = parent.frame()) {
+  do.call(
+    on.exit,
+    list(as.call(list(function() expr)), TRUE),
+    envir = envir
+  )
 }
 
 #' Validate logical flag(s)

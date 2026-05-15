@@ -39,5 +39,6 @@ setup_uvr_test <- function(
 .make_temp_dir <- function(name = "uvr-test") {
   temp_dir <- dirname(tempfile()) |> file.path(name)
   dir.create(temp_dir, recursive = TRUE)
+  .defer_on_exit(unlink(temp_dir, recursive = TRUE))
   return(temp_dir)
 }

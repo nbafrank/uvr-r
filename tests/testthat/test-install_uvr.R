@@ -1,7 +1,6 @@
 test_that("install_uvr works", {
   skip("need to find a better way to test this within github CI")
   temp_dir <- .make_temp_dir()
-  on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
 
   expect_no_error(install_uvr(install_dir = temp_dir))
   expect_true(file.exists(

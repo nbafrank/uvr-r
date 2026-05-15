@@ -229,10 +229,7 @@ install_uvr <- function(
   is_zip <- grepl("\\.zip$", tmp)
 
   if (is_tarball || is_zip) {
-    exdir <- tempfile("uvr-extract-")
-    dir.create(exdir)
-    on.exit(unlink(exdir, recursive = TRUE), add = TRUE)
-
+    exdir <- .make_temp_dir("uvr-extract")
     if (is_tarball) {
       utils::untar(tmp, exdir = exdir)
     } else {

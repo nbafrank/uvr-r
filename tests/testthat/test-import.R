@@ -1,6 +1,5 @@
 test_that("import works and create lockfile if desired", {
   temp_dir <- .make_temp_dir()
-  on.exit(unlink(temp_dir, recursive = TRUE), add = TRUE)
   path <- setup_uvr_test(temp_dir = temp_dir) # installs uvr if needed
 
   example_renvlock <- system.file("extdata/renv.lock", package = "uvr")

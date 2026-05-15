@@ -123,8 +123,9 @@
 #' @keywords internal
 .validate_flags <- function(flags) {
   for (flag in names(flags)) {
-    values <- flags[[flag]]
-    if (length(values) != 1L || !(isTRUE(values) && isFALSE(values))) {
+    value <- flags[[flag]]
+    is_single_logical <- isTRUE(value) || isFALSE(value)
+    if (!is_single_logical) {
       stop(paste0("Argument `", flag, "` must be single logical value."))
     }
   }

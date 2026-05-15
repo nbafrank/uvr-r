@@ -4,7 +4,7 @@
 \alias{.setup_cache_dir}
 \title{Set up cache directory environment variable}
 \usage{
-.setup_cache_dir(cache_dir)
+.setup_cache_dir(cache_dir, envir = parent.frame())
 }
 \arguments{
 \item{cache_dir}{User-provided cache directory or NULL}

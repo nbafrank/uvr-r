@@ -12,7 +12,8 @@ Description: Provides R functions that wrap the 'uvr' command-line tool for
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
 Imports:
-    processx
+    processx,
+    withr
 Suggests:
     curl,
     jsonlite,

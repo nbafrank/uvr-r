@@ -102,7 +102,7 @@
 #' @param cache_dir User-provided cache directory or NULL
 #' @return NULL (side effects only)
 #' @keywords internal
-.setup_cache_dir <- function(cache_dir) {
+.setup_cache_dir <- function(cache_dir, envir = parent.frame()) {
   env_cache_dir <- Sys.getenv("UVR_CACHE_DIR")
 
   if (env_cache_dir == "") {
@@ -111,24 +111,13 @@
 
   if (cache_dir != "~/.uvr/cache/") {
     Sys.setenv(UVR_CACHE_DIR = cache_dir)
-    .defer_on_exit(
-      Sys.setenv(UVR_CACHE_DIR = env_cache_dir)
+    withr::defer(
+      Sys.setenv(UVR_CACHE_DIR = env_cache_dir),
+      envir = envir
     )
   }
 
   invisible(NULL)
-}
-
-#' Defer on.exit call to when parent function closes
-#' 
-#' @details modelled after \code{\link[withr]{defer}}
-#' @keywords internal
-.defer_on_exit <- function(expr, envir = parent.frame()) {
-  do.call(
-    on.exit,
-    list(as.call(list(function() expr)), TRUE),
-    envir = envir
-  )
 }
 
 #' Validate logical flag(s)

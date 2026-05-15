@@ -27,7 +27,7 @@ Equivalent to \code{uvr cache clean} on the command line.
 cache_clean()
 # custom cache location - ensure used in other functions,
 #   otherwise set env. var UVR_CACHE_DIR
-cache_clean(cache_dir = "/tmp/uvr-cache/") # custom cache location - ensure used in other functions, otherewise set env. var UVR_CACHE_DIR
+cache_clean(cache_dir = "/tmp/uvr-cache/")
 }
 }
 \seealso{

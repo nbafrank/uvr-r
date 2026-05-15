@@ -16,7 +16,7 @@ run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {
   .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
   .validate_flags(list(quiet = quiet))
   bin <- bin %||% find_uvr # NULL
-  .check_uvr_version(bin = path)
+  .check_uvr_version(bin = bin)
 
   if (!is.null(dir)) {
     old_wd <- setwd(dir)

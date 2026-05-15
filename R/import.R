@@ -14,12 +14,8 @@
 #' import(do_lock = TRUE)  # create uvr.lock as well
 #' }
 import <- function(do_lock = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
-  stopifnot(
-    is.logical(do_lock) && !is.na(do_lock) && length(do_lock) == 1L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_flags(list(do_lock = do_lock, quiet = quiet))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
 
   args <- "import"
   if (isTRUE(do_lock)) {

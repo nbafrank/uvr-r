@@ -19,12 +19,11 @@ export <- function(
   dir = NULL,
   quiet = FALSE
 ) {
-  stopifnot(
-    is.null(out_file) || (length(out_file) == 1L && is.character(out_file)),
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
+  .validate_single_characters(
+    list(out_file = out_file, bin = bin, dir = dir),
+    null_ok = TRUE
   )
+  .validate_flags(list(quiet = quiet))
 
   args <- "export"
   if (!is.null(out_file)) {

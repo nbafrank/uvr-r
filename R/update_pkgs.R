@@ -19,12 +19,8 @@
 #' update_pkgs(do_sync = FALSE)
 #' }
 update_pkgs <- function(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE) {
-  stopifnot(
-    is.logical(do_sync) && !is.na(do_sync) && length(do_sync) == 1L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_flags(list(do_sync = do_sync, quiet = quiet))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
 
   lock(upgrade = TRUE, bin = bin, dir = dir, quiet = quiet)
   if (isTRUE(do_sync)) sync(bin = bin, dir = dir, quiet = quiet)

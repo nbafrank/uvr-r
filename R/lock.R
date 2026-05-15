@@ -15,11 +15,8 @@
 #' lock(upgrade = TRUE)  # upgrade all packages to latest versions
 #' }
 lock <- function(upgrade = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
-  stopifnot(
-    is.logical(upgrade) && !is.na(upgrade) && length(upgrade) == 1L,
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_flags(list(upgrade = upgrade, quiet = quiet))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
 
   args <- "lock"
   if (isTRUE(upgrade)) {

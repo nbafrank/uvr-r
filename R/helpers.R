@@ -111,3 +111,73 @@
   
   invisible(NULL)
 }
+
+#' Validate logical flag(s)
+#' @param flags Named list of logical flags
+#' @keywords internal
+.validate_flags <- function(flags) {
+  for (flag in names(flags)) {
+    values <- flags[[flag]]
+    if (length(values) != 1L || !(isTRUE(values) && isFALSE(values))) {
+      stop(paste0("Argument `", flag, "` must be single logical value."))
+    }
+  }
+}
+
+#' Validate single character value(s)
+#' @param character_flags Named list of values to validate
+#' @keywords internal
+.validate_single_characters <- function(character_flags, null_ok = FALSE) {
+  for (flag in names(character_flags)) {
+    value <- character_flags[[flag]]
+    is_single_char <- is.character(value) &&
+      !anyNA(value) &&
+      length(value) == 1L
+    if (null_ok) {
+      if (!is.null(value) && !is_single_char) {
+        stop(paste0(
+          "Argument `",
+          flag,
+          "` must be NULL or a single non-NA character value."
+        ))
+      }
+    } else {
+      if (!is_single_char) {
+        stop(paste0(
+          "Argument `",
+          flag,
+          "` must be a single non-NA character value."
+        ))
+      }
+    }
+  }
+}
+
+#' Validate multiple (more than 0) character value(s)
+#' @param character_flags Named list of values to validate
+#' @keywords internal
+.validate_multi_characters <- function(character_flags, null_ok = FALSE) {
+  for (flag in names(character_flags)) {
+    values <- character_flags[[flag]]
+    is_multi_char <- is.character(values) &&
+      !anyNA(values) &&
+      length(values) >= 1L
+    if (null_ok) {
+      if (!is.null(values) && !is_multi_char) {
+        stop(paste0(
+          "Argument `",
+          flag,
+          "` must be NULL or a non-NA character vector with length > 0."
+        ))
+      }
+    } else {
+      if (!is_multi_char) {
+        stop(paste0(
+          "Argument `",
+          flag,
+          "` must be a non-NA character vector with length > 0."
+        ))
+      }
+    }
+  }
+}

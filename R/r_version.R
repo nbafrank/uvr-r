@@ -13,11 +13,9 @@
 #' r_install("4.4.2")
 #' }
 r_install <- function(version, bin = NULL, quiet = FALSE) {
-  stopifnot(
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.character(version) && length(version) == 1L,
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_single_characters(list(version = version))
+  .validate_single_characters(list(bin = bin), null_ok = TRUE)
+  .validate_flags(list(quiet = quiet))
 
   args <- c("r", "install", version)
   run_uvr(args, bin = bin, quiet = quiet)
@@ -40,11 +38,8 @@ r_install <- function(version, bin = NULL, quiet = FALSE) {
 #' r_list(all = TRUE) # available versions
 #' }
 r_list <- function(all = FALSE, bin = NULL, quiet = FALSE) {
-  stopifnot(
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.logical(all) && !is.na(all) && length(all) == 1L,
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_flags(list(all = all, quiet = quiet))
+  .validate_single_characters(list(bin = bin), null_ok = TRUE)
 
   args <- c("r", "list")
   if (isTRUE(all)) {
@@ -69,12 +64,9 @@ r_list <- function(all = FALSE, bin = NULL, quiet = FALSE) {
 #' r_use("4.4.2")
 #' }
 r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
-  stopifnot(
-    is.character(version) && length(version) == 1L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_single_characters(list(version = version))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
+  .validate_flags(list(quiet = quiet))
 
   args <- c("r", "use", version)
   run_uvr(args, bin = bin, dir = dir, quiet = quiet)
@@ -95,12 +87,9 @@ r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
 #' r_pin("4.4.2")
 #' }
 r_pin <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
-  stopifnot(
-    is.character(version) && length(version) == 1L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_single_characters(list(version = version))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
+  .validate_flags(list(quiet = quiet))
 
   args <- c("r", "pin", version)
   run_uvr(args, bin = bin, dir = dir, quiet = quiet)

@@ -31,12 +31,9 @@ install_uvr <- function(
   force = FALSE
 ) {
   method <- match.arg(method)
-  stopifnot(
-    is.character(tag) && length(tag) == 1L,
-    is.logical(force) && !is.na(force) && length(force) == 1L,
-    is.null(install_dir) ||
-      (is.character(install_dir) && length(install_dir) == 1L)
-  )
+  .validate_single_characters(list(tag = tag))
+  .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
+  .validate_flags(list(force = force))
 
   if (is.null(install_dir)) {
     install_dir <- .get_home_dir()
@@ -72,7 +69,7 @@ install_uvr <- function(
 #' @return Path to binary or NULL if unavailable.
 #' @keywords internal
 .try_install_binary <- function(tag = "latest", install_dir = .get_home_dir()) {
-  stopifnot(is.character(tag) && length(tag) == 1L)
+  .validate_single_characters(list(tag = tag))
 
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
     message("Package 'jsonlite' is needed to download pre-built binaries.")

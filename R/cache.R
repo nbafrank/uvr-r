@@ -17,12 +17,11 @@
 #' cache_clean(cache_dir = "/tmp/uvr-cache/")
 #' }
 cache_clean <- function(cache_dir = NULL, bin = NULL, quiet = FALSE) {
-  stopifnot(
-    is.null(cache_dir) || (is.character(cache_dir) && length(cache_dir) == 1L),
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
+  .validate_single_characters(
+    list(bin = bin, cache_dir = cache_dir),
+    null_ok = TRUE
   )
-
+  .validate_flags(list(quiet = quiet))
   .setup_cache_dir(cache_dir)
 
   args <- c("cache", "clean")

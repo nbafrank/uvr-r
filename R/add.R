@@ -35,18 +35,22 @@ add <- function(
   cache_dir = NULL,
   quiet = FALSE
 ) {
-  stopifnot(
-    is.character(packages) && length(packages) > 0L,
-    is.logical(dev) && !is.na(dev) && length(dev) == 1L,
-    is.logical(bioc) && !is.na(bioc) && length(bioc) == 1L,
-    is.logical(do_install) && !is.na(do_install) && length(do_install) == 1L,
-    is.logical(do_lock) && !is.na(do_lock) && length(do_lock) == 1L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.null(cache_dir) || (is.character(cache_dir) && length(cache_dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
+  .validate_multi_characters(list(packages = packages))
+  .validate_flags(list(
+    dev = dev,
+    bioc = bioc,
+    do_lock = do_lock,
+    do_install = do_install,
+    quiet = quiet
+  ))
+  .validate_single_characters(
+    list(
+      bin = bin,
+      dir = dir,
+      cache_dir = cache_dir
+    ),
+    null_ok = TRUE
   )
-
   .setup_cache_dir(cache_dir)
 
   args <- c("add", packages)

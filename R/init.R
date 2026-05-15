@@ -22,13 +22,11 @@ init <- function(
   dir = NULL,
   quiet = FALSE
 ) {
-  stopifnot(
-    is.null(name) || (is.character(name) && length(name) == 1L),
-    is.null(r_version) || (is.character(r_version) && length(r_version) == 1L),
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
+  .validate_single_characters(
+    list(name = name, r_version = r_version, bin = bin, dir = dir),
+    null_ok = TRUE
   )
+  .validate_flags(list(quiet = quiet))
 
   args <- "init"
   if (!is.null(name)) {

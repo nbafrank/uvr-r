@@ -14,13 +14,10 @@
 #' completions("fish")
 #' completions("powershell")
 #' }
-completions <- function(shell, bin = NULL, quiet = FALSE) {
-  stopifnot(
-    length(shell) == 1L,
-    shell %in% c("bash", "zsh", "fish", "powershell"),
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+completions <- function(shell = c("bash", "zsh", "fish", "powershell"), bin = NULL, quiet = FALSE) {
+  shell <- match.arg(shell)
+  .validate_single_characters(list(bin = bin))
+  .validate_flags(list(quiet = quiet))
 
   args <- c("completions", shell)
   run_uvr(args, bin = bin, quiet = quiet)

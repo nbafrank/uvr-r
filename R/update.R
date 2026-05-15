@@ -32,11 +32,9 @@ update_uvr <- function(
   quiet = FALSE
 ) {
   method <- match.arg(method)
-  stopifnot(
-    is.character(ref) && length(ref) == 1L,
-    is.character(method) && length(method) == 1L,
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_single_characters(list(ref = ref, package_dir = package_dir))
+  .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
+  .validate_flags(list(quiet = quiet))
 
   if (is.null(install_dir)) {
     install_dir <- .get_home_dir()

@@ -14,12 +14,9 @@
 #' remove_pkgs(c("dplyr", "tidyr"))
 #' }
 remove_pkgs <- function(packages, bin = NULL, dir = NULL, quiet = FALSE) {
-  stopifnot(
-    is.character(packages) && length(packages) > 0L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_multi_characters(list(packages = packages))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
+  .validate_flags(list(quiet = quiet))
 
   args <- c("remove", packages)
   run_uvr(args, bin = bin, dir = dir, quiet = quiet)

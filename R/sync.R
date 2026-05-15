@@ -21,14 +21,11 @@ sync <- function(
   cache_dir = NULL,
   quiet = FALSE
 ) {
-  stopifnot(
-    is.logical(frozen) && !is.na(frozen) && length(frozen) == 1L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.null(cache_dir) || (is.character(cache_dir) && length(cache_dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
+  .validate_flags(list(frozen = frozen, quiet = quiet))
+  .validate_single_characters(
+    list(bin = bin, dir = dir, cache_dir = cache_dir),
+    null_ok = TRUE
   )
-
   .setup_cache_dir(cache_dir)
 
   args <- "sync"

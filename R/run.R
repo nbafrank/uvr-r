@@ -21,13 +21,10 @@ run <- function(
   dir = NULL,
   quiet = FALSE
 ) {
-  stopifnot(
-    is.character(script) && length(script) == 1L,
-    is.character(args) && length(args) >= 0L,
-    is.null(bin) || (is.character(bin) && length(bin) == 1L),
-    is.null(dir) || (is.character(dir) && length(dir) == 1L),
-    is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
-  )
+  .validate_single_characters(list(script = script))
+  .validate_multi_characters(list(args = args))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
+  .validate_flags(list(quiet = quiet))
 
   cli_args <- c("run", script)
   if (length(args) > 0L) {

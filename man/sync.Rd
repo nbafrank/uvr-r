@@ -19,7 +19,8 @@ which is equivalent to \code{"~/.uvr/cache/"} if environmental variable \code{UV
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-The output from `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
+A character vector of output lines (returned invisibly). 
+  On failure, throws an error with the exit code.
 }
 \description{
 Installs all packages specified in \code{uvr.lock}. Idempotent --- skips

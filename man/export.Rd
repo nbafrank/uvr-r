@@ -16,7 +16,8 @@ export(out_file = NULL, bin = NULL, dir = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-The output from `uvr`- a character vector of output lines on success, a simpleError object on failure (invisibly).
+A character vector of output lines (returned invisibly). 
+  On failure, throws an error with the exit code.
 }
 \description{
 Converts \code{uvr.lock} to \code{renv.lock}.

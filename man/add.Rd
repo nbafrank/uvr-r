@@ -32,8 +32,8 @@ Ignored if \code{do_lock} is \code{FALSE}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 
-\item{cache_dir}{Path to a custom cache directory. Defaults to \code{NULL},
-which is equivalent to \code{"~/.uvr/cache/"} if environmental variable \code{UVR_CACHE_DIR} is not set.}
+\item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses 
+the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

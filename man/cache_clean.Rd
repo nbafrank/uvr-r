@@ -7,8 +7,8 @@
 cache_clean(cache_dir = NULL, bin = NULL, quiet = FALSE)
 }
 \arguments{
-\item{cache_dir}{Path to a custom cache directory. Defaults to \code{NULL},
-which is equivalent to \code{"~/.uvr/cache/"} if environmental variable \code{UVR_CACHE_DIR} is not set.}
+\item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses 
+the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

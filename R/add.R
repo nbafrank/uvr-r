@@ -22,6 +22,7 @@
 #' add("tidymodels@@>=1.0.0")
 #' add("user/repo@@main")
 #' add(c("ggplot2", "tidymodels@@>=1.0.0", "user/repo@@main"))
+#' add(c("DESeq2", "GenomicRanges"), bioc = TRUE) # bioconductor
 #' }
 add <- function(
   packages,

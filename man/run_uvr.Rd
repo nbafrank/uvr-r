@@ -22,5 +22,6 @@ A character vector of output lines (returned invisibly).
 \description{
 Internal helper that invokes uvr with the given arguments and streams
 output to the R console.
+Ensures that the uvr binary is found and up-to-date.
 }
 \keyword{internal}

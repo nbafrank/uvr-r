@@ -32,4 +32,13 @@ test_that("run_uvr works and errors on bad command", {
     result[names(result) != "trace"],
     result2[names(result) != "trace"]
   )
+
+  # Case: uvr out of date, throws error
+  with_mocked_bindings(
+    .get_uvr_version = \(...) "0.0.0",
+    expect_error(
+      run_uvr("--version", bin = path),
+      "uvr binary version 0.0.0 is too old."
+    )
+  )
 })

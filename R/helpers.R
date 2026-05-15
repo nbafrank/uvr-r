@@ -204,3 +204,94 @@
     }
   }
 }
+
+.validate_versions <- function(versions, null_ok = FALSE) {
+  .validate_single_characters(versions, null_ok = null_ok)
+  sapply(versions, package_version)
+  invisible(TRUE)
+}
+
+#' Check that uvr binary version is recent enough
+#' @inheritParams run_uvr
+#' @details
+#'   Checks the SystemRequirements field of the package description
+#'   to ensure that the uvr binary is recent enough.
+#' @keywords internal
+.check_uvr_version <- function(bin = NULL) {
+  .validate_single_characters(list(bin = bin), null_ok = TRUE)
+
+  version <- .get_uvr_version(bin = bin)
+  min_version <- .get_uvr_min_version()
+  if (package_version(version) < package_version(min_version)) {
+    msg <- sprintf(
+      paste0(
+        "uvr binary version %s is too old.",
+        " Minimum required version is %s.",
+        "\nRun `uvr::install_uvr(force = TRUE)` to update."
+      ),
+      version,
+      min_version
+    )
+    stop(msg, call. = FALSE)
+  }
+  invisible(TRUE)
+}
+
+#' Get uvr binary version
+#' @inheritParams run_uvr
+#' @return character value of uvr binary version (i.e. "1.0.0")
+#' @keywords internal
+.get_uvr_version <- function(bin = NULL) {
+  .validate_single_characters(list(bin = bin), null_ok = TRUE)
+  bin <- bin %||% find_uvr # NULL swap
+  version_output <- tryCatch(
+    system2(bin, "--version", stdout = TRUE, stderr = TRUE),
+    error = function(e) NULL
+  )
+  if (is.null(version_output)) {
+    warning("Could not determine uvr binary version")
+    return(invisible(FALSE))
+  }
+  version <- sub(
+    pattern = "uvr\\s+",
+    replacement = "",
+    x = version_output
+  )
+  .validate_versions(list(version = version))
+  version
+}
+
+#' Get minimum uvr binary version declared in package description
+#' @return character value of minimum uvr binary version (i.e. "1.0.0")
+#' @keywords internal
+.get_uvr_min_version <- function() {
+  description_entry <- packageDescription("uvr")$SystemRequirements
+
+  # should only come up in development
+  if (is.null(description_entry)) {
+    stop(
+      "Could not determine minimum uvr binary version.",
+      " Ensure `SystemRequirements: uvr (>= x.x.x)` field in package description.",
+      call. = FALSE
+    )
+  }
+
+  min_version <- sub(
+    pattern = ".*uvr \\(>= ([^)]+)\\).*",
+    replacement = "\\1",
+    x = description_entry
+  )
+  success <- tryCatch(
+    .validate_versions(list(min_version = min_version)),
+    error = \(...) FALSE
+  )
+  if (!success) {
+    stop(
+      "Could not determine minimum uvr binary version.",
+      " Ensure `SystemRequirements: uvr (>= x.x.x)` field properly formatted in package description.",
+      sprintf("\nCurrent entry: `%s`", description_entry),
+      call. = FALSE
+    )
+  }
+  min_version
+}

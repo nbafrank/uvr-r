@@ -2,6 +2,7 @@
 #'
 #' Internal helper that invokes uvr with the given arguments and streams
 #' output to the R console.
+#' Ensures that the uvr binary is found and up-to-date.
 #'
 #' @param args Character vector of CLI arguments.
 #' @param bin Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.
@@ -14,7 +15,8 @@ run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {
   .validate_multi_characters(list(args = args))
   .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
   .validate_flags(list(quiet = quiet))
-  bin <- bin %||% find_uvr # NULL swap
+  bin <- bin %||% find_uvr # NULL
+  .check_uvr_version(bin = path)
 
   if (!is.null(dir)) {
     old_wd <- setwd(dir)

@@ -31,12 +31,18 @@ add <- function(
   bioc = FALSE,
   do_lock = TRUE,
   do_install = TRUE,
+  timeout = NULL,
   bin = NULL,
   dir = NULL,
   lib_dir = NULL,
   cache_dir = NULL,
   quiet = FALSE
 ) {
+  stopifnot(
+    is.null(timeout) ||
+      (is.character(timeout) && length(timeout) == 1) ||
+      (is.numeric(timeout) && length(timeout) == 1)
+  )
   .validate_multi_characters(list(packages = packages))
   .validate_flags(list(
     dev = dev,
@@ -49,7 +55,11 @@ add <- function(
     list(bin = bin, dir = dir, lib_dir = lib_dir, cache_dir = cache_dir),
     null_ok = TRUE
   )
-  .temp_setenv(list(UVR_LIBRARY = lib_dir, UVR_CACHE_DIR = cache_dir))
+  .temp_setenv(list(
+    UVR_LIBRARY = lib_dir,
+    UVR_CACHE_DIR = cache_dir,
+    UVR_INSTALL_TIMEOUT = timeout
+  ))
 
   args <- c("add", packages)
   if (isTRUE(dev)) {

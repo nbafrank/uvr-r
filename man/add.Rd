@@ -10,6 +10,7 @@ add(
   bioc = FALSE,
   do_lock = TRUE,
   do_install = TRUE,
+  timeout = NULL,
   bin = NULL,
   dir = NULL,
   lib_dir = NULL,
@@ -28,6 +29,13 @@ add(
 
 \item{do_install}{If \code{TRUE}, install the added package(s).
 Ignored if \code{do_lock} is \code{FALSE}.}
+
+\item{timeout}{Per-package installation timeout.
+Temporally overrides the `UVR_INSTALL_TIMEOUT` environment variable.
+Expects a duration string such as \code{30m}, \code{2h}, \code{90s}, or a
+bare number representing seconds (e.g. \code{1800}).
+Defaults to \code{NULL}, which uses `UVR_INSTALL_TIMEOUT` if set,
+or 30 minutes otherwise.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

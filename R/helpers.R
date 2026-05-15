@@ -32,7 +32,13 @@
 #' @return y if x is NULL, otherwise x
 #' @name op-null-swap
 #' @keywords internal
-`%||%` <- function(x, y) if (is.null(x)) y else x
+`%||%` <- function(x, y) {
+  if (is.null(x)) {
+    if (is.function(y)) y() else y
+  } else {
+    x
+  }
+}
 
 #' Run a terminal command and capture the output cleanly
 #' @param bin Path to the binary to run

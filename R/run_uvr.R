@@ -14,10 +14,7 @@ run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {
   .validate_multi_characters(list(args = args))
   .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
   .validate_flags(list(quiet = quiet))
-
-  if (is.null(bin)) {
-    bin <- find_uvr()
-  }
+  bin <- bin %||% find_uvr # NULL swap
 
   if (!is.null(dir)) {
     old_wd <- setwd(dir)

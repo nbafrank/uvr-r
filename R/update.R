@@ -35,10 +35,7 @@ update_uvr <- function(
   .validate_single_characters(list(ref = ref, package_dir = package_dir))
   .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
   .validate_flags(list(quiet = quiet))
-
-  if (is.null(install_dir)) {
-    install_dir <- .get_home_dir()
-  }
+  install_dir <- install_dir %||% .get_home_dir # NULL swap
 
   # Update R package
   if (!quiet) {

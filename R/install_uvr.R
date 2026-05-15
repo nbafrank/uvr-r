@@ -34,10 +34,7 @@ install_uvr <- function(
   .validate_single_characters(list(tag = tag))
   .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
   .validate_flags(list(force = force))
-
-  if (is.null(install_dir)) {
-    install_dir <- .get_home_dir()
-  }
+  install_dir <- install_dir %||% .get_home_dir # NULL swap
 
   if (!isTRUE(force)) {
     existing <- .find_uvr_path(install_dir = install_dir, check_path = FALSE)

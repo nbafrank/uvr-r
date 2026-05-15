@@ -4,12 +4,23 @@
 \alias{run}
 \title{Run an R script in the project environment}
 \usage{
-run(script, args = NULL, bin = NULL, dir = NULL, quiet = FALSE)
+run(
+  script,
+  args = NULL,
+  extra_libs = NULL,
+  bin = NULL,
+  dir = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{script}{Path to an R script.}
 
 \item{args}{Character vector of arguments forwarded to the script. Defaults to \code{NULL} for no arguments.}
+
+\item{extra_libs}{Character vector of paths to additional library directories to be included.
+Temporarily sets the UVR_EXTRA_LIBS environment variable.
+Defaults to \code{NULL} for no extra libraries.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

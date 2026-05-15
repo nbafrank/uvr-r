@@ -108,30 +108,39 @@
   return(temp_dir)
 }
 
-#' Set up cache directory environment variable
-#'
-#' @details creates a side effect of setting the
-#'   \code{UVR_CACHE_DIR} environment variable,
-#'   then unsetting it when parent function closes
-#' @param cache_dir User-provided cache directory or NULL
-#' @return NULL (side effects only)
+#' Set environment variables and unset them when parent function closes
+#' @param env_vars Named list of environment variables to set
+#' @return Invisible \code{NULL} (+cleanup side effect)
 #' @keywords internal
-.setup_cache_dir <- function(cache_dir, envir = parent.frame()) {
-  env_cache_dir <- Sys.getenv("UVR_CACHE_DIR")
-
-  if (env_cache_dir == "") {
-    cache_dir <- cache_dir %||% "~/.uvr/cache/"
+.temp_setenv <- function(env_vars) {
+  stopifnot(is.list(env_vars), !is.null(names(env_vars)))
+  env_vars <- env_vars[!sapply(env_vars, is.null)]
+  if (length(env_vars) == 0) {
+    return(NULL)
   }
 
-  if (cache_dir != "~/.uvr/cache/") {
-    Sys.setenv(UVR_CACHE_DIR = cache_dir)
-    withr::defer(
-      Sys.setenv(UVR_CACHE_DIR = env_cache_dir),
-      envir = envir
-    )
-  }
+  # Store original values
+  old_values <- lapply(names(env_vars), Sys.getenv, unset = NA)
+  names(old_values) <- names(env_vars)
 
-  invisible(NULL)
+  # Set new values
+  do.call(Sys.setenv, env_vars)
+
+  # Register cleanup in the CALLING function's scope
+  expr <- substitute(
+    {
+      for (nm in names(old_vals)) {
+        if (is.na(old_vals[[nm]])) {
+          Sys.unsetenv(nm)
+        } else {
+          do.call(Sys.setenv, setNames(list(old_vals[[nm]]), nm))
+        }
+      }
+    },
+    list(old_vals = old_values)
+  )
+
+  do.call(on.exit, list(expr, add = TRUE), envir = parent.frame())
 }
 
 #' Validate logical flag(s)

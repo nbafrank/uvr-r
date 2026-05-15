@@ -51,7 +51,7 @@ add <- function(
     ),
     null_ok = TRUE
   )
-  .setup_cache_dir(cache_dir)
+  .temp_setenv(list(UVR_CACHE_DIR = cache_dir))
 
   args <- c("add", packages)
   if (isTRUE(dev)) {

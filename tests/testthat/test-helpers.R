@@ -21,3 +21,42 @@ test_that(".get_home_dir works", {
   expect_true(length(home) == 1L)
   expect_true(dir.exists(home))
 })
+
+test_that(".temp_setenv works and cleans up properly", {
+  # Case: NULLs ignored
+  expect_true(Sys.getenv("foo") == "")
+  setter <- \() {
+    .temp_setenv(list(foo = NULL))
+    expect_true(Sys.getenv("foo") == "")
+  }
+  expect_no_error(setter())
+  expect_true(Sys.getenv("foo") == "")
+
+  # Case: single value gets set/unset right
+  expect_true(Sys.getenv("foo") == "")
+  setter <- \() {
+    .temp_setenv(list(foo = "bar"))
+    expect_true(Sys.getenv("foo") == "bar")
+  }
+  expect_no_error(setter())
+  expect_true(Sys.getenv("foo") == "")
+
+  # Case: multiple values get set/unset right
+  expect_true(Sys.getenv("foo1") == "" && Sys.getenv("foo2") == "")
+  setter <- \() {
+    .temp_setenv(list(foo1 = "bar1", foo2 = "bar2"))
+    expect_true(Sys.getenv("foo1") == "bar1" && Sys.getenv("foo2") == "bar2")
+  }
+  expect_no_error(setter())
+  expect_true(Sys.getenv("foo1") == "" && Sys.getenv("foo2") == "")
+
+  # Case: existing env vars respected
+  expect_true(Sys.getenv("foo") == "")
+  Sys.setenv(foo = "bar")
+  setter <- \() {
+    .temp_setenv(list(foo = "bar2"))
+    expect_true(Sys.getenv("foo") == "bar2")
+  }
+  expect_no_error(setter())
+  expect_true(Sys.getenv("foo") == "bar")
+})

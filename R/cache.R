@@ -22,7 +22,7 @@ cache_clean <- function(cache_dir = NULL, bin = NULL, quiet = FALSE) {
     null_ok = TRUE
   )
   .validate_flags(list(quiet = quiet))
-  .setup_cache_dir(cache_dir)
+  .temp_setenv(list(UVR_CACHE_DIR = cache_dir))
 
   args <- c("cache", "clean")
   run_uvr(args, bin = bin, quiet = quiet)

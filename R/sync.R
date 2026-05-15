@@ -26,7 +26,7 @@ sync <- function(
     list(bin = bin, dir = dir, cache_dir = cache_dir),
     null_ok = TRUE
   )
-  .setup_cache_dir(cache_dir)
+  .temp_setenv(list(UVR_CACHE_DIR = cache_dir))
 
   args <- "sync"
   if (isTRUE(frozen)) {

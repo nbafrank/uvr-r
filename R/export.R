@@ -8,6 +8,11 @@
 #' @inherit run_uvr return
 #' @family package managers
 #' @export
+#' @examples
+#' \dontrun{
+#' lock_lines <- export() # store as variable
+#' export(out_file = "renv.lock") # export to file
+#' }
 export <- function(
   out_file = NULL,
   bin = NULL,

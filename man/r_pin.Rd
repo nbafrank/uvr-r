@@ -22,6 +22,11 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Writes an exact R version to the \code{.r-version} file.
 Equivalent to \code{uvr r pin <version>} on the command line.
 }
+\examples{
+\dontrun{
+r_pin("4.4.2")
+}
+}
 \seealso{
 Other R version managers:
 \code{\link[=r_install]{r_install()}},

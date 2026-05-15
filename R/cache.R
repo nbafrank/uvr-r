@@ -9,6 +9,13 @@
 #' @inherit run_uvr return
 #' @family package managers
 #' @export
+#' @examples
+#' \dontrun{
+#' cache_clean()
+#' # custom cache location - ensure used in other functions,
+#' #   otherwise set env. var UVR_CACHE_DIR
+#' cache_clean(cache_dir = "/tmp/uvr-cache/") # custom cache location - ensure used in other functions, otherewise set env. var UVR_CACHE_DIR
+#' }
 cache_clean <- function(cache_dir = NULL, bin = NULL, quiet = FALSE) {
   stopifnot(
     is.null(cache_dir) || (is.character(cache_dir) && length(cache_dir) == 1L),

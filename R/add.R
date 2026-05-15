@@ -14,6 +14,15 @@
 #' @inherit run_uvr return
 #' @family package managers
 #' @export
+#' @examples
+#' \dontrun{
+#' add("ggplot2") # add to toml, lock, install
+#' add("dplyr", do_lock = FALSE) # no lock, no install
+#' add("dplyr", do_install = FALSE) # lock, no install
+#' add("tidymodels@@>=1.0.0")
+#' add("user/repo@@main")
+#' add(c("ggplot2", "tidymodels@@>=1.0.0", "user/repo@@main"))
+#' }
 add <- function(
   packages,
   dev = FALSE,

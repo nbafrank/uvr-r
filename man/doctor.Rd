@@ -19,6 +19,11 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 \description{
 Equivalent to \code{uvr doctor} on the command line.
 }
+\examples{
+\dontrun{
+doctor()
+}
+}
 \seealso{
 Other uvr setup functions:
 \code{\link[=completions]{completions()}},

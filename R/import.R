@@ -8,6 +8,11 @@
 #' @inherit run_uvr return
 #' @family package managers
 #' @export
+#' @examples
+#' \dontrun{
+#' import()
+#' import(do_lock = TRUE)  # create uvr.lock as well
+#' }
 import <- function(do_lock = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
     is.logical(do_lock) && !is.na(do_lock) && length(do_lock) == 1L,

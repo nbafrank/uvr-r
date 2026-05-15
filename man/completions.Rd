@@ -19,6 +19,14 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 \description{
 Equivalent to \code{uvr completions `shell`} on the command line.
 }
+\examples{
+\dontrun{
+completions("bash")
+completions("zsh")
+completions("fish")
+completions("powershell")
+}
+}
 \seealso{
 Other uvr setup functions:
 \code{\link[=doctor]{doctor()}},

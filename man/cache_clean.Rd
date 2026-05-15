@@ -21,6 +21,14 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Removes all installed packages and downloaded tarballs from the cache.
 Equivalent to \code{uvr cache clean} on the command line.
 }
+\examples{
+\dontrun{
+cache_clean()
+# custom cache location - ensure used in other functions,
+#   otherwise set env. var UVR_CACHE_DIR
+cache_clean(cache_dir = "/tmp/uvr-cache/") # custom cache location - ensure used in other functions, otherewise set env. var UVR_CACHE_DIR
+}
+}
 \seealso{
 Other package managers:
 \code{\link[=add]{add()}},

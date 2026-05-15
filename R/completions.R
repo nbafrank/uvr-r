@@ -7,6 +7,13 @@
 #' @inherit run_uvr return
 #' @family uvr setup functions
 #' @export
+#' @examples
+#' \dontrun{
+#' completions("bash")
+#' completions("zsh")
+#' completions("fish")
+#' completions("powershell")
+#' }
 completions <- function(shell, bin = NULL, quiet = FALSE) {
   stopifnot(
     length(shell) == 1L,

@@ -6,6 +6,10 @@
 #' @inherit run_uvr return
 #' @family uvr setup functions
 #' @export
+#' @examples
+#' \dontrun{
+#' doctor()
+#' }
 doctor <- function(bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
     is.null(bin) || (is.character(bin) && length(bin) == 1L),

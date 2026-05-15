@@ -22,6 +22,12 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Converts \code{renv.lock} to \code{uvr.toml}.
 Equivalent to \code{uvr import} on the command line.
 }
+\examples{
+\dontrun{
+import()
+import(do_lock = TRUE)  # create uvr.lock as well
+}
+}
 \seealso{
 Other package managers:
 \code{\link[=add]{add()}},

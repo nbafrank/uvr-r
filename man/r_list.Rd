@@ -21,6 +21,12 @@ Shows installed R versions. Use \code{all = TRUE} to show all available
 versions from CRAN.
 Equivalent to \code{uvr r list} on the command line.
 }
+\examples{
+\dontrun{
+r_list() # installed versions
+r_list(all = TRUE) # available versions
+}
+}
 \seealso{
 Other R version managers:
 \code{\link[=r_install]{r_install()}},

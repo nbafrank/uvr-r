@@ -44,6 +44,16 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Adds one or more packages to the manifest, updates the lockfile, and
 installs them. Equivalent to \code{uvr add} on the command line.
 }
+\examples{
+\dontrun{
+add("ggplot2") # add to toml, lock, install
+add("dplyr", do_lock = FALSE) # no lock, no install
+add("dplyr", do_install = FALSE) # lock, no install
+add("tidymodels@>=1.0.0")
+add("user/repo@main")
+add(c("ggplot2", "tidymodels@>=1.0.0", "user/repo@main"))
+}
+}
 \seealso{
 Other package managers:
 \code{\link[=cache_clean]{cache_clean()}},

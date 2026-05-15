@@ -22,6 +22,12 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Converts \code{uvr.lock} to \code{renv.lock}.
 Equivalent to \code{uvr export} on the command line.
 }
+\examples{
+\dontrun{
+lock_lines <- export() # store as variable
+export(out_file = "renv.lock") # export to file
+}
+}
 \seealso{
 Other package managers:
 \code{\link[=add]{add()}},

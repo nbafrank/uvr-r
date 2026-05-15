@@ -8,6 +8,10 @@
 #' @inherit run_uvr return
 #' @family R version managers
 #' @export
+#' @examples
+#' \dontrun{
+#' r_install("4.4.2")
+#' }
 r_install <- function(version, bin = NULL, quiet = FALSE) {
   stopifnot(
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
@@ -30,6 +34,11 @@ r_install <- function(version, bin = NULL, quiet = FALSE) {
 #' @inherit run_uvr return
 #' @family R version managers
 #' @export
+#' @examples
+#' \dontrun{
+#' r_list() # installed versions
+#' r_list(all = TRUE) # available versions
+#' }
 r_list <- function(all = FALSE, bin = NULL, quiet = FALSE) {
   stopifnot(
     is.null(bin) || (is.character(bin) && length(bin) == 1L),
@@ -54,6 +63,11 @@ r_list <- function(all = FALSE, bin = NULL, quiet = FALSE) {
 #' @inherit run_uvr return
 #' @family R version managers
 #' @export
+#' @examples
+#' \dontrun{
+#' r_use(">=4.3.0")
+#' r_use("4.4.2")
+#' }
 r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
     is.character(version) && length(version) == 1L,
@@ -76,6 +90,10 @@ r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
 #' @inherit run_uvr return
 #' @family R version managers
 #' @export
+#' @examples
+#' \dontrun{
+#' r_pin("4.4.2")
+#' }
 r_pin <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
     is.character(version) && length(version) == 1L,

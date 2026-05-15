@@ -94,6 +94,20 @@
   )
 }
 
+#' Create a temporary directory and cleanup this calls parent environment closes
+#' @keywords internal
+.make_temp_dir <- function(name = "uvr-test", envir = parent.frame()) {
+  temp_dir <- dirname(tempfile()) |> file.path(name)
+  dir.create(temp_dir, recursive = TRUE)
+  withr::defer(
+    {
+      unlink(temp_dir, recursive = TRUE)
+    },
+    envir = envir
+  )
+  return(temp_dir)
+}
+
 #' Set up cache directory environment variable
 #'
 #' @details creates a side effect of setting the

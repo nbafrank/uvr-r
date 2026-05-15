@@ -35,15 +35,3 @@ setup_uvr_test <- function(
   }
   invisible(path)
 }
-
-.make_temp_dir <- function(name = "uvr-test", envir = parent.frame()) {
-  temp_dir <- dirname(tempfile()) |> file.path(name)
-  dir.create(temp_dir, recursive = TRUE)
-  withr::defer(
-    {
-      unlink(temp_dir, recursive = TRUE)
-    },
-    envir = envir
-  )
-  return(temp_dir)
-}

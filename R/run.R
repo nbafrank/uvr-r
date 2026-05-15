@@ -5,7 +5,7 @@
 #' For interactive R, use the CLI directly: \code{uvr run}.
 #'
 #' @param script Path to an R script.
-#' @param args Character vector of arguments forwarded to the script.
+#' @param args Character vector of arguments forwarded to the script. Defaults to \code{NULL} for no arguments.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
 #' @export
@@ -16,13 +16,13 @@
 #' }
 run <- function(
   script,
-  args = character(),
+  args = NULL,
   bin = NULL,
   dir = NULL,
   quiet = FALSE
 ) {
   .validate_single_characters(list(script = script))
-  .validate_multi_characters(list(args = args))
+  .validate_multi_characters(list(args = args), null_ok = TRUE)
   .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
   .validate_flags(list(quiet = quiet))
 

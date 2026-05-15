@@ -7,6 +7,7 @@
 #' @param name Optional project name. Defaults to the current directory name.
 #' @param r_version Optional R version constraint, e.g. \code{">=4.3.0"}.
 #' @inheritParams run_uvr
+#' @inheritParams sync
 #' @inherit run_uvr return
 #' @family uvr setup functions
 #' @export
@@ -20,13 +21,21 @@ init <- function(
   r_version = NULL,
   bin = NULL,
   dir = NULL,
+  lib_dir = NULL,
   quiet = FALSE
 ) {
   .validate_single_characters(
-    list(name = name, r_version = r_version, bin = bin, dir = dir),
+    list(
+      name = name,
+      r_version = r_version,
+      bin = bin,
+      dir = dir,
+      lib_dir = lib_dir
+    ),
     null_ok = TRUE
   )
   .validate_flags(list(quiet = quiet))
+  .temp_setenv(list(UVR_LIBRARY = lib_dir))
 
   args <- "init"
   if (!is.null(name)) {

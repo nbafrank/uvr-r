@@ -4,7 +4,14 @@
 \alias{sync}
 \title{Synchronize project library from lockfile}
 \usage{
-sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
+sync(
+  frozen = FALSE,
+  bin = NULL,
+  dir = NULL,
+  lib_dir = NULL,
+  cache_dir = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{frozen}{If \code{TRUE}, fail if the lockfile is out of date (CI mode).}
@@ -12,6 +19,10 @@ sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
+
+\item{lib_dir}{Path to the library directory where to install packages. Defaults
+to `NULL`, which uses the `UVR_LIBRARY` environment variable if set, or
+the project-level `".uvr/library/"` otherwise.}
 
 \item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}

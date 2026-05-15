@@ -10,6 +10,7 @@
 #' @param do_install If \code{TRUE}, install the added package(s).
 #'   Ignored if \code{do_lock} is \code{FALSE}.
 #' @inheritParams run_uvr
+#' @inheritParams sync
 #' @inheritParams cache_clean
 #' @inherit run_uvr return
 #' @family package managers
@@ -32,6 +33,7 @@ add <- function(
   do_install = TRUE,
   bin = NULL,
   dir = NULL,
+  lib_dir = NULL,
   cache_dir = NULL,
   quiet = FALSE
 ) {
@@ -44,14 +46,10 @@ add <- function(
     quiet = quiet
   ))
   .validate_single_characters(
-    list(
-      bin = bin,
-      dir = dir,
-      cache_dir = cache_dir
-    ),
+    list(bin = bin, dir = dir, lib_dir = lib_dir, cache_dir = cache_dir),
     null_ok = TRUE
   )
-  .temp_setenv(list(UVR_CACHE_DIR = cache_dir))
+  .temp_setenv(list(UVR_LIBRARY = lib_dir, UVR_CACHE_DIR = cache_dir))
 
   args <- c("add", packages)
   if (isTRUE(dev)) {

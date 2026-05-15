@@ -4,7 +4,13 @@
 \alias{update_pkgs}
 \title{Update installed packages to the latest allowed versions}
 \usage{
-update_pkgs(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE)
+update_pkgs(
+  do_sync = TRUE,
+  bin = NULL,
+  dir = NULL,
+  lib_dir = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{do_sync}{If \code{TRUE}, install the updated packages using \code{sync()}.}
@@ -12,6 +18,10 @@ update_pkgs(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE)
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
+
+\item{lib_dir}{Path to the library directory where to install packages. Defaults
+to `NULL`, which uses the `UVR_LIBRARY` environment variable if set, or
+the project-level `".uvr/library/"` otherwise.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

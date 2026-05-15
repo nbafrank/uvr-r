@@ -4,7 +4,14 @@
 \alias{init}
 \title{Initialize a new uvr project}
 \usage{
-init(name = NULL, r_version = NULL, bin = NULL, dir = NULL, quiet = FALSE)
+init(
+  name = NULL,
+  r_version = NULL,
+  bin = NULL,
+  dir = NULL,
+  lib_dir = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{name}{Optional project name. Defaults to the current directory name.}
@@ -14,6 +21,10 @@ init(name = NULL, r_version = NULL, bin = NULL, dir = NULL, quiet = FALSE)
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
+
+\item{lib_dir}{Path to the library directory where to install packages. Defaults
+to `NULL`, which uses the `UVR_LIBRARY` environment variable if set, or
+the project-level `".uvr/library/"` otherwise.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

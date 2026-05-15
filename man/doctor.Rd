@@ -19,3 +19,11 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 \description{
 Equivalent to \code{uvr doctor} on the command line.
 }
+\seealso{
+Other uvr setup functions:
+\code{\link[=completions]{completions()}},
+\code{\link[=init]{init()}},
+\code{\link[=install_uvr]{install_uvr()}},
+\code{\link[=update_uvr]{update_uvr()}}
+}
+\concept{uvr setup functions}

@@ -7,6 +7,7 @@
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
 #' @export
+#' @family package managers
 #' @examples
 #' \dontrun{
 #' remove_pkgs("ggplot2")

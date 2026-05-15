@@ -15,6 +15,7 @@
 #'
 #' @return Invisible path to the installed binary.
 #' @export
+#' @family uvr setup functions
 #' @examples
 #' \dontrun{
 #' # Auto-detect best method

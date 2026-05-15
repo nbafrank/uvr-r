@@ -31,3 +31,11 @@ init()
 init(name = "my-project", r_version = ">=4.3.0")
 }
 }
+\seealso{
+Other uvr setup functions:
+\code{\link[=completions]{completions()}},
+\code{\link[=doctor]{doctor()}},
+\code{\link[=install_uvr]{install_uvr()}},
+\code{\link[=update_uvr]{update_uvr()}}
+}
+\concept{uvr setup functions}

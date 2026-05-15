@@ -7,6 +7,7 @@
 #'   which is equivalent to \code{"~/.uvr/cache/"} if environmental variable \code{UVR_CACHE_DIR} is not set.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family package managers
 #' @export
 cache_clean <- function(cache_dir = NULL, bin = NULL, quiet = FALSE) {
   stopifnot(

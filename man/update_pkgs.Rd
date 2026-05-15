@@ -33,3 +33,14 @@ update_pkgs()
 update_pkgs(do_sync = FALSE)
 }
 }
+\seealso{
+Other package managers:
+\code{\link[=add]{add()}},
+\code{\link[=cache_clean]{cache_clean()}},
+\code{\link[=export]{export()}},
+\code{\link[=import]{import()}},
+\code{\link[=lock]{lock()}},
+\code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=sync]{sync()}}
+}
+\concept{package managers}

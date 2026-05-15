@@ -21,3 +21,14 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Removes all installed packages and downloaded tarballs from the cache.
 Equivalent to \code{uvr cache clean} on the command line.
 }
+\seealso{
+Other package managers:
+\code{\link[=add]{add()}},
+\code{\link[=export]{export()}},
+\code{\link[=import]{import()}},
+\code{\link[=lock]{lock()}},
+\code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=sync]{sync()}},
+\code{\link[=update_pkgs]{update_pkgs()}}
+}
+\concept{package managers}

@@ -4,6 +4,7 @@
 #'
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family uvr setup functions
 #' @export
 doctor <- function(bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(

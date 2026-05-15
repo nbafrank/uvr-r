@@ -7,6 +7,7 @@
 #'   versions.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family package managers
 #' @export
 #' @examples
 #' \dontrun{

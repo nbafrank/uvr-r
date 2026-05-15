@@ -21,3 +21,10 @@ Shows installed R versions. Use \code{all = TRUE} to show all available
 versions from CRAN.
 Equivalent to \code{uvr r list} on the command line.
 }
+\seealso{
+Other R version managers:
+\code{\link[=r_install]{r_install()}},
+\code{\link[=r_pin]{r_pin()}},
+\code{\link[=r_use]{r_use()}}
+}
+\concept{R version managers}

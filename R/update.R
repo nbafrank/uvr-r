@@ -18,6 +18,7 @@
 #' @return Invisible named list with \code{r_package} (installed version or
 #'   \code{NA} on failure) and \code{binary} (path to the CLI binary).
 #' @export
+#' @family uvr setup functions
 #' @examples
 #' \dontrun{
 #' update_uvr()

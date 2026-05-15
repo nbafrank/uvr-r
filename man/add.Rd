@@ -44,3 +44,14 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Adds one or more packages to the manifest, updates the lockfile, and
 installs them. Equivalent to \code{uvr add} on the command line.
 }
+\seealso{
+Other package managers:
+\code{\link[=cache_clean]{cache_clean()}},
+\code{\link[=export]{export()}},
+\code{\link[=import]{import()}},
+\code{\link[=lock]{lock()}},
+\code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=sync]{sync()}},
+\code{\link[=update_pkgs]{update_pkgs()}}
+}
+\concept{package managers}

@@ -6,6 +6,7 @@
 #' @param do_lock If \code{TRUE}, create \code{uvr.lock} as well.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family package managers
 #' @export
 import <- function(do_lock = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(

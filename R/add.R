@@ -12,6 +12,7 @@
 #' @inheritParams run_uvr
 #' @inheritParams cache_clean
 #' @inherit run_uvr return
+#' @family package managers
 #' @export
 add <- function(
   packages,

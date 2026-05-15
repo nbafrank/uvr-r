@@ -6,6 +6,7 @@
 #' @param version R version string, e.g. \code{"4.4.2"}.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family R version managers
 #' @export
 r_install <- function(version, bin = NULL, quiet = FALSE) {
   stopifnot(
@@ -27,6 +28,7 @@ r_install <- function(version, bin = NULL, quiet = FALSE) {
 #' @param all If \code{TRUE}, show all available versions (not just installed).
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family R version managers
 #' @export
 r_list <- function(all = FALSE, bin = NULL, quiet = FALSE) {
   stopifnot(
@@ -50,6 +52,7 @@ r_list <- function(all = FALSE, bin = NULL, quiet = FALSE) {
 #' @param version Version constraint, e.g. \code{">=4.3.0"} or \code{"4.4.2"}.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family R version managers
 #' @export
 r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(
@@ -71,6 +74,7 @@ r_use <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
 #' @inheritParams r_install
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family R version managers
 #' @export
 r_pin <- function(version, bin = NULL, dir = NULL, quiet = FALSE) {
   stopifnot(

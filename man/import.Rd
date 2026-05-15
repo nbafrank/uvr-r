@@ -22,3 +22,14 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Converts \code{renv.lock} to \code{uvr.toml}.
 Equivalent to \code{uvr import} on the command line.
 }
+\seealso{
+Other package managers:
+\code{\link[=add]{add()}},
+\code{\link[=cache_clean]{cache_clean()}},
+\code{\link[=export]{export()}},
+\code{\link[=lock]{lock()}},
+\code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=sync]{sync()}},
+\code{\link[=update_pkgs]{update_pkgs()}}
+}
+\concept{package managers}

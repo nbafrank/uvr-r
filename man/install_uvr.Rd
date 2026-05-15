@@ -41,3 +41,11 @@ install_uvr()
 install_uvr(method = "cargo", force = TRUE)
 }
 }
+\seealso{
+Other uvr setup functions:
+\code{\link[=completions]{completions()}},
+\code{\link[=doctor]{doctor()}},
+\code{\link[=init]{init()}},
+\code{\link[=update_uvr]{update_uvr()}}
+}
+\concept{uvr setup functions}

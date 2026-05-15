@@ -31,3 +31,14 @@ sync()
 sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
 }
 }
+\seealso{
+Other package managers:
+\code{\link[=add]{add()}},
+\code{\link[=cache_clean]{cache_clean()}},
+\code{\link[=export]{export()}},
+\code{\link[=import]{import()}},
+\code{\link[=lock]{lock()}},
+\code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=update_pkgs]{update_pkgs()}}
+}
+\concept{package managers}

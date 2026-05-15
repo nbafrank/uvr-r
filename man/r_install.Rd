@@ -20,3 +20,10 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Downloads and installs a specific R version to \code{~/.uvr/r-versions/}.
 Equivalent to \code{uvr r install <version>} on the command line.
 }
+\seealso{
+Other R version managers:
+\code{\link[=r_list]{r_list()}},
+\code{\link[=r_pin]{r_pin()}},
+\code{\link[=r_use]{r_use()}}
+}
+\concept{R version managers}

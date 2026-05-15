@@ -6,6 +6,7 @@
 #' @param out_file Name of the output lockfile. Defaults to \code{NULL}, returning the output via the console instead of writing to a file.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family package managers
 #' @export
 export <- function(
   out_file = NULL,

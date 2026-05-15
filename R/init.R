@@ -8,6 +8,7 @@
 #' @param r_version Optional R version constraint, e.g. \code{">=4.3.0"}.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family uvr setup functions
 #' @export
 #' @examples
 #' \dontrun{

@@ -22,3 +22,10 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Writes an exact R version to the \code{.r-version} file.
 Equivalent to \code{uvr r pin <version>} on the command line.
 }
+\seealso{
+Other R version managers:
+\code{\link[=r_install]{r_install()}},
+\code{\link[=r_list]{r_list()}},
+\code{\link[=r_use]{r_use()}}
+}
+\concept{R version managers}

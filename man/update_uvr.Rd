@@ -49,3 +49,11 @@ update_uvr()
 # then restart R to pick up the new package
 }
 }
+\seealso{
+Other uvr setup functions:
+\code{\link[=completions]{completions()}},
+\code{\link[=doctor]{doctor()}},
+\code{\link[=init]{init()}},
+\code{\link[=install_uvr]{install_uvr()}}
+}
+\concept{uvr setup functions}

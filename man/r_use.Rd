@@ -22,3 +22,10 @@ The output from `uvr`- a character vector of output lines on success, a simpleEr
 Sets the R version constraint in \code{uvr.toml}.
 Equivalent to \code{uvr r use <version>} on the command line.
 }
+\seealso{
+Other R version managers:
+\code{\link[=r_install]{r_install()}},
+\code{\link[=r_list]{r_list()}},
+\code{\link[=r_pin]{r_pin()}}
+}
+\concept{R version managers}

@@ -28,3 +28,14 @@ remove_pkgs("ggplot2")
 remove_pkgs(c("dplyr", "tidyr"))
 }
 }
+\seealso{
+Other package managers:
+\code{\link[=add]{add()}},
+\code{\link[=cache_clean]{cache_clean()}},
+\code{\link[=export]{export()}},
+\code{\link[=import]{import()}},
+\code{\link[=lock]{lock()}},
+\code{\link[=sync]{sync()}},
+\code{\link[=update_pkgs]{update_pkgs()}}
+}
+\concept{package managers}

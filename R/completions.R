@@ -5,6 +5,7 @@
 #' @param shell One of \code{"bash"}, \code{"zsh"}, \code{"fish"}, or \code{"powershell"}.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return
+#' @family uvr setup functions
 #' @export
 completions <- function(shell, bin = NULL, quiet = FALSE) {
   stopifnot(

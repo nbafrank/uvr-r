@@ -29,14 +29,7 @@ sync <- function(
     is.logical(quiet) && !is.na(quiet) && length(quiet) == 1L
   )
 
-  env_cache_dir <- Sys.getenv("UVR_CACHE_DIR")
-  if (env_cache_dir == "") {
-    cache_dir <- cache_dir %||% "~/.uvr/cache/" # NULL swap
-  }
-  if (cache_dir != "~/.uvr/cache/") {
-    Sys.setenv(UVR_CACHE_DIR = cache_dir)
-    on.exit(Sys.setenv(UVR_CACHE_DIR = env_cache_dir), add = TRUE)
-  }
+  .setup_cache_dir(cache_dir)
 
   args <- "sync"
   if (isTRUE(frozen)) {

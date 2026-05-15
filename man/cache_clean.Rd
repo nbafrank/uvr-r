@@ -7,7 +7,7 @@
 cache_clean(cache_dir = NULL, bin = NULL, quiet = FALSE)
 }
 \arguments{
-\item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses 
+\item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
@@ -15,7 +15,7 @@ the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-A character vector of output lines (returned invisibly). 
+A character vector of output lines (returned invisibly).
   On failure, throws an error with the exit code.
 }
 \description{

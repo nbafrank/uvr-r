@@ -7,7 +7,7 @@
 #' @param bin Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.
 #' @param dir Optional working directory. Defaults to \code{getwd()}.
 #' @param quiet If \code{TRUE}, suppress output.
-#' @return A character vector of output lines (returned invisibly). 
+#' @return A character vector of output lines (returned invisibly).
 #'   On failure, throws an error with the exit code.
 #' @keywords internal
 run_uvr <- function(args, bin = NULL, dir = NULL, quiet = FALSE) {

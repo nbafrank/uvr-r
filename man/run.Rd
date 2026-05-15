@@ -18,7 +18,7 @@ run(script, args = NULL, bin = NULL, dir = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-A character vector of output lines (returned invisibly). 
+A character vector of output lines (returned invisibly).
   On failure, throws an error with the exit code.
 }
 \description{

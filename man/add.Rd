@@ -32,13 +32,13 @@ Ignored if \code{do_lock} is \code{FALSE}.}
 
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 
-\item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses 
+\item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-A character vector of output lines (returned invisibly). 
+A character vector of output lines (returned invisibly).
   On failure, throws an error with the exit code.
 }
 \description{

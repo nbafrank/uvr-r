@@ -95,26 +95,29 @@
 }
 
 #' Set up cache directory environment variable
-#' 
-#' @details creates a side effect of setting the 
-#'   \code{UVR_CACHE_DIR} environment variable, 
+#'
+#' @details creates a side effect of setting the
+#'   \code{UVR_CACHE_DIR} environment variable,
 #'   then unsetting it when parent function closes
 #' @param cache_dir User-provided cache directory or NULL
 #' @return NULL (side effects only)
 #' @keywords internal
 .setup_cache_dir <- function(cache_dir) {
   env_cache_dir <- Sys.getenv("UVR_CACHE_DIR")
-  
+
   if (env_cache_dir == "") {
     cache_dir <- cache_dir %||% "~/.uvr/cache/"
   }
-  
+
   if (cache_dir != "~/.uvr/cache/") {
     Sys.setenv(UVR_CACHE_DIR = cache_dir)
     # Return function to restore original value
-    withr::defer(Sys.setenv(UVR_CACHE_DIR = env_cache_dir), envir = parent.frame())
+    withr::defer(
+      Sys.setenv(UVR_CACHE_DIR = env_cache_dir),
+      envir = parent.frame()
+    )
   }
-  
+
   invisible(NULL)
 }
 

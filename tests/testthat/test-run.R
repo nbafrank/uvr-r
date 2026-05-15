@@ -7,7 +7,7 @@ test_that("run works and requires script argument", {
   file.copy(system.file("extdata/test.R", package = "uvr"), temp_dir)
   expect_no_error(
     run(script = "test.R", bin = path, dir = temp_dir, quiet = TRUE)
-  ) |> 
+  ) |>
     paste(collapse = "\n") |>
     cat() |>
     expect_snapshot()

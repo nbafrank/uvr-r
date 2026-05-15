@@ -4,7 +4,11 @@
 \alias{completions}
 \title{Generate shell completions (bash, zsh, fish, powershell)}
 \usage{
-completions(shell, bin = NULL, quiet = FALSE)
+completions(
+  shell = c("bash", "zsh", "fish", "powershell"),
+  bin = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{shell}{One of \code{"bash"}, \code{"zsh"}, \code{"fish"}, or \code{"powershell"}.}
@@ -14,7 +18,7 @@ completions(shell, bin = NULL, quiet = FALSE)
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-A character vector of output lines (returned invisibly). 
+A character vector of output lines (returned invisibly).
   On failure, throws an error with the exit code.
 }
 \description{

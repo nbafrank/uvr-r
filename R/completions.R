@@ -14,7 +14,11 @@
 #' completions("fish")
 #' completions("powershell")
 #' }
-completions <- function(shell = c("bash", "zsh", "fish", "powershell"), bin = NULL, quiet = FALSE) {
+completions <- function(
+  shell = c("bash", "zsh", "fish", "powershell"),
+  bin = NULL,
+  quiet = FALSE
+) {
   shell <- match.arg(shell)
   .validate_single_characters(list(bin = bin))
   .validate_flags(list(quiet = quiet))

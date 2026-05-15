@@ -3,7 +3,7 @@
 #' Removes all installed packages and downloaded tarballs from the cache.
 #' Equivalent to \code{uvr cache clean} on the command line.
 #'
-#' @param cache_dir Path to cache directory. Defaults to `NULL`, which uses 
+#' @param cache_dir Path to cache directory. Defaults to `NULL`, which uses
 #'   the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.
 #' @inheritParams run_uvr
 #' @inherit run_uvr return

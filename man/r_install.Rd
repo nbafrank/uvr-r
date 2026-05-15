@@ -4,10 +4,14 @@
 \alias{r_install}
 \title{Install an R version}
 \usage{
-r_install(version, bin = NULL, quiet = FALSE)
+r_install(version, install_dir = NULL, bin = NULL, quiet = FALSE)
 }
 \arguments{
 \item{version}{R version string, e.g. \code{"4.4.2"}.}
+
+\item{install_dir}{Path to the directory where to install R.
+Temporarily overrides `UVR_R_INSTALL_DIR` environment variable.
+Default (\code{NULL}) uses `UVR_R_INSTALL_DIR` if set, or \code{~/.uvr/r-versions/} otherwise.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
@@ -24,6 +28,7 @@ Equivalent to \code{uvr r install <version>} on the command line.
 \examples{
 \dontrun{
 r_install("4.4.2")
+r_install("4.4.2", install_dir = "/tmp/r-versions") # or set env. var UVR_R_INSTALL_DIR
 }
 }
 \seealso{

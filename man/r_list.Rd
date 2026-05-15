@@ -4,10 +4,14 @@
 \alias{r_list}
 \title{List R versions}
 \usage{
-r_list(all = FALSE, bin = NULL, quiet = FALSE)
+r_list(all = FALSE, install_dir = NULL, bin = NULL, quiet = FALSE)
 }
 \arguments{
 \item{all}{If \code{TRUE}, show all available versions (not just installed).}
+
+\item{install_dir}{Path to the directory where to install R.
+Temporarily overrides `UVR_R_INSTALL_DIR` environment variable.
+Default (\code{NULL}) uses `UVR_R_INSTALL_DIR` if set, or \code{~/.uvr/r-versions/} otherwise.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
@@ -25,6 +29,7 @@ Equivalent to \code{uvr r list} on the command line.
 \examples{
 \dontrun{
 r_list() # installed versions
+r_list(install_dir = "/tmp/r-versions") # installed versions - custom install dir (or set env. var UVR_R_INSTALL_DIR)
 r_list(all = TRUE) # available versions
 }
 }

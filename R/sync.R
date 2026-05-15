@@ -7,6 +7,9 @@
 #' @param lib_dir Path to the library directory where to install packages. Defaults
 #'   to `NULL`, which uses the `UVR_LIBRARY` environment variable if set, or
 #'   the project-level `".uvr/library/"` otherwise.
+#' @param show_progress If \code{TRUE}, show a progress bar/spinner while running.
+#'   Defaults to \code{TRUE} if \code{interactive()} and `UVR_PROGRESS`
+#'   environment variable is not set (unless \code{quiet} is \code{TRUE}).
 #' @inheritParams run_uvr
 #' @inheritParams cache_clean
 #' @inherit run_uvr return
@@ -16,6 +19,8 @@
 #' \dontrun{
 #' sync()
 #' sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
+#' sync(show_progress = FALSE) # suppress progress bar
+#' sync(show_progress = TRUE) # force progress bar
 #' }
 sync <- function(
   frozen = FALSE,
@@ -23,14 +28,23 @@ sync <- function(
   dir = NULL,
   lib_dir = NULL,
   cache_dir = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  show_progress = !quiet &&
+    interactive() &&
+    is.na(Sys.getenv("UVR_PROGRESS", unset = NA))
 ) {
-  .validate_flags(list(frozen = frozen, quiet = quiet))
+  .validate_flags(
+    list(frozen = frozen, quiet = quiet, show_progress = show_progress)
+  )
   .validate_single_characters(
     list(bin = bin, dir = dir, lib_dir = lib_dir, cache_dir = cache_dir),
     null_ok = TRUE
   )
-  .temp_setenv(list(UVR_LIBRARY = lib_dir, UVR_CACHE_DIR = cache_dir))
+  .temp_setenv(list(
+    UVR_LIBRARY = lib_dir,
+    UVR_CACHE_DIR = cache_dir,
+    UVR_PROGRESS = show_progress
+  ))
 
   args <- "sync"
   if (isTRUE(frozen)) {

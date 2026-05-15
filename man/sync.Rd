@@ -10,7 +10,9 @@ sync(
   dir = NULL,
   lib_dir = NULL,
   cache_dir = NULL,
-  quiet = FALSE
+  quiet = FALSE,
+  show_progress = !quiet && interactive() && is.na(Sys.getenv("UVR_PROGRESS", unset =
+    NA))
 )
 }
 \arguments{
@@ -28,6 +30,10 @@ the project-level `".uvr/library/"` otherwise.}
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
+
+\item{show_progress}{If \code{TRUE}, show a progress bar/spinner while running.
+Defaults to \code{TRUE} if \code{interactive()} and `UVR_PROGRESS`
+environment variable is not set (unless \code{quiet} is \code{TRUE}).}
 }
 \value{
 A character vector of output lines (returned invisibly).
@@ -41,6 +47,8 @@ packages that are already installed. Equivalent to \code{uvr sync}.
 \dontrun{
 sync()
 sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
+sync(show_progress = FALSE) # suppress progress bar
+sync(show_progress = TRUE) # force progress bar
 }
 }
 \seealso{

@@ -7,4 +7,26 @@ test_that("sync works", {
     sync(bin = path, dir = temp_dir, cache_dir = cache_dir, quiet = TRUE)
   )
   expect_true(dir.exists(file.path(temp_dir, ".uvr/library/jsonlite")))
+
+  # Case: ignore_cache = TRUE
+  unlink(file.path(temp_dir, ".uvr/library/jsonlite"), recursive = TRUE)
+  result <- sync(
+    bin = path,
+    dir = temp_dir,
+    cache_dir = cache_dir,
+    quiet = TRUE
+  )
+  expect_match(paste(result, collapse = "\n"), "100% cache hit")
+  unlink(file.path(temp_dir, ".uvr/library/jsonlite"), recursive = TRUE)
+  result <- expect_no_error(
+    sync(
+      bin = path,
+      dir = temp_dir,
+      cache_dir = cache_dir,
+      ignore_cache = TRUE,
+      quiet = TRUE
+    )
+  )
+  expect_true(dir.exists(file.path(temp_dir, ".uvr/library/jsonlite")))
+  expect_match(paste(result, collapse = "\n"), " 0% cache hit")
 })

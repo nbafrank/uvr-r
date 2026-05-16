@@ -4,7 +4,14 @@
 \alias{sync}
 \title{Synchronize project library from lockfile}
 \usage{
-sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
+sync(
+  frozen = FALSE,
+  bin = NULL,
+  dir = NULL,
+  cache_dir = NULL,
+  ignore_cache = FALSE,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{frozen}{If \code{TRUE}, fail if the lockfile is out of date (CI mode).}
@@ -15,6 +22,10 @@ sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
 
 \item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
+
+\item{ignore_cache}{If \code{TRUE}, ignore the cache when downloading and installing packages.
+Still populates the cache for future installs regardless.
+Default: \code{FALSE}.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

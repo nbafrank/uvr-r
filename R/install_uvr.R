@@ -11,6 +11,7 @@
 #' \code{"cargo"} builds from source only.
 #' @param timeout Maximum number of seconds to wait for the download to complete.
 #' @param force If \code{TRUE}, reinstall even if uvr is already present.
+#' @param quiet If \code{TRUE}, suppress progress messages.
 #' @inheritParams .get_release_details
 #' @inheritParams .try_install_binary
 #' @inheritParams .get_and_extract_binary
@@ -31,7 +32,8 @@ install_uvr <- function(
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
   timeout = 60,
-  force = FALSE
+  force = FALSE,
+  quiet = FALSE
 ) {
   method <- match.arg(method)
   .validate_single_characters(list(tag = tag))
@@ -53,7 +55,8 @@ install_uvr <- function(
     path <- .try_install_binary(
       tag = tag,
       install_dir = install_dir,
-      timeout = timeout
+      timeout = timeout,
+      quiet = quiet
     )
     if (!is.null(path)) {
       message("uvr installed successfully at: ", path)
@@ -77,7 +80,8 @@ install_uvr <- function(
 .try_install_binary <- function(
   tag = "latest",
   install_dir = .get_home_dir(),
-  timeout = 60
+  timeout = 60,
+  quiet = FALSE
 ) {
   .validate_single_characters(list(tag = tag))
 
@@ -98,7 +102,8 @@ install_uvr <- function(
   .get_and_extract_binary(
     download_url = download_url,
     dest_dir = dest_dir,
-    timeout = timeout
+    timeout = timeout,
+    quiet = quiet
   )
 }
 
@@ -232,7 +237,9 @@ install_uvr <- function(
   bin_name <- .get_bin_name()
   dest <- file.path(dest_dir, bin_name)
 
-  message("Downloading uvr from: ", download_url)
+  if (!quiet) {
+    message("Downloading uvr from: ", download_url)
+  }
   tmp <- tempfile(fileext = tools::file_ext(download_url))
   ok <- tryCatch(
     withr::with_options(
@@ -244,14 +251,14 @@ install_uvr <- function(
         quiet = TRUE
       )
     ),
-    error = \(e) message("Download failed: ", conditionMessage(e)),
+    error = \(e) if (!quiet) message("Download failed: ", conditionMessage(e)),
     warning = \(w) {
       is_timeout <- grepl(
         "timed out|timeout",
         conditionMessage(w),
         ignore.case = TRUE
       )
-      if (is_timeout) {
+      if (is_timeout && !quiet) {
         message(
           "Download timed out after ",
           timeout,

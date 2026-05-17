@@ -9,7 +9,8 @@ install_uvr(
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
   timeout = 60,
-  force = FALSE
+  force = FALSE,
+  quiet = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ GitHub release binary first, then falls back to building from source via
 \item{timeout}{Maximum number of seconds to wait for the download to complete.}
 
 \item{force}{If \code{TRUE}, reinstall even if uvr is already present.}
+
+\item{quiet}{If \code{TRUE}, suppress progress messages.}
 }
 \value{
 Invisible path to the installed binary.

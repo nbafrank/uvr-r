@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{timeout}{Maximum number of seconds to wait for the download to complete.}
+
+\item{quiet}{If \code{TRUE}, suppress progress messages.}
 }
 \value{
 Destination path or NULL if download failed.

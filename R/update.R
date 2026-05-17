@@ -12,7 +12,6 @@
 #' it completes, you will need to restart R to load the newly installed package
 #' (i.e. \code{.rs.restartR()} (RStudio) or \code{rstudioapi::restartSession()}).
 #'
-#' @param quiet If \code{TRUE}, suppress progress messages.
 #' @inheritParams install_uvr
 #' @inheritParams .update_uvr_pkg
 #' @return Invisible named list with \code{r_package} (installed version or

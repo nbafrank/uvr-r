@@ -17,6 +17,8 @@
 \item{install_dir}{Directory to install into (default: home directory).}
 
 \item{timeout}{Maximum number of seconds to wait for the download to complete.}
+
+\item{quiet}{If \code{TRUE}, suppress progress messages.}
 }
 \value{
 Path to binary or NULL if unavailable.

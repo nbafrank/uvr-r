@@ -9,9 +9,11 @@
 #' GitHub release binary first, then falls back to building from source via
 #' \code{cargo install}. \code{"binary"} downloads a pre-built binary only.
 #' \code{"cargo"} builds from source only.
+#' @param timeout Maximum number of seconds to wait for the download to complete.
 #' @param force If \code{TRUE}, reinstall even if uvr is already present.
 #' @inheritParams .get_release_details
 #' @inheritParams .try_install_binary
+#' @inheritParams .get_and_extract_binary
 #'
 #' @return Invisible path to the installed binary.
 #' @export
@@ -28,11 +30,13 @@ install_uvr <- function(
   tag = "latest",
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
+  timeout = 60,
   force = FALSE
 ) {
   method <- match.arg(method)
   .validate_single_characters(list(tag = tag))
   .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
+  .validate_single_numerics(list(timeout = timeout))
   .validate_flags(list(force = force))
   install_dir <- install_dir %||% .get_home_dir # NULL swap
 
@@ -46,7 +50,11 @@ install_uvr <- function(
   }
 
   if (method == "auto" || method == "binary") {
-    path <- .try_install_binary(tag = tag, install_dir = install_dir)
+    path <- .try_install_binary(
+      tag = tag,
+      install_dir = install_dir,
+      timeout = timeout
+    )
     if (!is.null(path)) {
       message("uvr installed successfully at: ", path)
       return(invisible(path))
@@ -63,9 +71,14 @@ install_uvr <- function(
 #' Try to download a pre-built binary from GitHub releases
 #' @param install_dir Directory to install into (default: home directory).
 #' @inheritParams .get_release_details
+#' @inheritParams .get_and_extract_binary
 #' @return Path to binary or NULL if unavailable.
 #' @keywords internal
-.try_install_binary <- function(tag = "latest", install_dir = .get_home_dir()) {
+.try_install_binary <- function(
+  tag = "latest",
+  install_dir = .get_home_dir(),
+  timeout = 60
+) {
   .validate_single_characters(list(tag = tag))
 
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
@@ -82,7 +95,11 @@ install_uvr <- function(
   }
   download_url <- release$asset$browser_download_url[1L]
   dest_dir <- file.path(install_dir, ".cargo", "bin")
-  .get_and_extract_binary(download_url = download_url, dest_dir = dest_dir)
+  .get_and_extract_binary(
+    download_url = download_url,
+    dest_dir = dest_dir,
+    timeout = timeout
+  )
 }
 
 #' Install uvr via cargo
@@ -203,8 +220,14 @@ install_uvr <- function(
 
 #' Download and extract uvr binary
 #' @return Destination path or NULL if download failed.
+#' @inheritParams install_uvr
 #' @keywords internal
-.get_and_extract_binary <- function(download_url, dest_dir) {
+.get_and_extract_binary <- function(
+  download_url,
+  dest_dir,
+  timeout = 60,
+  quiet = FALSE
+) {
   dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
   bin_name <- .get_bin_name()
   dest <- file.path(dest_dir, bin_name)
@@ -212,16 +235,33 @@ install_uvr <- function(
   message("Downloading uvr from: ", download_url)
   tmp <- tempfile(fileext = tools::file_ext(download_url))
   ok <- tryCatch(
-    {
-      utils::download.file(download_url, tmp, mode = "wb", quiet = TRUE)
-      TRUE
-    },
-    error = function(e) {
-      message("Download failed: ", conditionMessage(e))
-      FALSE
+    withr::with_options(
+      list(timeout = timeout),
+      utils::download.file(
+        url = download_url,
+        destfile = tmp,
+        mode = "wb",
+        quiet = TRUE
+      )
+    ),
+    error = \(e) message("Download failed: ", conditionMessage(e)),
+    warning = \(w) {
+      is_timeout <- grepl(
+        "timed out|timeout",
+        conditionMessage(w),
+        ignore.case = TRUE
+      )
+      if (is_timeout) {
+        message(
+          "Download timed out after ",
+          timeout,
+          "s. Try setting `timeout` to a higher value.",
+          call. = FALSE
+        )
+      }
     }
   )
-  if (!ok) {
+  if (is.null(ok) || ok != 0L) {
     return(NULL)
   }
 

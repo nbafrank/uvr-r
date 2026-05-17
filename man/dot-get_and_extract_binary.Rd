@@ -4,7 +4,10 @@
 \alias{.get_and_extract_binary}
 \title{Download and extract uvr binary}
 \usage{
-.get_and_extract_binary(download_url, dest_dir)
+.get_and_extract_binary(download_url, dest_dir, timeout = 60, quiet = FALSE)
+}
+\arguments{
+\item{timeout}{Maximum number of seconds to wait for the download to complete.}
 }
 \value{
 Destination path or NULL if download failed.

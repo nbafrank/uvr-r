@@ -176,6 +176,35 @@
   }
 }
 
+#' Validate single numeric value(s)
+#' @param numeric_flags Named list of values to validate
+#' @keywords internal
+.validate_single_numerics <- function(numeric_flags, null_ok = FALSE) {
+  for (flag in names(numeric_flags)) {
+    value <- numeric_flags[[flag]]
+    is_single_numeric <- is.numeric(value) &&
+      !anyNA(value) &&
+      length(value) == 1L
+    if (null_ok) {
+      if (!is.null(value) && !is_single_numeric) {
+        stop(paste0(
+          "Argument `",
+          flag,
+          "` must be NULL or a single non-NA numeric value."
+        ))
+      }
+    } else {
+      if (!is_single_numeric) {
+        stop(paste0(
+          "Argument `",
+          flag,
+          "` must be a single non-NA numeric value."
+        ))
+      }
+    }
+  }
+}
+
 #' Validate multiple (more than 0) character value(s)
 #' @param character_flags Named list of values to validate
 #' @keywords internal

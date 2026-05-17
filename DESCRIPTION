@@ -19,7 +19,8 @@ Suggests:
     jsonlite,
     pak,
     remotes,
-    testthat (>= 3.3.0)
+    testthat (>= 3.3.0),
+    webfakes
 Config/testthat/edition: 3
 Encoding: UTF-8
 Config/roxygen2/version: 8.0.0

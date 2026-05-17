@@ -8,6 +8,7 @@ install_uvr(
   tag = "latest",
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
+  timeout = 60,
   force = FALSE
 )
 }
@@ -20,6 +21,8 @@ GitHub release binary first, then falls back to building from source via
 \code{"cargo"} builds from source only.}
 
 \item{install_dir}{Directory to install into (default: home directory).}
+
+\item{timeout}{Maximum number of seconds to wait for the download to complete.}
 
 \item{force}{If \code{TRUE}, reinstall even if uvr is already present.}
 }

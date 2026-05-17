@@ -62,3 +62,23 @@ test_that(".get_release_details works for earlier release", {
     length(earlier_release$asset$browser_download_url) == 1
   )
 })
+
+test_that("timeout is handled correctly in install_uvr", {
+  # fake a slow endpoint
+  app <- webfakes::new_app()
+  app$get("/slow", function(req, res) {
+    Sys.sleep(5) # delay longer than your timeout
+    res$send("done")
+  })
+  web <- webfakes::local_app_process(app)
+
+  temp_dir <- .make_temp_dir()
+  expect_message(
+    .get_and_extract_binary(
+      download_url = web$url("/slow"),
+      dest_dir = temp_dir,
+      timeout = 1
+    ),
+    regexp = "timed out after 1s"
+  )
+})

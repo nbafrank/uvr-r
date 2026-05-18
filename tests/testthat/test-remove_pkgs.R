@@ -7,6 +7,6 @@ test_that("remove_pkgs works and errors on empty packages", {
   )
   expect_error(
     remove_pkgs(character(0), quiet = TRUE),
-    "length\\(packages\\) > 0L"
+    "must be a non-NA character vector with length > 0"
   )
 })

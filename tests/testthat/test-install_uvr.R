@@ -1,5 +1,5 @@
 test_that("install_uvr works", {
-  skip("need to find a better way to test this within github CI")
+  skip_on_ci()
   temp_dir <- .make_temp_dir()
 
   expect_no_error(install_uvr(install_dir = temp_dir))

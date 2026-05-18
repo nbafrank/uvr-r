@@ -1,5 +1,5 @@
 test_that("update_uvr works", {
-  skip("need to find a better way to test this within github CI")
+  skip_on_ci()
   temp_dir <- .make_temp_dir()
   path <- setup_uvr_test(
     temp_dir = temp_dir,

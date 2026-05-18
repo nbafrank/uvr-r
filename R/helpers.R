@@ -265,7 +265,7 @@
 #' @return character value of minimum uvr binary version (i.e. "1.0.0")
 #' @keywords internal
 .get_uvr_min_version <- function() {
-  description_entry <- packageDescription("uvr")$SystemRequirements
+  description_entry <- utils::packageDescription("uvr")$SystemRequirements
 
   # should only come up in development
   if (is.null(description_entry)) {

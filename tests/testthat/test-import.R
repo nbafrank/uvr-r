@@ -1,4 +1,5 @@
 test_that("import works and create lockfile if desired", {
+  skip("waiting on 0.3.5 release for https://github.com/nbafrank/uvr/issues/91")
   temp_dir <- .make_temp_dir()
   path <- setup_uvr_test(temp_dir = temp_dir) # installs uvr if needed
 

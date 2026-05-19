@@ -55,3 +55,35 @@ test_that(".check_uvr_version works", {
     )
   )
 })
+
+test_that(".get_uvr_version() handles missing binary gracefully", {
+  # Test when binary doesn't exist or can't be executed
+  fake_bin <- file.path(tempdir(), "nonexistent_uvr_binary.exe")
+
+  # The current buggy implementation returns FALSE, which causes issues
+  # when passed to package_version()
+  expect_error(
+    .get_uvr_version(bin = fake_bin),
+    regexp = "Could not determine uvr binary version"
+  )
+})
+
+test_that(".get_uvr_version() returns valid version string", {
+  temp_dir <- .make_temp_dir()
+  bin <- setup_uvr_test(temp_dir = temp_dir)
+
+  version <- .get_uvr_version(bin = bin)
+
+  # Should be a character string parseable as a version
+  expect_type(version, "character")
+  expect_length(version, 1)
+  expect_no_error(package_version(version))
+})
+
+test_that(".check_uvr_version() handles binary is missing", {
+  expect_error(
+    .check_uvr_version(bin = file.path(tempdir(), "fake_uvr")),
+    regexp = "Could not determine uvr binary version",
+    class = "error"
+  )
+})

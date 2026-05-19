@@ -249,8 +249,7 @@
     error = function(e) NULL
   )
   if (is.null(version_output)) {
-    warning("Could not determine uvr binary version")
-    return(invisible(FALSE))
+    stop("Could not determine uvr binary version")
   }
   version <- sub(
     pattern = "uvr\\s+",

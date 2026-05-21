@@ -1,0 +1,132 @@
+# uvr
+
+R companion package for [uvr](https://github.com/nbafrank/uvr), the fast
+R package and project manager written in Rust.
+
+Use `uvr` functions directly from your R console or RStudio/Positron —
+no terminal needed.
+
+## Installation
+
+``` r
+
+# Install from GitHub
+# install.packages("pak")
+pak::pak("nbafrank/uvr-r")
+```
+
+Or install from a local clone:
+
+``` r
+
+install.packages("path/to/uvr-r", repos = NULL, type = "source")
+```
+
+The first time you call any `uvr` function, if the CLI binary is not
+found you’ll be prompted to install it automatically.
+
+## Usage
+
+``` r
+
+library(uvr)
+
+# Start a new project
+init()
+
+# Add packages (CRAN, Bioconductor, GitHub)
+add("ggplot2")
+add("dplyr", do_lock = FALSE) # skip lock + install
+add("dplyr", do_install = FALSE) # skip install
+add(c("DESeq2", "GenomicRanges"), bioc = TRUE)
+add("user/repo@main")
+
+# Install everything from the lockfile
+sync()
+
+# Upgrade all packages to latest versions
+lock(upgrade = TRUE)
+sync()
+
+# Run a script in the isolated environment
+run("analysis.R")
+
+# Remove packages
+remove_pkgs("ggplot2")
+```
+
+## Functions
+
+| Function | CLI equivalent | Description |
+|----|----|----|
+| [`init()`](reference/init.md) | `uvr init` | Create a new uvr project |
+| [`add()`](reference/add.md) | `uvr add <packages> <--no-lock> <--no-install>` | Add packages to the project |
+| [`remove_pkgs()`](reference/remove_pkgs.md) | `uvr remove` | Remove packages |
+| [`sync()`](reference/sync.md) | `uvr sync` | Install all packages from lockfile |
+| [`lock()`](reference/lock.md) | `uvr lock` | Re-resolve deps, update lockfile |
+| [`cache_clean()`](reference/cache_clean.md) | `uvr cache clean` | Delete cached package installs and tarballs |
+| [`completions()`](reference/completions.md) | `uvr completions <shell>` | Generate shell completions (bash, zsh, fish, powershell) |
+| [`doctor()`](reference/doctor.md) | `uvr doctor` | Diagnose environment issues (R, build tools, project status) |
+| [`export()`](reference/export.md) | `uvr export` | Export renv.lock file built from uvr.toml |
+| [`import()`](reference/import.md) | `uvr import` | Import renv.lock file to build uvr.toml |
+| [`run()`](reference/run.md) | `uvr run` | Run a script in the project env |
+| [`install_uvr()`](reference/install_uvr.md) | — | Install the uvr CLI binary |
+| [`update_uvr()`](reference/update_uvr.md) | — | Update both R package (from GitHub) and CLI binary |
+| [`r_install()`](reference/r_install.md) / [`r_list()`](reference/r_list.md) / [`r_use()`](reference/r_use.md) / [`r_pin()`](reference/r_pin.md) | `uvr r ...` | Manage R versions |
+
+### Key arguments
+
+``` r
+
+# Version constraints
+add("tidymodels@>=1.0.0")
+
+# Dev dependencies
+add("testthat", dev = TRUE)
+
+# Bioconductor
+add("DESeq2", bioc = TRUE)
+
+# CI mode — fail if lockfile is stale
+sync(frozen = TRUE)
+
+# Upgrade all packages
+lock(upgrade = TRUE)
+
+# Forward args to script
+run("analysis.R", args = c("--input", "data.csv"))
+```
+
+## How it works
+
+Each function shells out to the `uvr` CLI binary. The package
+automatically:
+
+1.  **Finds** the `uvr` binary on your PATH or in common install
+    locations (`~/.cargo/bin/`, `~/.local/bin/`)
+2.  **Caches** the path for the session (no repeated lookups)
+3.  **Prompts** to install the binary if not found (interactive sessions
+    only)
+
+The binary does the heavy lifting — resolving dependencies, downloading
+P3M pre-built binaries, managing the lockfile, and maintaining the
+isolated per-project library.
+
+## Requirements
+
+- R \>= 4.1.0
+- The `uvr` CLI binary ([install
+  instructions](https://github.com/nbafrank/uvr#installation))
+- Optional: `jsonlite` (for downloading pre-built binaries via
+  [`install_uvr()`](reference/install_uvr.md))
+
+## Related
+
+- [uvr](https://github.com/nbafrank/uvr) — the CLI tool and full
+  documentation
+- [uvr on r/rstats](https://www.reddit.com/r/rstats/) — community
+  discussion
+
+## License
+
+MIT

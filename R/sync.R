@@ -4,12 +4,33 @@
 #' packages that are already installed. Equivalent to \code{uvr sync}.
 #'
 #' @param frozen If \code{TRUE}, fail if the lockfile is out of date (CI mode).
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
-#' @return Invisible \code{TRUE} on success.
+#' @inheritParams run_uvr
+#' @inheritParams cache_clean
+#' @inherit run_uvr return
+#' @family package managers
 #' @export
-sync <- function(frozen = FALSE, dir = NULL, quiet = FALSE) {
+#' @examples
+#' \dontrun{
+#' sync()
+#' sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
+#' }
+sync <- function(
+  frozen = FALSE,
+  bin = NULL,
+  dir = NULL,
+  cache_dir = NULL,
+  quiet = FALSE
+) {
+  .validate_flags(list(frozen = frozen, quiet = quiet))
+  .validate_single_characters(
+    list(bin = bin, dir = dir, cache_dir = cache_dir),
+    null_ok = TRUE
+  )
+  .setup_cache_dir(cache_dir)
+
   args <- "sync"
-  if (isTRUE(frozen)) args <- c(args, "--frozen")
-  run_uvr(args, dir = dir, quiet = quiet)
+  if (isTRUE(frozen)) {
+    args <- c(args, "--frozen")
+  }
+  run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

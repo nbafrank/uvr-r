@@ -2,6 +2,7 @@
 
 <!-- badges: start -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![R-CMD-check](https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 R companion package for [uvr](https://github.com/nbafrank/uvr), the fast R package and project manager written in Rust.
@@ -34,7 +35,8 @@ init()
 
 # Add packages (CRAN, Bioconductor, GitHub)
 add("ggplot2")
-add("dplyr")
+add("dplyr", do_lock = FALSE) # skip lock + install
+add("dplyr", do_install = FALSE) # skip install
 add(c("DESeq2", "GenomicRanges"), bioc = TRUE)
 add("user/repo@main")
 
@@ -57,10 +59,15 @@ remove_pkgs("ggplot2")
 | Function | CLI equivalent | Description |
 |----------|---------------|-------------|
 | `init()` | `uvr init` | Create a new uvr project |
-| `add()` | `uvr add` | Add packages to the project |
+| `add()` | `uvr add <packages> <--no-lock> <--no-install>` | Add packages to the project |
 | `remove_pkgs()` | `uvr remove` | Remove packages |
 | `sync()` | `uvr sync` | Install all packages from lockfile |
 | `lock()` | `uvr lock` | Re-resolve deps, update lockfile |
+| `cache_clean()` | `uvr cache clean` | Delete cached package installs and tarballs |
+| `completions()` | `uvr completions <shell>` | Generate shell completions (bash, zsh, fish, powershell) |
+| `doctor()` | `uvr doctor ` | Diagnose environment issues (R, build tools, project status) |
+| `export()` | `uvr export` | Export renv.lock file built from uvr.toml |
+| `import()` | `uvr import` | Import renv.lock file to build uvr.toml |
 | `run()` | `uvr run` | Run a script in the project env |
 | `install_uvr()` | — | Install the uvr CLI binary |
 | `update_uvr()` | — | Update both R package (from GitHub) and CLI binary |

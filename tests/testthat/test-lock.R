@@ -1,0 +1,21 @@
+test_that("lock works", {
+  skip("waiting on 0.3.5 release of uvr with relevant fixes (--no-lock flag)")
+  temp_dir <- .make_temp_dir()
+  path <- setup_uvr_test(temp_dir = temp_dir, init = TRUE) # installs uvr if needed
+  add(
+    "jsonlite@2.0.0",
+    do_lock = FALSE,
+    bin = path,
+    dir = temp_dir,
+    quiet = TRUE
+  )
+
+  expect_no_error(lock(bin = path, dir = temp_dir, quiet = TRUE))
+  expect_true(file.exists(file.path(temp_dir, "uvr.lock")))
+
+  expect_snapshot(
+    readLines(file.path(temp_dir, "uvr.lock")) |>
+      paste(collapse = "\n") |>
+      cat()
+  )
+})

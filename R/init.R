@@ -1,17 +1,39 @@
 #' Initialize a new uvr project
 #'
 #' Creates a \code{uvr.toml} manifest and \code{.uvr/library/} directory.
+#' Also generates \code{.Rprofile} code to link to the \code{.uvr/library/} on session start.
 #' Equivalent to \code{uvr init} on the command line.
 #'
 #' @param name Optional project name. Defaults to the current directory name.
 #' @param r_version Optional R version constraint, e.g. \code{">=4.3.0"}.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
-#' @return Invisible \code{TRUE} on success.
+#' @inheritParams run_uvr
+#' @inherit run_uvr return
+#' @family uvr setup functions
 #' @export
-init <- function(name = NULL, r_version = NULL, dir = NULL, quiet = FALSE) {
+#' @examples
+#' \dontrun{
+#' init()
+#' init(name = "my-project", r_version = ">=4.3.0")
+#' }
+init <- function(
+  name = NULL,
+  r_version = NULL,
+  bin = NULL,
+  dir = NULL,
+  quiet = FALSE
+) {
+  .validate_single_characters(
+    list(name = name, r_version = r_version, bin = bin, dir = dir),
+    null_ok = TRUE
+  )
+  .validate_flags(list(quiet = quiet))
+
   args <- "init"
-  if (!is.null(name)) args <- c(args, name)
-  if (!is.null(r_version)) args <- c(args, "--r-version", r_version)
-  run_uvr(args, dir = dir, quiet = quiet)
+  if (!is.null(name)) {
+    args <- c(args, name)
+  }
+  if (!is.null(r_version)) {
+    args <- c(args, "--r-version", r_version)
+  }
+  run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

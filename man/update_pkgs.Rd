@@ -4,29 +4,44 @@
 \alias{update_pkgs}
 \title{Update installed packages to the latest allowed versions}
 \usage{
-update_pkgs(dir = NULL, quiet = FALSE)
+update_pkgs(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
+\item{do_sync}{If \code{TRUE}, install the updated packages using \code{sync()}.}
+
+\item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
+
 \item{dir}{Optional working directory. Defaults to \code{getwd()}.}
 
-\item{quiet}{If \code{TRUE}, suppress output from both phases.}
+\item{quiet}{If \code{TRUE}, suppress output.}
 }
 \value{
-Invisible \code{TRUE} on success.
+A character vector of output lines (returned invisibly).
+  On failure, throws an error with the exit code.
 }
 \description{
 Convenience wrapper that re-resolves the lockfile with
 \code{lock(upgrade = TRUE)} and then installs the updates with
 \code{sync()}. Equivalent to running \code{uvr lock --upgrade && uvr sync}
-on the command line. (uvr-r issue #2.)
-}
-\details{
-Naming note: this is \code{update_pkgs()} rather than \code{update()} to
-avoid masking \code{utils::update()}, which has a generic \code{update()}
-for fitted models.
+on the command line.
 }
 \examples{
 \dontrun{
+# Update the lockfile and install updated packages
 update_pkgs()
+
+# Don't install updated packages, just update the lockfile
+update_pkgs(do_sync = FALSE)
 }
 }
+\seealso{
+Other package managers:
+\code{\link[=add]{add()}},
+\code{\link[=cache_clean]{cache_clean()}},
+\code{\link[=export]{export()}},
+\code{\link[=import]{import()}},
+\code{\link[=lock]{lock()}},
+\code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=sync]{sync()}}
+}
+\concept{package managers}

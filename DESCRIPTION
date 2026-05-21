@@ -1,8 +1,9 @@
 Package: uvr
 Title: R Interface to the 'uvr' Package Manager
-Version: 0.1.2
-Authors@R: person("Francesco", "Grazzini", role = c("aut", "cre"),
-                  email = "francesco@example.com")
+Version: 0.1.3
+Authors@R: c(
+    person("Francesco", "Grazzini", role = c("aut", "cre"), email = "francesco@example.com"),
+    person("Brayden", "Nilson", role = "aut", email = "nilson.brayden@gmail.com"))
 Description: Provides R functions that wrap the 'uvr' command-line tool for
     fast, reproducible R package management. Functions include project
     initialization, package addition and removal, lockfile synchronization,
@@ -10,9 +11,16 @@ Description: Provides R functions that wrap the 'uvr' command-line tool for
     binary to be installed separately.
 License: MIT + file LICENSE
 Depends: R (>= 4.1.0)
+Imports:
+    processx,
+    withr
 Suggests:
+    curl,
     jsonlite,
-    testthat (>= 3.0.0)
+    pak,
+    remotes,
+    testthat (>= 3.3.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
-RoxygenNote: 7.3.2
+Config/roxygen2/version: 8.0.0
+SystemRequirements: uvr (>= 0.3.4)

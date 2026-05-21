@@ -5,12 +5,22 @@
 #'
 #' @param upgrade If \code{TRUE}, upgrade all packages to their latest allowed
 #'   versions.
-#' @param dir Optional working directory. Defaults to \code{getwd()}.
-#' @param quiet If \code{TRUE}, suppress output.
-#' @return Invisible \code{TRUE} on success.
+#' @inheritParams run_uvr
+#' @inherit run_uvr return
+#' @family package managers
 #' @export
-lock <- function(upgrade = FALSE, dir = NULL, quiet = FALSE) {
+#' @examples
+#' \dontrun{
+#' lock()
+#' lock(upgrade = TRUE)  # upgrade all packages to latest versions
+#' }
+lock <- function(upgrade = FALSE, bin = NULL, dir = NULL, quiet = FALSE) {
+  .validate_flags(list(upgrade = upgrade, quiet = quiet))
+  .validate_single_characters(list(bin = bin, dir = dir), null_ok = TRUE)
+
   args <- "lock"
-  if (isTRUE(upgrade)) args <- c(args, "--upgrade")
-  run_uvr(args, dir = dir, quiet = quiet)
+  if (isTRUE(upgrade)) {
+    args <- c(args, "--upgrade")
+  }
+  run_uvr(args, bin = bin, dir = dir, quiet = quiet)
 }

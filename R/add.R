@@ -9,6 +9,12 @@
 #' @param do_lock If \code{TRUE}, update the lockfile with the added package(s).
 #' @param do_install If \code{TRUE}, install the added package(s).
 #'   Ignored if \code{do_lock} is \code{FALSE}.
+#' @param progress Control uvr's progress display for this call:
+#'   \code{"always"} forces spinners and progress bars even though output is
+#'   piped (they are otherwise hidden because R captures uvr's output, so
+#'   uvr never sees a TTY), \code{"never"} hides them. The default
+#'   \code{NULL} leaves the \code{UVR_PROGRESS} environment variable in
+#'   charge.
 #' @inheritParams run_uvr
 #' @inheritParams cache_clean
 #' @inherit run_uvr return
@@ -33,6 +39,7 @@ add <- function(
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
+  progress = NULL,
   quiet = FALSE
 ) {
   .validate_multi_characters(list(packages = packages))
@@ -52,6 +59,7 @@ add <- function(
     null_ok = TRUE
   )
   .setup_cache_dir(cache_dir)
+  .setup_env_var("UVR_PROGRESS", progress)
 
   args <- c("add", packages)
   if (isTRUE(dev)) {

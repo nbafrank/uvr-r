@@ -4,7 +4,14 @@
 \alias{sync}
 \title{Synchronize project library from lockfile}
 \usage{
-sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
+sync(
+  frozen = FALSE,
+  bin = NULL,
+  dir = NULL,
+  cache_dir = NULL,
+  progress = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
 \item{frozen}{If \code{TRUE}, fail if the lockfile is out of date (CI mode).}
@@ -15,6 +22,13 @@ sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
 
 \item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
+
+\item{progress}{Control uvr's progress display for this call:
+\code{"always"} forces spinners and progress bars even though output is
+piped (they are otherwise hidden because R captures uvr's output, so
+uvr never sees a TTY), \code{"never"} hides them. The default
+\code{NULL} leaves the \code{UVR_PROGRESS} environment variable in
+charge.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }
@@ -29,7 +43,8 @@ packages that are already installed. Equivalent to \code{uvr sync}.
 \examples{
 \dontrun{
 sync()
-sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
+sync(frozen = TRUE) # CI mode: fail if lockfile is stale
+sync(progress = "always") # force spinners even though output is piped
 }
 }
 \seealso{

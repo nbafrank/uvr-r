@@ -13,6 +13,7 @@ add(
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
+  progress = NULL,
   quiet = FALSE
 )
 }
@@ -34,6 +35,13 @@ Ignored if \code{do_lock} is \code{FALSE}.}
 
 \item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
+
+\item{progress}{Control uvr's progress display for this call:
+\code{"always"} forces spinners and progress bars even though output is
+piped (they are otherwise hidden because R captures uvr's output, so
+uvr never sees a TTY), \code{"never"} hides them. The default
+\code{NULL} leaves the \code{UVR_PROGRESS} environment variable in
+charge.}
 
 \item{quiet}{If \code{TRUE}, suppress output.}
 }

@@ -11,8 +11,9 @@
 #'   the standard OS path separator (\code{:} on Unix/macOS, \code{;} on Windows).
 #'
 #' @section UVR_INSTALL_DIR:
-#'   Directory in which to install \code{uvr} using the standalone installer.
-#'   Expects a valid absolute or relative directory path.
+#'   Directory in which to install \code{uvr} using the standalone shell
+#'   installer. Not used by this R package: \code{\link{install_uvr}} takes
+#'   an \code{install_dir} argument instead.
 #'
 #' @section UVR_INSTALL_TIMEOUT:
 #'   Overrides the default per-package installation timeout (30 minutes).
@@ -23,6 +24,11 @@
 #'   Custom target directory for R package installations. Note: the CLI
 #'   \code{--library} argument takes precedence over this variable. Defaults to
 #'   the project-local \code{.uvr/library/} directory if neither are provided.
+#'
+#' @section UVR_PACKAGES_DIR:
+#'   Directory where uvr stores cached installed-package entries.
+#'   Expects a valid absolute or relative directory path.
+#'   Defaults to \code{~/.uvr/packages/} if not set. (Requires uvr >= 0.4.2.)
 #'
 #' @section UVR_PROGRESS:
 #'   Controls the visibility of progress bars and spinners in the terminal.
@@ -39,6 +45,12 @@
 #'   Directory where uvr-managed R versions are installed.
 #'   Expects a valid absolute or relative directory path.
 #'   Defaults to \code{~/.uvr/r-versions/} if not set.
+#'
+#' @section UVR_REPOS:
+#'   Comma-separated list of CRAN-like repository URLs used in addition to
+#'   (and at higher priority than) any \code{[[sources]]} in
+#'   \code{uvr.toml}. Useful for injecting repositories via CI environment
+#'   instead of mutating the manifest.
 #'
 #' @name uvr-environment
 #' @keywords internal

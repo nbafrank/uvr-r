@@ -1,10 +1,14 @@
 test_that("install_uvr works", {
-  # runs on CI too (#18): installs into a temp dir, nothing system-wide
+  # runs on CI too (#18): installs into a temp dir, nothing system-wide.
+  # force = TRUE because .find_uvr_path always consults system locations
+  # (/usr/local/bin, LOCALAPPDATA) where CI pre-installs uvr — without it
+  # install_uvr early-returns "already installed" and nothing lands in
+  # temp_dir.
   skip_on_cran()
   skip_if_offline()
   temp_dir <- .make_temp_dir()
 
-  expect_no_error(install_uvr(install_dir = temp_dir))
+  expect_no_error(install_uvr(install_dir = temp_dir, force = TRUE))
   expect_true(file.exists(
     file.path(temp_dir, ".cargo", "bin", .get_bin_name())
   ))

@@ -108,30 +108,39 @@
   return(temp_dir)
 }
 
+#' Scope a uvr environment variable to the calling function
+#'
+#' @details Sets \code{var} for the duration of the calling function (via
+#'   \code{withr::local_envvar}), restoring the previous value — set or
+#'   unset — when that function exits. A \code{NULL} value is a no-op, so
+#'   the CLI's own default / any user-set environment variable stays in
+#'   charge.
+#' @param var Environment variable name, e.g. \code{"UVR_CACHE_DIR"}.
+#' @param value Value to set, or NULL to leave the environment untouched.
+#' @param envir Environment whose exit undoes the change.
+#' @return NULL (side effects only)
+#' @keywords internal
+.setup_env_var <- function(var, value, envir = parent.frame()) {
+  if (is.null(value)) {
+    return(invisible(NULL))
+  }
+  named_value <- list(value)
+  names(named_value) <- var
+  .validate_single_characters(named_value)
+  withr::local_envvar(named_value, .local_envir = envir)
+  invisible(NULL)
+}
+
 #' Set up cache directory environment variable
 #'
 #' @details creates a side effect of setting the
 #'   \code{UVR_CACHE_DIR} environment variable,
-#'   then unsetting it when parent function closes
+#'   then restoring the previous state when the parent function closes
 #' @param cache_dir User-provided cache directory or NULL
 #' @return NULL (side effects only)
 #' @keywords internal
 .setup_cache_dir <- function(cache_dir, envir = parent.frame()) {
-  env_cache_dir <- Sys.getenv("UVR_CACHE_DIR")
-
-  if (env_cache_dir == "") {
-    cache_dir <- cache_dir %||% "~/.uvr/cache/"
-  }
-
-  if (cache_dir != "~/.uvr/cache/") {
-    Sys.setenv(UVR_CACHE_DIR = cache_dir)
-    withr::defer(
-      Sys.setenv(UVR_CACHE_DIR = env_cache_dir),
-      envir = envir
-    )
-  }
-
-  invisible(NULL)
+  .setup_env_var("UVR_CACHE_DIR", cache_dir, envir = envir)
 }
 
 #' Validate logical flag(s)
@@ -201,6 +210,26 @@
           "` must be a non-NA character vector with length > 0."
         ))
       }
+    }
+  }
+}
+
+#' Validate single positive numeric value(s)
+#' @param numbers Named list of values to validate
+#' @keywords internal
+.validate_positive_numbers <- function(numbers) {
+  for (name in names(numbers)) {
+    value <- numbers[[name]]
+    is_positive_number <- is.numeric(value) &&
+      length(value) == 1L &&
+      !is.na(value) &&
+      value > 0
+    if (!is_positive_number) {
+      stop(paste0(
+        "Argument `",
+        name,
+        "` must be a single positive number."
+      ))
     }
   }
 }

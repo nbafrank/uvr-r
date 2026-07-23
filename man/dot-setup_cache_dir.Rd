@@ -18,6 +18,6 @@ Set up cache directory environment variable
 \details{
 creates a side effect of setting the
   \code{UVR_CACHE_DIR} environment variable,
-  then unsetting it when parent function closes
+  then restoring the previous state when the parent function closes
 }
 \keyword{internal}

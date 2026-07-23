@@ -10,6 +10,10 @@
 #' \code{cargo install}. \code{"binary"} downloads a pre-built binary only.
 #' \code{"cargo"} builds from source only.
 #' @param force If \code{TRUE}, reinstall even if uvr is already present.
+#' @param timeout Download timeout in seconds (default 60, matching
+#'   \code{utils::download.file()}). Increase on slow connections, e.g.
+#'   \code{install_uvr(timeout = 300)}. The R session's \code{timeout} option
+#'   is restored on exit.
 #' @inheritParams .get_release_details
 #' @inheritParams .try_install_binary
 #'
@@ -23,17 +27,25 @@
 #'
 #' # Force rebuild from source
 #' install_uvr(method = "cargo", force = TRUE)
+#'
+#' # Slow connection: allow the download 5 minutes
+#' install_uvr(timeout = 300)
+#'
+#' # Install a specific earlier release
+#' install_uvr(tag = "v0.4.1", force = TRUE)
 #' }
 install_uvr <- function(
   tag = "latest",
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
-  force = FALSE
+  force = FALSE,
+  timeout = 60
 ) {
   method <- match.arg(method)
   .validate_single_characters(list(tag = tag))
   .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
   .validate_flags(list(force = force))
+  .validate_positive_numbers(list(timeout = timeout))
   install_dir <- install_dir %||% .get_home_dir # NULL swap
 
   if (!isTRUE(force)) {
@@ -46,7 +58,11 @@ install_uvr <- function(
   }
 
   if (method == "auto" || method == "binary") {
-    path <- .try_install_binary(tag = tag, install_dir = install_dir)
+    path <- .try_install_binary(
+      tag = tag,
+      install_dir = install_dir,
+      timeout = timeout
+    )
     if (!is.null(path)) {
       message("uvr installed successfully at: ", path)
       return(invisible(path))
@@ -62,10 +78,15 @@ install_uvr <- function(
 
 #' Try to download a pre-built binary from GitHub releases
 #' @param install_dir Directory to install into (default: home directory).
+#' @inheritParams install_uvr
 #' @inheritParams .get_release_details
 #' @return Path to binary or NULL if unavailable.
 #' @keywords internal
-.try_install_binary <- function(tag = "latest", install_dir = .get_home_dir()) {
+.try_install_binary <- function(
+  tag = "latest",
+  install_dir = .get_home_dir(),
+  timeout = 60
+) {
   .validate_single_characters(list(tag = tag))
 
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
@@ -82,7 +103,11 @@ install_uvr <- function(
   }
   download_url <- release$asset$browser_download_url[1L]
   dest_dir <- file.path(install_dir, ".cargo", "bin")
-  .get_and_extract_binary(download_url = download_url, dest_dir = dest_dir)
+  .get_and_extract_binary(
+    download_url = download_url,
+    dest_dir = dest_dir,
+    timeout = timeout
+  )
 }
 
 #' Install uvr via cargo
@@ -120,7 +145,7 @@ install_uvr <- function(
   if (isTRUE(force)) {
     args <- c(args, "--force")
   }
-  return_code <- system2(command = cargo, args = args, stdout = "", stderr = "")
+  return_code <- .run_cargo(command = cargo, args = args)
   if (return_code != 0L) {
     stop("cargo install failed with exit code ", return_code, call. = FALSE)
   }
@@ -135,6 +160,12 @@ install_uvr <- function(
 
   message("uvr installed successfully at: ", path)
   invisible(path)
+}
+
+#' Invoke cargo (thin wrapper over system2, mockable in tests)
+#' @keywords internal
+.run_cargo <- function(command, args) {
+  system2(command = command, args = args, stdout = "", stderr = "")
 }
 
 #' Get details for a specified release of uvr from GitHub
@@ -201,22 +232,56 @@ install_uvr <- function(
   return(release)
 }
 
-#' Download and extract uvr binary
-#' @return Destination path or NULL if download failed.
+#' Download a file (thin wrapper over utils::download.file, mockable in tests)
 #' @keywords internal
-.get_and_extract_binary <- function(download_url, dest_dir) {
+.download_file <- function(url, destfile) {
+  utils::download.file(url, destfile, mode = "wb", quiet = TRUE)
+}
+
+#' Download and extract uvr binary
+#' @inheritParams install_uvr
+#' @return Destination path or NULL if download failed. A download that hits
+#'   the timeout errors instead of returning NULL, so the caller does not
+#'   fall through to the misleading "no pre-built binary" path.
+#' @keywords internal
+.get_and_extract_binary <- function(download_url, dest_dir, timeout = 60) {
   dir.create(dest_dir, recursive = TRUE, showWarnings = FALSE)
   bin_name <- .get_bin_name()
   dest <- file.path(dest_dir, bin_name)
 
+  # Scope the download timeout to this call; restore whatever the user had.
+  old_timeout <- options(timeout = timeout)
+  on.exit(options(old_timeout), add = TRUE)
+
   message("Downloading uvr from: ", download_url)
   tmp <- tempfile(fileext = tools::file_ext(download_url))
+  # download.file() reports a timeout as warnings followed by a generic
+  # error, so collect the warnings to tell "timed out" apart from
+  # "unavailable" and give each its own message.
+  warnings_seen <- character(0)
   ok <- tryCatch(
     {
-      utils::download.file(download_url, tmp, mode = "wb", quiet = TRUE)
+      withCallingHandlers(
+        .download_file(download_url, tmp),
+        warning = function(w) {
+          warnings_seen <<- c(warnings_seen, conditionMessage(w))
+          invokeRestart("muffleWarning")
+        }
+      )
       TRUE
     },
     error = function(e) {
+      all_msgs <- c(conditionMessage(e), warnings_seen)
+      if (any(grepl("timeout", all_msgs, ignore.case = TRUE))) {
+        stop(
+          "Download of the uvr binary timed out after ",
+          timeout,
+          " seconds.\n",
+          "On a slow connection, allow more time with e.g.:\n",
+          "  uvr::install_uvr(timeout = 300, force = TRUE)",
+          call. = FALSE
+        )
+      }
       message("Download failed: ", conditionMessage(e))
       FALSE
     }
@@ -225,8 +290,12 @@ install_uvr <- function(
     return(NULL)
   }
 
-  is_tarball <- grepl("\\.tar\\.gz$", tmp)
-  is_zip <- grepl("\\.zip$", tmp)
+  # Decide by the URL, not the tempfile: tempfile(fileext =
+  # tools::file_ext(url)) yields a name ending in plain "gz"/"zip" (no dot,
+  # and never ".tar.gz"), so matching on `tmp` classified every archive as
+  # a bare binary and installed the compressed blob as "uvr".
+  is_tarball <- grepl("\\.tar\\.gz$", download_url)
+  is_zip <- grepl("\\.zip$", download_url)
 
   if (is_tarball || is_zip) {
     exdir <- .make_temp_dir("uvr-extract")

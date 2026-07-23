@@ -1,5 +1,8 @@
 test_that("update_uvr works", {
-  skip_on_ci()
+  # runs on CI too (#18): installs the R package + binary into temp dirs
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_not_installed("pak")
   temp_dir <- .make_temp_dir()
   path <- setup_uvr_test(
     temp_dir = temp_dir,

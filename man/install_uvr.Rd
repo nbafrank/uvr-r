@@ -8,7 +8,8 @@ install_uvr(
   tag = "latest",
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
-  force = FALSE
+  force = FALSE,
+  timeout = 60
 )
 }
 \arguments{
@@ -22,6 +23,11 @@ GitHub release binary first, then falls back to building from source via
 \item{install_dir}{Directory to install into (default: home directory).}
 
 \item{force}{If \code{TRUE}, reinstall even if uvr is already present.}
+
+\item{timeout}{Download timeout in seconds (default 60, matching
+\code{utils::download.file()}). Increase on slow connections, e.g.
+\code{install_uvr(timeout = 300)}. The R session's \code{timeout} option
+is restored on exit.}
 }
 \value{
 Invisible path to the installed binary.
@@ -39,6 +45,12 @@ install_uvr()
 
 # Force rebuild from source
 install_uvr(method = "cargo", force = TRUE)
+
+# Slow connection: allow the download 5 minutes
+install_uvr(timeout = 300)
+
+# Install a specific earlier release
+install_uvr(tag = "v0.4.1", force = TRUE)
 }
 }
 \seealso{

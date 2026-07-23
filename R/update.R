@@ -29,12 +29,14 @@ update_uvr <- function(
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
   package_dir = .libPaths()[1],
-  quiet = FALSE
+  quiet = FALSE,
+  timeout = 60
 ) {
   method <- match.arg(method)
   .validate_single_characters(list(ref = ref, package_dir = package_dir))
   .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
   .validate_flags(list(quiet = quiet))
+  .validate_positive_numbers(list(timeout = timeout))
   install_dir <- install_dir %||% .get_home_dir # NULL swap
 
   # Update R package
@@ -47,7 +49,12 @@ update_uvr <- function(
   if (!quiet) {
     message("Updating uvr CLI binary...")
   }
-  bin <- install_uvr(method = method, install_dir = install_dir, force = TRUE)
+  bin <- install_uvr(
+    method = method,
+    install_dir = install_dir,
+    force = TRUE,
+    timeout = timeout
+  )
 
   # Query version without loading (DESCRIPTION already on disk post-install)
   r_pkg_version <- tryCatch(

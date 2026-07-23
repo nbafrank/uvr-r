@@ -59,7 +59,7 @@ add <- function(
     null_ok = TRUE
   )
   .setup_cache_dir(cache_dir)
-  .setup_env_var("UVR_PROGRESS", progress)
+  .setup_progress(progress)
 
   args <- c("add", packages)
   if (isTRUE(dev)) {

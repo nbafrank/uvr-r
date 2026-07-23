@@ -32,9 +32,20 @@ find_uvr <- function(check_path = TRUE) {
 #' Search common locations for the uvr binary
 #' @inheritParams install_uvr
 #' @param check_path If \code{TRUE}, check the PATH first.
+#' @param system_fallbacks If \code{TRUE}, also check system-wide locations
+#'   (\code{/usr/local/bin}, Homebrew, \code{LOCALAPPDATA}) beyond
+#'   \code{install_dir}. Set to \code{FALSE} when the caller asked about a
+#'   specific \code{install_dir} and a binary elsewhere must not count —
+#'   e.g. \code{install_uvr(install_dir = ...)}'s already-installed check,
+#'   which would otherwise early-return on a system uvr and never install
+#'   into the requested directory.
 #' @return Path string or NULL if not found.
 #' @keywords internal
-.find_uvr_path <- function(install_dir = .get_home_dir(), check_path = TRUE) {
+.find_uvr_path <- function(
+  install_dir = .get_home_dir(),
+  check_path = TRUE,
+  system_fallbacks = TRUE
+) {
   bin_name <- .get_bin_name()
 
   # Check PATH first
@@ -46,16 +57,18 @@ find_uvr <- function(check_path = TRUE) {
   # Check common install locations
   candidates <- install_dir |>
     file.path(c(".cargo", ".local"), "bin", bin_name)
-  if (.Platform$OS.type == "windows") {
-    appdata_path <- Sys.getenv("LOCALAPPDATA") |>
-      file.path("Programs", "uvr", bin_name)
-    candidates <- c(candidates, appdata_path)
-  } else {
-    candidates <- c(
-      candidates,
-      "/usr/local/bin/uvr",
-      "/opt/homebrew/bin/uvr" # Apple Silicon Homebrew
-    )
+  if (system_fallbacks) {
+    if (.Platform$OS.type == "windows") {
+      appdata_path <- Sys.getenv("LOCALAPPDATA") |>
+        file.path("Programs", "uvr", bin_name)
+      candidates <- c(candidates, appdata_path)
+    } else {
+      candidates <- c(
+        candidates,
+        "/usr/local/bin/uvr",
+        "/opt/homebrew/bin/uvr" # Apple Silicon Homebrew
+      )
+    }
   }
   for (candidate in candidates) {
     if (file.exists(candidate)) return(candidate)

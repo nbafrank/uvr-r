@@ -131,6 +131,21 @@
   invisible(NULL)
 }
 
+#' Scope UVR_PROGRESS to the calling function
+#'
+#' @details Validates and applies the `progress` argument shared by
+#'   \code{\link{add}} and \code{\link{sync}}: \code{"always"} or
+#'   \code{"never"}, or NULL to leave the environment in charge.
+#' @inheritParams .setup_env_var
+#' @keywords internal
+.setup_progress <- function(progress, envir = parent.frame()) {
+  if (is.null(progress)) {
+    return(invisible(NULL))
+  }
+  progress <- match.arg(progress, c("always", "never"))
+  .setup_env_var("UVR_PROGRESS", progress, envir = envir)
+}
+
 #' Set up cache directory environment variable
 #'
 #' @details creates a side effect of setting the

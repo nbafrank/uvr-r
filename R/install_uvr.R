@@ -46,10 +46,17 @@ install_uvr <- function(
   .validate_single_characters(list(install_dir = install_dir), null_ok = TRUE)
   .validate_flags(list(force = force))
   .validate_positive_numbers(list(timeout = timeout))
+  explicit_dir <- !is.null(install_dir)
   install_dir <- install_dir %||% .get_home_dir # NULL swap
 
   if (!isTRUE(force)) {
-    existing <- .find_uvr_path(install_dir = install_dir, check_path = FALSE)
+    # When the caller named an install_dir, a uvr elsewhere on the system
+    # must not satisfy the already-installed check — they asked for it HERE.
+    existing <- .find_uvr_path(
+      install_dir = install_dir,
+      check_path = FALSE,
+      system_fallbacks = !explicit_dir
+    )
     if (!is.null(existing)) {
       message("uvr is already installed at: ", existing)
       message("Use `uvr::install_uvr(force = TRUE)` to reinstall.")
@@ -272,6 +279,10 @@ install_uvr <- function(
     },
     error = function(e) {
       all_msgs <- c(conditionMessage(e), warnings_seen)
+      # String-matching condition text is inherently fragile, but R gives
+      # a timeout no dedicated condition class: base download.file and
+      # libcurl both phrase it as "Timeout ... was reached". Revisit if
+      # the download backend changes.
       if (any(grepl("timeout", all_msgs, ignore.case = TRUE))) {
         stop(
           "Download of the uvr binary timed out after ",

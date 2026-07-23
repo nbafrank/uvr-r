@@ -36,17 +36,18 @@ test_that("remove_pkgs removes the package from uvr.toml and uvr.lock (#19)", {
 test_that("remove_pkgs + sync removes the package from the library (#19)", {
   skip_on_cran()
   skip_if_offline()
-  # sync only prunes unused packages from the library since uvr 0.4.3
-  # (0.4.2 printed the "run uvr sync to remove" hint but never pruned)
-  if (package_version(.get_uvr_version()) < "0.4.3") {
-    skip("library pruning on sync requires uvr >= 0.4.3")
-  }
   temp_dir <- .make_temp_dir()
   cache_dir <- file.path(temp_dir, ".uvr-test-cache")
   withr::local_envvar(
     UVR_PACKAGES_DIR = file.path(temp_dir, ".uvr-test-packages")
   )
   path <- setup_uvr_test(temp_dir = temp_dir, init = TRUE, add = TRUE)
+  # sync only prunes unused packages from the library since uvr 0.4.3
+  # (0.4.2 printed the "run uvr sync to remove" hint but never pruned).
+  # Gate AFTER setup so the version query has a binary to ask.
+  if (package_version(.get_uvr_version(bin = path)) < "0.4.3") {
+    skip("library pruning on sync requires uvr >= 0.4.3")
+  }
 
   sync(bin = path, dir = temp_dir, cache_dir = cache_dir, quiet = TRUE)
   expect_true(dir.exists(file.path(temp_dir, ".uvr/library/jsonlite")))

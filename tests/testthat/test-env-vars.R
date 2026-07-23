@@ -47,6 +47,17 @@ test_that(".setup_cache_dir scopes UVR_CACHE_DIR", {
   expect_identical(Sys.getenv("UVR_CACHE_DIR", unset = NA), NA_character_)
 })
 
+test_that("progress argument rejects values uvr would not understand", {
+  expect_error(
+    add("jsonlite", progress = "Always", quiet = TRUE),
+    "should be one of"
+  )
+  expect_error(
+    sync(progress = "sometimes", quiet = TRUE),
+    "should be one of"
+  )
+})
+
 test_that("progress arg scopes UVR_PROGRESS during the call (#15)", {
   # add() with an invalid binary path fails, but must not leak UVR_PROGRESS
   Sys.unsetenv("UVR_PROGRESS")

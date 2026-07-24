@@ -128,6 +128,11 @@ The binary does the heavy lifting — resolving dependencies, downloading P3M pr
 - [uvr](https://github.com/nbafrank/uvr) — the CLI tool and full documentation
 - [uvr on r/rstats](https://www.reddit.com/r/rstats/) — community discussion
 
+## Support
+
+uvr is free and MIT-licensed. If it saves you time, you can support its
+development on [Ko-fi](https://ko-fi.com/nbafrank).
+
 ## License
 
 MIT

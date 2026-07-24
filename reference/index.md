@@ -3,8 +3,7 @@
 ## All functions
 
 - [`add()`](add.md) : Add packages to the project
-- [`cache_clean()`](cache_clean.md) : Remove all cached package
-  downloads
+- [`cache_clean()`](cache_clean.md) : Remove cached package downloads
 - [`completions()`](completions.md) : Generate shell completions (bash,
   zsh, fish, powershell)
 - [`doctor()`](doctor.md) : Diagnose environment issues (R, build tools,

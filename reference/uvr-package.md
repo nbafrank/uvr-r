@@ -8,10 +8,10 @@ binary to be installed separately.
 
 ## Author
 
-**Maintainer**: Francesco Grazzini <francesco@example.com>
+**Maintainer**: Francesco Vallania <nbafrank@gmail.com>
 
 Authors:
 
-- Francesco Grazzini <francesco@example.com>
+- Francesco Vallania <nbafrank@gmail.com>
 
 - Brayden Nilson <nilson.brayden@gmail.com>

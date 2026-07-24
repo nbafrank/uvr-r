@@ -11,7 +11,8 @@ update_uvr(
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
   package_dir = .libPaths()[1],
-  quiet = FALSE
+  quiet = FALSE,
+  timeout = 60
 )
 ```
 
@@ -40,6 +41,13 @@ update_uvr(
 - quiet:
 
   If `TRUE`, suppress progress messages.
+
+- timeout:
+
+  Download timeout in seconds (default 60, matching
+  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html)).
+  Increase on slow connections, e.g. `install_uvr(timeout = 300)`. The R
+  session's `timeout` option is restored on exit.
 
 ## Value
 

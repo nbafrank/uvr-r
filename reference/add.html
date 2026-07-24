@@ -9,7 +9,7 @@ installs them. Equivalent to uvr add on the command line."><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">uvr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +48,7 @@ installs them. Equivalent to <code>uvr add</code> on the command line.</p>
 <span>  bin <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  cache_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  progress <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  quiet <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -90,6 +91,15 @@ Ignored if <code>do_lock</code> is <code>FALSE</code>.</p></dd>
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.</p></dd>
 
 
+<dt id="arg-progress">progress<a class="anchor" aria-label="anchor" href="#arg-progress"></a></dt>
+<dd><p>Control uvr's progress display for this call:
+<code>"always"</code> forces spinners and progress bars even though output is
+piped (they are otherwise hidden because R captures uvr's output, so
+uvr never sees a TTY), <code>"never"</code> hides them. The default
+<code>NULL</code> leaves the <code>UVR_PROGRESS</code> environment variable in
+charge.</p></dd>
+
+
 <dt id="arg-quiet">quiet<a class="anchor" aria-label="anchor" href="#arg-quiet"></a></dt>
 <dd><p>If <code>TRUE</code>, suppress output.</p></dd>
 
@@ -129,11 +139,11 @@ the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Francesco Grazzini, Brayden Nilson.</p>
+  <p>Developed by Francesco Vallania, Brayden Nilson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

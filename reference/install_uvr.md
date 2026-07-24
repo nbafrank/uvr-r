@@ -12,7 +12,8 @@ install_uvr(
   tag = "latest",
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
-  force = FALSE
+  force = FALSE,
+  timeout = 60
 )
 ```
 
@@ -37,6 +38,13 @@ install_uvr(
 
   If `TRUE`, reinstall even if uvr is already present.
 
+- timeout:
+
+  Download timeout in seconds (default 60, matching
+  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html)).
+  Increase on slow connections, e.g. `install_uvr(timeout = 300)`. The R
+  session's `timeout` option is restored on exit.
+
 ## Value
 
 Invisible path to the installed binary.
@@ -56,5 +64,11 @@ install_uvr()
 
 # Force rebuild from source
 install_uvr(method = "cargo", force = TRUE)
+
+# Slow connection: allow the download 5 minutes
+install_uvr(timeout = 300)
+
+# Install a specific earlier release
+install_uvr(tag = "v0.4.1", force = TRUE)
 } # }
 ```

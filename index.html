@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">uvr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -136,9 +136,14 @@
 <td>Re-resolve deps, update lockfile</td>
 </tr>
 <tr>
+<td><code><a href="reference/update_pkgs.html">update_pkgs()</a></code></td>
+<td><code>uvr lock --upgrade &amp;&amp; uvr sync</code></td>
+<td>Upgrade and install all packages</td>
+</tr>
+<tr>
 <td><code><a href="reference/cache_clean.html">cache_clean()</a></code></td>
-<td><code>uvr cache clean</code></td>
-<td>Delete cached package installs and tarballs</td>
+<td><code>uvr cache clean &lt;--package&gt; &lt;--r-version&gt;</code></td>
+<td>Delete cached package installs and tarballs, optionally filtered</td>
 </tr>
 <tr>
 <td><code><a href="reference/completions.html">completions()</a></code></td>
@@ -204,7 +209,17 @@
 <span><span class="fu"><a href="reference/lock.html">lock</a></span><span class="op">(</span>upgrade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Forward args to script</span></span>
-<span><span class="fu"><a href="reference/run.html">run</a></span><span class="op">(</span><span class="st">"analysis.R"</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"--input"</span>, <span class="st">"data.csv"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="reference/run.html">run</a></span><span class="op">(</span><span class="st">"analysis.R"</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"--input"</span>, <span class="st">"data.csv"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Clean the cache selectively (uvr &gt;= 0.4.2)</span></span>
+<span><span class="fu"><a href="reference/cache_clean.html">cache_clean</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"sf"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/cache_clean.html">cache_clean</a></span><span class="op">(</span>r_version <span class="op">=</span> <span class="st">"4.4"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Force progress spinners (hidden by default: R pipes uvr's output)</span></span>
+<span><span class="fu"><a href="reference/sync.html">sync</a></span><span class="op">(</span>progress <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Slow connection? Give the binary download more time</span></span>
+<span><span class="fu"><a href="reference/install_uvr.html">install_uvr</a></span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -266,7 +281,7 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Francesco Grazzini <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Francesco Vallania <br><small class="roles"> Author, maintainer </small>   </li>
 <li>Brayden Nilson <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
@@ -276,6 +291,7 @@
 <ul class="list-unstyled">
 <li><a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
 <li><a href="https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/nbafrank/uvr-r" class="external-link"><img src="https://codecov.io/gh/nbafrank/uvr-r/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 
@@ -284,11 +300,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Francesco Grazzini, Brayden Nilson.</p>
+  <p>Developed by Francesco Vallania, Brayden Nilson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

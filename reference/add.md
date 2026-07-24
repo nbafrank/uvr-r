@@ -15,6 +15,7 @@ add(
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
+  progress = NULL,
   quiet = FALSE
 )
 ```
@@ -58,6 +59,14 @@ add(
   Path to cache directory. Defaults to \`NULL\`, which uses the
   \`UVR_CACHE_DIR\` environment variable if set, or \`"~/.uvr/cache/"\`
   otherwise.
+
+- progress:
+
+  Control uvr's progress display for this call: `"always"` forces
+  spinners and progress bars even though output is piped (they are
+  otherwise hidden because R captures uvr's output, so uvr never sees a
+  TTY), `"never"` hides them. The default `NULL` leaves the
+  `UVR_PROGRESS` environment variable in charge.
 
 - quiet:
 

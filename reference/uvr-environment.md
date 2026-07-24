@@ -16,8 +16,9 @@ the standard OS path separator (`:` on Unix/macOS, `;` on Windows).
 
 ## UVR_INSTALL_DIR
 
-Directory in which to install `uvr` using the standalone installer.
-Expects a valid absolute or relative directory path.
+Directory in which to install `uvr` using the standalone shell
+installer. Not used by this R package: [`install_uvr`](install_uvr.md)
+takes an `install_dir` argument instead.
 
 ## UVR_INSTALL_TIMEOUT
 
@@ -30,6 +31,12 @@ representing seconds (e.g. `1800`).
 Custom target directory for R package installations. Note: the CLI
 `--library` argument takes precedence over this variable. Defaults to
 the project-local `.uvr/library/` directory if neither are provided.
+
+## UVR_PACKAGES_DIR
+
+Directory where uvr stores cached installed-package entries. Expects a
+valid absolute or relative directory path. Defaults to
+`~/.uvr/packages/` if not set. (Requires uvr \>= 0.4.2.)
 
 ## UVR_PROGRESS
 
@@ -49,3 +56,10 @@ Defaults to automatically detecting a TTY.
 Directory where uvr-managed R versions are installed. Expects a valid
 absolute or relative directory path. Defaults to `~/.uvr/r-versions/` if
 not set.
+
+## UVR_REPOS
+
+Comma-separated list of CRAN-like repository URLs used in addition to
+(and at higher priority than) any `[[sources]]` in `uvr.toml`. Useful
+for injecting repositories via CI environment instead of mutating the
+manifest.

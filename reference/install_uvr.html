@@ -13,7 +13,7 @@ current platform, falls back to building from source via cargo install
 
     <a class="navbar-brand me-2" href="../index.html">uvr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +49,8 @@ current platform, falls back to building from source via <code>cargo install</co
 <span>  tag <span class="op">=</span> <span class="st">"latest"</span>,</span>
 <span>  method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"auto"</span>, <span class="st">"binary"</span>, <span class="st">"cargo"</span><span class="op">)</span>,</span>
 <span>  install_dir <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  force <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  force <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  timeout <span class="op">=</span> <span class="fl">60</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -75,6 +76,13 @@ GitHub release binary first, then falls back to building from source via
 <dt id="arg-force">force<a class="anchor" aria-label="anchor" href="#arg-force"></a></dt>
 <dd><p>If <code>TRUE</code>, reinstall even if uvr is already present.</p></dd>
 
+
+<dt id="arg-timeout">timeout<a class="anchor" aria-label="anchor" href="#arg-timeout"></a></dt>
+<dd><p>Download timeout in seconds (default 60, matching
+<code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">utils::download.file()</a></code>). Increase on slow connections, e.g.
+<code>install_uvr(timeout = 300)</code>. The R session's <code>timeout</code> option
+is restored on exit.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -97,6 +105,12 @@ GitHub release binary first, then falls back to building from source via
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Force rebuild from source</span></span></span>
 <span class="r-in"><span><span class="fu">install_uvr</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"cargo"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Slow connection: allow the download 5 minutes</span></span></span>
+<span class="r-in"><span><span class="fu">install_uvr</span><span class="op">(</span>timeout <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Install a specific earlier release</span></span></span>
+<span class="r-in"><span><span class="fu">install_uvr</span><span class="op">(</span>tag <span class="op">=</span> <span class="st">"v0.4.1"</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
@@ -105,11 +119,11 @@ GitHub release binary first, then falls back to building from source via
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Francesco Grazzini, Brayden Nilson.</p>
+  <p>Developed by Francesco Vallania, Brayden Nilson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

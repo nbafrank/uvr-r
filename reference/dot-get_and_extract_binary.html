@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">uvr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,12 +36,25 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.get_and_extract_binary</span><span class="op">(</span><span class="va">download_url</span>, <span class="va">dest_dir</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.get_and_extract_binary</span><span class="op">(</span><span class="va">download_url</span>, <span class="va">dest_dir</span>, timeout <span class="op">=</span> <span class="fl">60</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
+    <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
+
+
+<dl><dt id="arg-timeout">timeout<a class="anchor" aria-label="anchor" href="#arg-timeout"></a></dt>
+<dd><p>Download timeout in seconds (default 60, matching
+<code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">utils::download.file()</a></code>). Increase on slow connections, e.g.
+<code>install_uvr(timeout = 300)</code>. The R session's <code>timeout</code> option
+is restored on exit.</p></dd>
+
+</dl></div>
+    <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Destination path or NULL if download failed.</p>
+    <p>Destination path or NULL if download failed. A download that hits
+  the timeout errors instead of returning NULL, so the caller does not
+  fall through to the misleading "no pre-built binary" path.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -49,11 +62,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Francesco Grazzini, Brayden Nilson.</p>
+  <p>Developed by Francesco Vallania, Brayden Nilson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

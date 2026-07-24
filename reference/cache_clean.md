@@ -1,15 +1,35 @@
-# Remove all cached package downloads
+# Remove cached package downloads
 
-Removes all installed packages and downloaded tarballs from the cache.
-Equivalent to `uvr cache clean` on the command line.
+With no filters, removes all installed packages and downloaded tarballs
+from the cache. With filters, removes only the entries that match every
+given filter (requires uvr \>= 0.4.2). Equivalent to
+`uvr cache clean [--package <name>] [--r-version <minor>]` on the
+command line.
 
 ## Usage
 
 ``` r
-cache_clean(cache_dir = NULL, bin = NULL, quiet = FALSE)
+cache_clean(
+  package = NULL,
+  r_version = NULL,
+  cache_dir = NULL,
+  bin = NULL,
+  quiet = FALSE
+)
 ```
 
 ## Arguments
+
+- package:
+
+  Optional character vector of package names: remove only cache entries
+  for these packages.
+
+- r_version:
+
+  Optional character vector of R minor versions (e.g. `"4.4"`): remove
+  only cache entries built for these R series. Full versions like
+  `"4.4.2"` are treated as their minor series.
 
 - cache_dir:
 
@@ -42,7 +62,10 @@ Other package managers: [`add()`](add.md), [`export()`](export.md),
 
 ``` r
 if (FALSE) { # \dontrun{
-cache_clean()
+cache_clean() # remove everything
+cache_clean(package = "sf") # one package's entries only
+cache_clean(r_version = "4.4") # one R series only
+cache_clean(package = c("sf", "terra"), r_version = "4.5")
 # custom cache location - ensure used in other functions,
 #   otherwise set env. var UVR_CACHE_DIR
 cache_clean(cache_dir = "/tmp/uvr-cache/")

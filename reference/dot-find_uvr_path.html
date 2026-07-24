@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">uvr</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,11 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.find_uvr_path</span><span class="op">(</span>install_dir <span class="op">=</span> <span class="fu"><a href="dot-get_home_dir.html">.get_home_dir</a></span><span class="op">(</span><span class="op">)</span>, check_path <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">.find_uvr_path</span><span class="op">(</span></span>
+<span>  install_dir <span class="op">=</span> <span class="fu"><a href="dot-get_home_dir.html">.get_home_dir</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  check_path <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  system_fallbacks <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -50,6 +54,16 @@
 <dt id="arg-check-path">check_path<a class="anchor" aria-label="anchor" href="#arg-check-path"></a></dt>
 <dd><p>If <code>TRUE</code>, check the PATH first.</p></dd>
 
+
+<dt id="arg-system-fallbacks">system_fallbacks<a class="anchor" aria-label="anchor" href="#arg-system-fallbacks"></a></dt>
+<dd><p>If <code>TRUE</code>, also check system-wide locations
+(<code>/usr/local/bin</code>, Homebrew, <code>LOCALAPPDATA</code>) beyond
+<code>install_dir</code>. Set to <code>FALSE</code> when the caller asked about a
+specific <code>install_dir</code> and a binary elsewhere must not count —
+e.g. <code>install_uvr(install_dir = ...)</code>'s already-installed check,
+which would otherwise early-return on a system uvr and never install
+into the requested directory.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -61,11 +75,11 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Francesco Grazzini, Brayden Nilson.</p>
+  <p>Developed by Francesco Vallania, Brayden Nilson.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

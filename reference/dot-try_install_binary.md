@@ -5,7 +5,11 @@ Try to download a pre-built binary from GitHub releases
 ## Usage
 
 ``` r
-.try_install_binary(tag = "latest", install_dir = .get_home_dir())
+.try_install_binary(
+  tag = "latest",
+  install_dir = .get_home_dir(),
+  timeout = 60
+)
 ```
 
 ## Arguments
@@ -17,6 +21,13 @@ Try to download a pre-built binary from GitHub releases
 - install_dir:
 
   Directory to install into (default: home directory).
+
+- timeout:
+
+  Download timeout in seconds (default 60, matching
+  [`utils::download.file()`](https://rdrr.io/r/utils/download.file.html)).
+  Increase on slow connections, e.g. `install_uvr(timeout = 300)`. The R
+  session's `timeout` option is restored on exit.
 
 ## Value
 

@@ -1,12 +1,22 @@
 # Synchronize project library from lockfile
 
-Installs all packages specified in `uvr.lock`. Idempotent — skips
-packages that are already installed. Equivalent to `uvr sync`.
+Installs all packages specified in `uvr.lock`, skipping packages that
+are already installed. From uvr 0.4.3, sync also removes packages that
+are no longer in the lockfile from the project library (never from
+`--library`/`UVR_LIBRARY` locations, which may be shared). Equivalent to
+`uvr sync`.
 
 ## Usage
 
 ``` r
-sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
+sync(
+  frozen = FALSE,
+  bin = NULL,
+  dir = NULL,
+  cache_dir = NULL,
+  progress = NULL,
+  quiet = FALSE
+)
 ```
 
 ## Arguments
@@ -31,6 +41,14 @@ sync(frozen = FALSE, bin = NULL, dir = NULL, cache_dir = NULL, quiet = FALSE)
   \`UVR_CACHE_DIR\` environment variable if set, or \`"~/.uvr/cache/"\`
   otherwise.
 
+- progress:
+
+  Control uvr's progress display for this call: `"always"` forces
+  spinners and progress bars even though output is piped (they are
+  otherwise hidden because R captures uvr's output, so uvr never sees a
+  TTY), `"never"` hides them. The default `NULL` leaves the
+  `UVR_PROGRESS` environment variable in charge.
+
 - quiet:
 
   If `TRUE`, suppress output.
@@ -52,6 +70,7 @@ Other package managers: [`add()`](add.md),
 ``` r
 if (FALSE) { # \dontrun{
 sync()
-sync(frozen = TRUE)  # CI mode: fail if lockfile is stale
+sync(frozen = TRUE) # CI mode: fail if lockfile is stale
+sync(progress = "always") # force spinners even though output is piped
 } # }
 ```

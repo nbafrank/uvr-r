@@ -21,4 +21,5 @@ NULL (side effects only)
 ## Details
 
 creates a side effect of setting the `UVR_CACHE_DIR` environment
-variable, then unsetting it when parent function closes
+variable, then restoring the previous state when the parent function
+closes

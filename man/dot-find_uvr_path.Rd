@@ -4,12 +4,24 @@
 \alias{.find_uvr_path}
 \title{Search common locations for the uvr binary}
 \usage{
-.find_uvr_path(install_dir = .get_home_dir(), check_path = TRUE)
+.find_uvr_path(
+  install_dir = .get_home_dir(),
+  check_path = TRUE,
+  system_fallbacks = TRUE
+)
 }
 \arguments{
 \item{install_dir}{Directory to install into (default: home directory).}
 
 \item{check_path}{If \code{TRUE}, check the PATH first.}
+
+\item{system_fallbacks}{If \code{TRUE}, also check system-wide locations
+(\code{/usr/local/bin}, Homebrew, \code{LOCALAPPDATA}) beyond
+\code{install_dir}. Set to \code{FALSE} when the caller asked about a
+specific \code{install_dir} and a binary elsewhere must not count —
+e.g. \code{install_uvr(install_dir = ...)}'s already-installed check,
+which would otherwise early-return on a system uvr and never install
+into the requested directory.}
 }
 \value{
 Path string or NULL if not found.

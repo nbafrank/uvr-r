@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![R-CMD-check](https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nbafrank/uvr-r/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/nbafrank/uvr-r/graph/badge.svg)](https://app.codecov.io/gh/nbafrank/uvr-r)
 <!-- badges: end -->
 
 R companion package for [uvr](https://github.com/nbafrank/uvr), the fast R package and project manager written in Rust.
@@ -63,7 +64,8 @@ remove_pkgs("ggplot2")
 | `remove_pkgs()` | `uvr remove` | Remove packages |
 | `sync()` | `uvr sync` | Install all packages from lockfile |
 | `lock()` | `uvr lock` | Re-resolve deps, update lockfile |
-| `cache_clean()` | `uvr cache clean` | Delete cached package installs and tarballs |
+| `update_pkgs()` | `uvr lock --upgrade && uvr sync` | Upgrade and install all packages |
+| `cache_clean()` | `uvr cache clean <--package> <--r-version>` | Delete cached package installs and tarballs, optionally filtered |
 | `completions()` | `uvr completions <shell>` | Generate shell completions (bash, zsh, fish, powershell) |
 | `doctor()` | `uvr doctor ` | Diagnose environment issues (R, build tools, project status) |
 | `export()` | `uvr export` | Export renv.lock file built from uvr.toml |
@@ -93,6 +95,16 @@ lock(upgrade = TRUE)
 
 # Forward args to script
 run("analysis.R", args = c("--input", "data.csv"))
+
+# Clean the cache selectively (uvr >= 0.4.2)
+cache_clean(package = "sf")
+cache_clean(r_version = "4.4")
+
+# Force progress spinners (hidden by default: R pipes uvr's output)
+sync(progress = "always")
+
+# Slow connection? Give the binary download more time
+install_uvr(timeout = 300)
 ```
 
 ## How it works

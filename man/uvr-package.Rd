@@ -11,11 +11,11 @@
 Provides R functions that wrap the 'uvr' command-line tool for fast, reproducible R package management. Functions include project initialization, package addition and removal, lockfile synchronization, and script execution within isolated environments. Requires the 'uvr' binary to be installed separately.
 }
 \author{
-\strong{Maintainer}: Francesco Grazzini \email{francesco@example.com}
+\strong{Maintainer}: Francesco Vallania \email{nbafrank@gmail.com}
 
 Authors:
 \itemize{
-  \item Francesco Grazzini \email{francesco@example.com}
+  \item Francesco Vallania \email{nbafrank@gmail.com}
   \item Brayden Nilson \email{nilson.brayden@gmail.com}
 }
 

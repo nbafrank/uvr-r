@@ -2,11 +2,24 @@
 % Please edit documentation in R/cache.R
 \name{cache_clean}
 \alias{cache_clean}
-\title{Remove all cached package downloads}
+\title{Remove cached package downloads}
 \usage{
-cache_clean(cache_dir = NULL, bin = NULL, quiet = FALSE)
+cache_clean(
+  package = NULL,
+  r_version = NULL,
+  cache_dir = NULL,
+  bin = NULL,
+  quiet = FALSE
+)
 }
 \arguments{
+\item{package}{Optional character vector of package names: remove only
+cache entries for these packages.}
+
+\item{r_version}{Optional character vector of R minor versions (e.g.
+\code{"4.4"}): remove only cache entries built for these R series.
+Full versions like \code{"4.4.2"} are treated as their minor series.}
+
 \item{cache_dir}{Path to cache directory. Defaults to `NULL`, which uses
 the `UVR_CACHE_DIR` environment variable if set, or `"~/.uvr/cache/"` otherwise.}
 
@@ -19,12 +32,18 @@ A character vector of output lines (returned invisibly).
   On failure, throws an error with the exit code.
 }
 \description{
-Removes all installed packages and downloaded tarballs from the cache.
-Equivalent to \code{uvr cache clean} on the command line.
+With no filters, removes all installed packages and downloaded tarballs
+from the cache. With filters, removes only the entries that match every
+given filter (requires uvr >= 0.4.2).
+Equivalent to \code{uvr cache clean [--package <name>] [--r-version <minor>]}
+on the command line.
 }
 \examples{
 \dontrun{
-cache_clean()
+cache_clean() # remove everything
+cache_clean(package = "sf") # one package's entries only
+cache_clean(r_version = "4.4") # one R series only
+cache_clean(package = c("sf", "terra"), r_version = "4.5")
 # custom cache location - ensure used in other functions,
 #   otherwise set env. var UVR_CACHE_DIR
 cache_clean(cache_dir = "/tmp/uvr-cache/")

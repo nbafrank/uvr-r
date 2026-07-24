@@ -15,6 +15,31 @@ test_that(".get_bin_name handles bins other than `uvr`", {
   expect_equal(.get_bin_name("cargo", os_type = "windows"), "cargo.exe")
 })
 
+test_that(".validate_positive_numbers works", {
+  expect_no_error(.validate_positive_numbers(list(timeout = 60)))
+  expect_no_error(.validate_positive_numbers(list(timeout = 0.5)))
+  expect_error(
+    .validate_positive_numbers(list(timeout = 0)),
+    "single positive number"
+  )
+  expect_error(
+    .validate_positive_numbers(list(timeout = -1)),
+    "single positive number"
+  )
+  expect_error(
+    .validate_positive_numbers(list(timeout = "60")),
+    "single positive number"
+  )
+  expect_error(
+    .validate_positive_numbers(list(timeout = c(1, 2))),
+    "single positive number"
+  )
+  expect_error(
+    .validate_positive_numbers(list(timeout = NA_real_)),
+    "single positive number"
+  )
+})
+
 test_that(".get_home_dir works", {
   home <- expect_no_error(.get_home_dir())
   expect_type(home, "character")

@@ -4,12 +4,21 @@
 \alias{.try_install_binary}
 \title{Try to download a pre-built binary from GitHub releases}
 \usage{
-.try_install_binary(tag = "latest", install_dir = .get_home_dir())
+.try_install_binary(
+  tag = "latest",
+  install_dir = .get_home_dir(),
+  timeout = 60
+)
 }
 \arguments{
 \item{tag}{Release tag, e.g. "v1.0.0". Defaults to latest release.}
 
 \item{install_dir}{Directory to install into (default: home directory).}
+
+\item{timeout}{Download timeout in seconds (default 60, matching
+\code{utils::download.file()}). Increase on slow connections, e.g.
+\code{install_uvr(timeout = 300)}. The R session's \code{timeout} option
+is restored on exit.}
 }
 \value{
 Path to binary or NULL if unavailable.

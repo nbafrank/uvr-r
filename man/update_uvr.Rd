@@ -9,7 +9,8 @@ update_uvr(
   method = c("auto", "binary", "cargo"),
   install_dir = NULL,
   package_dir = .libPaths()[1],
-  quiet = FALSE
+  quiet = FALSE,
+  timeout = 60
 )
 }
 \arguments{
@@ -26,6 +27,11 @@ GitHub release binary first, then falls back to building from source via
 \item{package_dir}{Path to the library directory where to install/update the package.}
 
 \item{quiet}{If \code{TRUE}, suppress progress messages.}
+
+\item{timeout}{Download timeout in seconds (default 60, matching
+\code{utils::download.file()}). Increase on slow connections, e.g.
+\code{install_uvr(timeout = 300)}. The R session's \code{timeout} option
+is restored on exit.}
 }
 \value{
 Invisible named list with \code{r_package} (installed version or

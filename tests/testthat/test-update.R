@@ -1,6 +1,12 @@
 test_that("update_uvr works", {
-  skip_on_ci()
+  # runs on CI too (#18): installs the R package + binary into temp dirs
+  skip_on_cran()
+  skip_if_offline()
+  skip_if_not_installed("pak")
   temp_dir <- .make_temp_dir()
+  # pak refuses to run under R CMD check unless R_USER_CACHE_DIR is set
+  # (see r-lib/pkgcache README)
+  withr::local_envvar(R_USER_CACHE_DIR = file.path(temp_dir, ".r-cache"))
   path <- setup_uvr_test(
     temp_dir = temp_dir,
     check_existing = FALSE

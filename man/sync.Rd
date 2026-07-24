@@ -37,8 +37,11 @@ A character vector of output lines (returned invisibly).
   On failure, throws an error with the exit code.
 }
 \description{
-Installs all packages specified in \code{uvr.lock}. Idempotent --- skips
-packages that are already installed. Equivalent to \code{uvr sync}.
+Installs all packages specified in \code{uvr.lock}, skipping packages
+that are already installed. From uvr 0.4.3, sync also removes packages
+that are no longer in the lockfile from the project library (never from
+\code{--library}/\code{UVR_LIBRARY} locations, which may be shared).
+Equivalent to \code{uvr sync}.
 }
 \examples{
 \dontrun{

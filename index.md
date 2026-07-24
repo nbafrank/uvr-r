@@ -138,6 +138,11 @@ isolated per-project library.
 - [uvr on r/rstats](https://www.reddit.com/r/rstats/) — community
   discussion
 
+## Support
+
+uvr is free and MIT-licensed. If it saves you time, you can support its
+development on [Ko-fi](https://ko-fi.com/nbafrank).
+
 ## License
 
 MIT

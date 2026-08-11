@@ -37,7 +37,9 @@ Other package managers:
 \code{\link[=export]{export()}},
 \code{\link[=import]{import()}},
 \code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=scan]{scan()}},
 \code{\link[=sync]{sync()}},
+\code{\link[=tree]{tree()}},
 \code{\link[=update_pkgs]{update_pkgs()}}
 }
 \concept{package managers}

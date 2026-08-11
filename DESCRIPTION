@@ -1,6 +1,6 @@
 Package: uvr
 Title: R Interface to the 'uvr' Package Manager
-Version: 0.1.4
+Version: 0.1.5
 Authors@R: c(
     person("Francesco", "Vallania", role = c("aut", "cre"), email = "nbafrank@gmail.com"),
     person("Brayden", "Nilson", role = "aut", email = "nilson.brayden@gmail.com"))
@@ -23,5 +23,5 @@ Suggests:
     testthat (>= 3.3.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
-Config/roxygen2/version: 8.0.0
-SystemRequirements: uvr (>= 0.4.2)
+Config/roxygen2/version: 8.1.0
+SystemRequirements: uvr (>= 0.4.6)

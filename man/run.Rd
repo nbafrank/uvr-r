@@ -26,9 +26,28 @@ Executes a script with the project library active.
 Equivalent to \code{uvr run script.R} on the command line.
 For interactive R, use the CLI directly: \code{uvr run}.
 }
+\details{
+From uvr 0.4.6 a script may instead declare its own dependencies in a
+header comment and run with no project at all:
+
+\preformatted{
+# /// script
+# dependencies = ["jsonlite", "praise"]
+# ///
+cat(praise::praise(), "\n")
+}
+
+\code{run()} handles those too. The dependencies install into a cached
+environment keyed by the dependency set, so repeat runs start
+immediately and nothing is written beside the script. Such a script is
+isolated from any surrounding project — its library, \code{.r-version}
+pin and \code{.Rprofile} are all bypassed — so it behaves the same
+wherever it is run from.
+}
 \examples{
 \dontrun{
 run("analysis.R")
 run("model.R", args = c("--seed", "42"))
+run("standalone.R") # script carries its own `# /// script` header
 }
 }

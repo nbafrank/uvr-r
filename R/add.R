@@ -6,6 +6,9 @@
 #' @param packages Character vector of package names (e.g. \code{c("ggplot2", "tidymodels@@>=1.0.0", "user/repo@@main")}).
 #' @param dev If \code{TRUE}, add as dev dependencies.
 #' @param bioc If \code{TRUE}, packages come from Bioconductor.
+#' @param no_binary If \code{TRUE}, build everything from source instead of
+#'   using pre-built binaries — an escape hatch for a binary that does not
+#'   suit the host.
 #' @param do_lock If \code{TRUE}, update the lockfile with the added package(s).
 #' @param do_install If \code{TRUE}, install the added package(s).
 #'   Ignored if \code{do_lock} is \code{FALSE}.
@@ -36,6 +39,7 @@ add <- function(
   bioc = FALSE,
   do_lock = TRUE,
   do_install = TRUE,
+  no_binary = FALSE,
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
@@ -48,6 +52,7 @@ add <- function(
     bioc = bioc,
     do_lock = do_lock,
     do_install = do_install,
+    no_binary = no_binary,
     quiet = quiet
   ))
   .validate_single_characters(
@@ -67,6 +72,9 @@ add <- function(
   }
   if (isTRUE(bioc)) {
     args <- c(args, "--bioc")
+  }
+  if (isTRUE(no_binary)) {
+    args <- c(args, "--no-binary")
   }
   if (isFALSE(do_lock)) {
     args <- c(args, "--no-lock")

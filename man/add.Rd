@@ -10,6 +10,7 @@ add(
   bioc = FALSE,
   do_lock = TRUE,
   do_install = TRUE,
+  no_binary = FALSE,
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
@@ -28,6 +29,10 @@ add(
 
 \item{do_install}{If \code{TRUE}, install the added package(s).
 Ignored if \code{do_lock} is \code{FALSE}.}
+
+\item{no_binary}{If \code{TRUE}, build everything from source instead of
+using pre-built binaries — an escape hatch for a binary that does not
+suit the host.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
@@ -71,7 +76,9 @@ Other package managers:
 \code{\link[=import]{import()}},
 \code{\link[=lock]{lock()}},
 \code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=scan]{scan()}},
 \code{\link[=sync]{sync()}},
+\code{\link[=tree]{tree()}},
 \code{\link[=update_pkgs]{update_pkgs()}}
 }
 \concept{package managers}

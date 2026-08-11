@@ -6,6 +6,9 @@
 \usage{
 sync(
   frozen = FALSE,
+  no_binary = FALSE,
+  install_system_deps = FALSE,
+  plan = FALSE,
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
@@ -15,6 +18,19 @@ sync(
 }
 \arguments{
 \item{frozen}{If \code{TRUE}, fail if the lockfile is out of date (CI mode).}
+
+\item{no_binary}{If \code{TRUE}, build everything from source instead of
+using pre-built binaries — an escape hatch for a binary that does not
+suit the host.}
+
+\item{install_system_deps}{If \code{TRUE}, let uvr install missing system
+libraries with the host package manager. Needs root or \code{sudo}, and
+uvr shows the full plan before running anything. Without this, missing
+system dependencies are reported and you install them yourself.}
+
+\item{plan}{If \code{TRUE}, show the resolved install plan before
+installing: which source each package comes from and whether it installs
+from a binary or is built from source. Passes \code{-v}.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
@@ -47,6 +63,8 @@ Equivalent to \code{uvr sync}.
 \dontrun{
 sync()
 sync(frozen = TRUE) # CI mode: fail if lockfile is stale
+sync(plan = TRUE) # show what will install, and from where
+sync(no_binary = TRUE) # build everything from source
 sync(progress = "always") # force spinners even though output is piped
 }
 }
@@ -58,6 +76,8 @@ Other package managers:
 \code{\link[=import]{import()}},
 \code{\link[=lock]{lock()}},
 \code{\link[=remove_pkgs]{remove_pkgs()}},
+\code{\link[=scan]{scan()}},
+\code{\link[=tree]{tree()}},
 \code{\link[=update_pkgs]{update_pkgs()}}
 }
 \concept{package managers}

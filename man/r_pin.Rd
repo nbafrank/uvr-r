@@ -7,7 +7,11 @@
 r_pin(version, bin = NULL, dir = NULL, quiet = FALSE)
 }
 \arguments{
-\item{version}{R version string, e.g. \code{"4.4.2"}.}
+\item{version}{R version string. A full \code{"4.4.2"}, a partial
+\code{"4.5"} (installs the newest 4.5.x), or a rolling channel —
+\code{"devel"} or \code{"next"}. Rolling channels are rebuilt
+continuously, so pinning one is not reproducible; uvr marks them
+\code{[unstable]} and warns at install time.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 

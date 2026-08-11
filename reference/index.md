@@ -2,6 +2,8 @@
 
 ## All functions
 
+- [`activate()`](activate.md) : Show how to activate the project in a
+  shell
 - [`add()`](add.md) : Add packages to the project
 - [`cache_clean()`](cache_clean.md) : Remove cached package downloads
 - [`completions()`](completions.md) : Generate shell completions (bash,
@@ -19,7 +21,10 @@
 - [`r_use()`](r_use.md) : Set the R version constraint
 - [`remove_pkgs()`](remove_pkgs.md) : Remove packages from the project
 - [`run()`](run.md) : Run an R script in the project environment
+- [`scan()`](scan.md) : Find packages your code uses but the manifest
+  does not declare
 - [`sync()`](sync.md) : Synchronize project library from lockfile
+- [`tree()`](tree.md) : Show the dependency tree
 - [`update_pkgs()`](update_pkgs.md) : Update installed packages to the
   latest allowed versions
 - [`update_uvr()`](update_uvr.md) : Update uvr (R package + CLI binary)

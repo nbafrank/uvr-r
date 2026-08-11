@@ -13,7 +13,10 @@ r_pin(version, bin = NULL, dir = NULL, quiet = FALSE)
 
 - version:
 
-  R version string, e.g. `"4.4.2"`.
+  R version string. A full `"4.4.2"`, a partial `"4.5"` (installs the
+  newest 4.5.x), or a rolling channel — `"devel"` or `"next"`. Rolling
+  channels are rebuilt continuously, so pinning one is not reproducible;
+  uvr marks them `[unstable]` and warns at install time.
 
 - bin:
 

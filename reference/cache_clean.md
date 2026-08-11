@@ -55,7 +55,8 @@ throws an error with the exit code.
 
 Other package managers: [`add()`](add.md), [`export()`](export.md),
 [`import()`](import.md), [`lock()`](lock.md),
-[`remove_pkgs()`](remove_pkgs.md), [`sync()`](sync.md),
+[`remove_pkgs()`](remove_pkgs.md), [`scan()`](scan.md),
+[`sync()`](sync.md), [`tree()`](tree.md),
 [`update_pkgs()`](update_pkgs.md)
 
 ## Examples

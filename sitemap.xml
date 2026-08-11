@@ -3,6 +3,8 @@
 <url><loc>/LICENSE-text.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/activate.html</loc></url>
 <url><loc>/reference/add.html</loc></url>
 <url><loc>/reference/cache_clean.html</loc></url>
 <url><loc>/reference/completions.html</loc></url>
@@ -44,7 +46,9 @@
 <url><loc>/reference/remove_pkgs.html</loc></url>
 <url><loc>/reference/run.html</loc></url>
 <url><loc>/reference/run_uvr.html</loc></url>
+<url><loc>/reference/scan.html</loc></url>
 <url><loc>/reference/sync.html</loc></url>
+<url><loc>/reference/tree.html</loc></url>
 <url><loc>/reference/update_pkgs.html</loc></url>
 <url><loc>/reference/update_uvr.html</loc></url>
 <url><loc>/reference/uvr-environment.html</loc></url>

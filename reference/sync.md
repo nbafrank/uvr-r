@@ -11,6 +11,9 @@ are no longer in the lockfile from the project library (never from
 ``` r
 sync(
   frozen = FALSE,
+  no_binary = FALSE,
+  install_system_deps = FALSE,
+  plan = FALSE,
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
@@ -24,6 +27,24 @@ sync(
 - frozen:
 
   If `TRUE`, fail if the lockfile is out of date (CI mode).
+
+- no_binary:
+
+  If `TRUE`, build everything from source instead of using pre-built
+  binaries — an escape hatch for a binary that does not suit the host.
+
+- install_system_deps:
+
+  If `TRUE`, let uvr install missing system libraries with the host
+  package manager. Needs root or `sudo`, and uvr shows the full plan
+  before running anything. Without this, missing system dependencies are
+  reported and you install them yourself.
+
+- plan:
+
+  If `TRUE`, show the resolved install plan before installing: which
+  source each package comes from and whether it installs from a binary
+  or is built from source. Passes `-v`.
 
 - bin:
 
@@ -63,7 +84,8 @@ throws an error with the exit code.
 Other package managers: [`add()`](add.md),
 [`cache_clean()`](cache_clean.md), [`export()`](export.md),
 [`import()`](import.md), [`lock()`](lock.md),
-[`remove_pkgs()`](remove_pkgs.md), [`update_pkgs()`](update_pkgs.md)
+[`remove_pkgs()`](remove_pkgs.md), [`scan()`](scan.md),
+[`tree()`](tree.md), [`update_pkgs()`](update_pkgs.md)
 
 ## Examples
 
@@ -71,6 +93,8 @@ Other package managers: [`add()`](add.md),
 if (FALSE) { # \dontrun{
 sync()
 sync(frozen = TRUE) # CI mode: fail if lockfile is stale
+sync(plan = TRUE) # show what will install, and from where
+sync(no_binary = TRUE) # build everything from source
 sync(progress = "always") # force spinners even though output is piped
 } # }
 ```

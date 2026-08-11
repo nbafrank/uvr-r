@@ -12,6 +12,7 @@ add(
   bioc = FALSE,
   do_lock = TRUE,
   do_install = TRUE,
+  no_binary = FALSE,
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
@@ -43,6 +44,11 @@ add(
 
   If `TRUE`, install the added package(s). Ignored if `do_lock` is
   `FALSE`.
+
+- no_binary:
+
+  If `TRUE`, build everything from source instead of using pre-built
+  binaries — an escape hatch for a binary that does not suit the host.
 
 - bin:
 
@@ -81,7 +87,8 @@ throws an error with the exit code.
 
 Other package managers: [`cache_clean()`](cache_clean.md),
 [`export()`](export.md), [`import()`](import.md), [`lock()`](lock.md),
-[`remove_pkgs()`](remove_pkgs.md), [`sync()`](sync.md),
+[`remove_pkgs()`](remove_pkgs.md), [`scan()`](scan.md),
+[`sync()`](sync.md), [`tree()`](tree.md),
 [`update_pkgs()`](update_pkgs.md)
 
 ## Examples

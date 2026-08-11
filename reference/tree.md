@@ -1,21 +1,19 @@
-# Update installed packages to the latest allowed versions
+# Show the dependency tree
 
-Convenience wrapper that re-resolves the lockfile with
-`lock(upgrade = TRUE)` and then installs the updates with
-[`sync()`](sync.md). Equivalent to running
-`uvr lock --upgrade && uvr sync` on the command line.
+Prints the project's resolved dependency tree, so you can see which
+package pulled in a transitive dependency. Equivalent to `uvr tree`.
 
 ## Usage
 
 ``` r
-update_pkgs(do_sync = TRUE, bin = NULL, dir = NULL, quiet = FALSE)
+tree(depth = NULL, bin = NULL, dir = NULL, quiet = FALSE)
 ```
 
 ## Arguments
 
-- do_sync:
+- depth:
 
-  If `TRUE`, install the updated packages using [`sync()`](sync.md).
+  Optional maximum depth to display. `1` shows only direct dependencies.
 
 - bin:
 
@@ -42,16 +40,13 @@ Other package managers: [`add()`](add.md),
 [`cache_clean()`](cache_clean.md), [`export()`](export.md),
 [`import()`](import.md), [`lock()`](lock.md),
 [`remove_pkgs()`](remove_pkgs.md), [`scan()`](scan.md),
-[`sync()`](sync.md), [`tree()`](tree.md)
+[`sync()`](sync.md), [`update_pkgs()`](update_pkgs.md)
 
 ## Examples
 
 ``` r
 if (FALSE) { # \dontrun{
-# Update the lockfile and install updated packages
-update_pkgs()
-
-# Don't install updated packages, just update the lockfile
-update_pkgs(do_sync = FALSE)
+tree()
+tree(depth = 1)  # direct dependencies only
 } # }
 ```

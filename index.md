@@ -70,10 +70,38 @@ remove_pkgs("ggplot2")
 | [`doctor()`](reference/doctor.md) | `uvr doctor` | Diagnose environment issues (R, build tools, project status) |
 | [`export()`](reference/export.md) | `uvr export` | Export renv.lock file built from uvr.toml |
 | [`import()`](reference/import.md) | `uvr import` | Import renv.lock file to build uvr.toml |
-| [`run()`](reference/run.md) | `uvr run` | Run a script in the project env |
+| [`run()`](reference/run.md) | `uvr run` | Run a script in the project env, or a standalone script from its own header |
+| [`tree()`](reference/tree.md) | `uvr tree <--depth>` | Show the dependency tree |
+| [`scan()`](reference/scan.md) | `uvr scan <--all>` | Find packages your code uses but `uvr.toml` doesn’t declare |
+| [`activate()`](reference/activate.md) | `uvr activate <--write-shim>` | Print how to activate the project in a shell |
 | [`install_uvr()`](reference/install_uvr.md) | — | Install the uvr CLI binary |
 | [`update_uvr()`](reference/update_uvr.md) | — | Update both R package (from GitHub) and CLI binary |
 | [`r_install()`](reference/r_install.md) / [`r_list()`](reference/r_list.md) / [`r_use()`](reference/r_use.md) / [`r_pin()`](reference/r_pin.md) | `uvr r ...` | Manage R versions |
+
+### Standalone scripts
+
+From uvr 0.4.6 a script can declare its own dependencies in a header
+comment and run without a project — [`run()`](reference/run.md) handles
+these too:
+
+``` r
+
+# analysis.R
+# /// script
+# dependencies = ["jsonlite", "praise"]
+# ///
+cat(praise::praise(), "\n")
+```
+
+``` r
+
+run("analysis.R")   # installs into a cached env, no uvr.toml needed
+```
+
+Dependencies install into an environment keyed by the dependency set, so
+repeat runs start immediately and nothing is written beside the script.
+The script is isolated from any project you happen to be in: the project
+library, its `.r-version` pin and its `.Rprofile` are all bypassed.
 
 ### Key arguments
 
@@ -99,6 +127,22 @@ run("analysis.R", args = c("--input", "data.csv"))
 
 # Clean the cache selectively (uvr >= 0.4.2)
 cache_clean(package = "sf")
+
+# See what will install, and from where, before it runs (uvr >= 0.4.6)
+sync(plan = TRUE)
+
+# Build from source instead of using pre-built binaries
+add("sf", no_binary = TRUE)
+
+# Let uvr install missing system libraries (needs root/sudo; shows the plan first)
+sync(install_system_deps = TRUE)
+
+# Find dependencies your code uses but never declared
+scan()
+
+# Rolling R channels, and a custom install location (uvr >= 0.4.6)
+r_install("devel")
+r_install("4.5.1", install_dir = "/opt/R")
 cache_clean(r_version = "4.4")
 
 # Force progress spinners (hidden by default: R pipes uvr's output)

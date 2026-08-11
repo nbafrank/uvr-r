@@ -39,7 +39,8 @@ throws an error with the exit code.
 
 Other package managers: [`add()`](add.md),
 [`cache_clean()`](cache_clean.md), [`export()`](export.md),
-[`import()`](import.md), [`lock()`](lock.md), [`sync()`](sync.md),
+[`import()`](import.md), [`lock()`](lock.md), [`scan()`](scan.md),
+[`sync()`](sync.md), [`tree()`](tree.md),
 [`update_pkgs()`](update_pkgs.md)
 
 ## Examples

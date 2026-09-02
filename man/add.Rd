@@ -11,6 +11,8 @@ add(
   do_lock = TRUE,
   do_install = TRUE,
   no_binary = FALSE,
+  source = NULL,
+  install_system_deps = FALSE,
   bin = NULL,
   dir = NULL,
   cache_dir = NULL,
@@ -33,6 +35,18 @@ Ignored if \code{do_lock} is \code{FALSE}.}
 \item{no_binary}{If \code{TRUE}, build everything from source instead of
 using pre-built binaries — an escape hatch for a binary that does not
 suit the host.}
+
+\item{source}{Optional URL of a CRAN-like repository to take the
+package(s) from, e.g. \code{"https://community.r-multiverse.org"}. uvr
+records it as a \code{[[sources]]} entry in \code{uvr.toml}, so later
+resolves use it too. One URL per call.}
+
+\item{install_system_deps}{If \code{TRUE}, let uvr install missing system
+libraries with the host package manager. Needs root or \code{sudo}, and
+uvr shows the full plan before running anything. Without this, missing
+system dependencies are reported and you install them yourself. Note that
+uvr only prompts for confirmation on a TTY: from R its output is piped,
+so it installs unattended, exactly as it does in CI.}
 
 \item{bin}{Optional path to the uvr binary. If \code{NULL}, searches common locations using \code{\link{find_uvr}}.}
 
@@ -67,6 +81,8 @@ add("tidymodels@>=1.0.0")
 add("user/repo@main")
 add(c("ggplot2", "tidymodels@>=1.0.0", "user/repo@main"))
 add(c("DESeq2", "GenomicRanges"), bioc = TRUE) # bioconductor
+add("cli", source = "https://community.r-multiverse.org") # custom repo
+add("xml2", install_system_deps = TRUE) # let uvr install libxml2
 }
 }
 \seealso{

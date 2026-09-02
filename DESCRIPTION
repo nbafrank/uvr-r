@@ -1,6 +1,6 @@
 Package: uvr
 Title: R Interface to the 'uvr' Package Manager
-Version: 0.1.5
+Version: 0.1.5.9000
 Authors@R: c(
     person("Francesco", "Vallania", role = c("aut", "cre"), email = "nbafrank@gmail.com"),
     person("Brayden", "Nilson", role = "aut", email = "nilson.brayden@gmail.com"))

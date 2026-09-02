@@ -1,3 +1,11 @@
+# uvr (development version)
+
+## New arguments
+
+* `add()` gains `source` (take the package from a CRAN-like repository,
+  recorded as a `[[sources]]` entry in `uvr.toml`) and
+  `install_system_deps`, which `sync()` already had.
+
 # uvr 0.1.5
 
 Catches the R package up with the uvr CLI, which reached 0.4.6 while this

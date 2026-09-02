@@ -26,7 +26,9 @@ suit the host.}
 \item{install_system_deps}{If \code{TRUE}, let uvr install missing system
 libraries with the host package manager. Needs root or \code{sudo}, and
 uvr shows the full plan before running anything. Without this, missing
-system dependencies are reported and you install them yourself.}
+system dependencies are reported and you install them yourself. Note that
+uvr only prompts for confirmation on a TTY: from R its output is piped,
+so it installs unattended, exactly as it does in CI.}
 
 \item{plan}{If \code{TRUE}, show the resolved install plan before
 installing: which source each package comes from and whether it installs
